@@ -1,0 +1,14 @@
+<div class="course-management-container">
+    <div class="title">
+        <h2>Course Management</h2>
+    </div>
+    <div class="breadcrumb"><a routerLink="/admin">Return to Admin Panel</a></div>
+    <div class="course-btn">
+        <button class="block-btn" (click)="buttonFn('add-course')">Add Course</button>
+        <button class="block-btn" (click)="buttonFn('view-courses')">View Courses</button>
+    </div>
+    <div class="course-content">
+        <app-add-course *ngIf="addCourse"></app-add-course>
+        <app-view-courses *ngIf="viewCourse"></app-view-courses>
+    </div>
+</div>

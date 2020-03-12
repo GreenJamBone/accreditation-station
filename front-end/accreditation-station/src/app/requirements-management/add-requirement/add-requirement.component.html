@@ -1,0 +1,29 @@
+<form [formGroup]="addRequirementForm" (ngSubmit)="onSubmit()">
+    <label>
+        <span>Requirement name:</span>
+        <input id="name" type="text" formControlName="name">
+    </label>
+    <span *ngIf="addRequirementForm.controls.name.invalid && (addRequirementForm.controls.name.dirty || addRequirementForm.controls.name.touched)"
+        class="alert text-danger">
+        <span *ngIf="addRequirementForm.controls.name.errors.required">
+            Requirement name is required.
+        </span>
+        <span *ngIf="addRequirementForm.controls.name.errors.minlength">
+            Requirement name must be at least 4 characters long.
+        </span>
+    </span>
+    <label>
+        <span>Description:</span>
+        <input id="description" type="text" formControlName="description">
+    </label>
+    <span *ngIf="addRequirementForm.controls.description.invalid && (addRequirementForm.controls.description.dirty || addRequirementForm.controls.description.touched)"
+        class="alert text-danger">
+        <span *ngIf="addRequirementForm.controls.description.errors.required">
+            Description is required.
+        </span>
+        <span *ngIf="addRequirementForm.controls.description.errors.minlength">
+            Description must be at least 4 characters long.
+        </span>
+    </span>
+    <button type="submit" [disabled]="!addRequirementForm.valid">Submit</button>
+  </form>

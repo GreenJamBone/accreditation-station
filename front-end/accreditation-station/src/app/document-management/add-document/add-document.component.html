@@ -1,0 +1,41 @@
+<form [formGroup]="addDocumentForm" (ngSubmit)="onSubmit()">
+  
+    <label>
+        <span>Document Name:</span>
+        <input id="name" type="text" formControlName="name">
+    </label>
+    <span *ngIf="addDocumentForm.controls.name.invalid && (addDocumentForm.controls.name.dirty || addDocumentForm.controls.name.touched)"
+        class="alert text-danger">
+        <span *ngIf="addDocumentForm.controls.name.errors.required">
+            Name is required.
+        </span>
+        <span *ngIf="addDocumentForm.controls.name.errors.minlength">
+            Name must be at least 4 characters long.
+        </span>
+    </span>
+   <label>
+        <span>Year:</span>
+        <input type="text" formControlName="year">
+    </label>
+    <label>
+       <span>Semester:</span>
+        <input type="text" formControlName="semester">
+    </label>
+    <label>
+        <span>Course Number:</span>
+        <input type="text" formControlName="course_number">
+    </label>
+    <label>
+        <span>Section:</span>
+        <input type="text" formControlName="section">
+    </label>
+    <label>
+        <span>Rating:</span>
+        <input type="text" formControlName="rating">
+    </label>
+    <label>
+        <span>File:</span>
+        <input type="file" />
+    </label>
+    <button type="submit" [disabled]="addDocumentForm.invalid || addDocumentForm.pristine">Submit</button>
+  </form>

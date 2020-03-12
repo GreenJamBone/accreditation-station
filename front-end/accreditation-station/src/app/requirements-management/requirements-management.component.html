@@ -1,0 +1,15 @@
+<div class="requirement-management-container">
+    <div class="title">
+        <h2>Requirement Management</h2>
+    </div>
+    <div class="breadcrumb"><a routerLink="/admin">Return to Admin Panel</a></div>
+    <div class="requirement-btn">
+        <button class="block-btn" (click)="buttonFn('add-requirement')">Add Requirement</button>
+        <button class="block-btn" (click)="buttonFn('view-requirements')">View Requirements</button>
+    </div>
+    <div class="requirement-content">
+        <app-add-requirement *ngIf="addRequirement"></app-add-requirement>
+        <app-view-requirements *ngIf="viewRequirements"></app-view-requirements>
+    </div>
+</div>
+ 

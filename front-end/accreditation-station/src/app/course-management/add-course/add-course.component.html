@@ -1,0 +1,61 @@
+<form [formGroup]="addCourseForm" (ngSubmit)="onSubmit()">
+  
+    <label>
+        <span>Course Name:</span>
+        <input id="name" type="text" formControlName="name">
+    </label>
+    <span *ngIf="addCourseForm.controls.name.invalid && (addCourseForm.controls.name.dirty || addCourseForm.controls.name.touched)"
+        class="alert text-danger">
+        <span *ngIf="addCourseForm.controls.name.errors.required">
+            Name is required.
+        </span>
+        <span *ngIf="addCourseForm.controls.name.errors.minlength">
+            Name must be at least 4 characters long.
+        </span>
+    </span>
+    <label>
+        <span>Course Number:</span>
+        <input type="text" formControlName="course_number">
+    </label>
+
+    <label>
+        <span>Section:</span>
+        <input type="text" formControlName="section">
+    </label>
+
+    <label>
+       <span>Semester:</span>
+        <input type="text" formControlName="semester">
+    </label>
+
+    <label>
+        <span>Year:</span>
+        <input type="text" formControlName="year">
+    </label>
+
+    <label>
+        <span>Description:</span>
+        <input type="text" formControlName="description">
+    </label>
+    
+    <label>
+        <span>Instructor:</span>
+        <input type="text" formControlName="instructor">
+    </label>
+
+    <label>
+        <span>Preceded By Course:</span>
+        <input type="text" formControlName="preceded_by">
+    </label>
+
+    <label>
+        <span>Succeeded By Course:</span>
+        <input type="text" formControlName="succeeded_by">
+    </label>
+
+    <label>
+        <span>ABET Requirements Fulfilled:</span>
+        <input type="text" formControlName="abet_requirements">
+    </label>
+    <button type="submit" [disabled]="!addCourseForm.valid">Submit</button>
+  </form>

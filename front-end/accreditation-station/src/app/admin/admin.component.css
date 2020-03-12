@@ -1,0 +1,21 @@
+.admin-container {
+    margin: auto;
+}
+.card {
+    width: 40%;
+    display: inline-block;
+    margin: 20px;
+    text-align: left;
+    cursor: pointer;
+}
+.card:hover {
+    background-color: #bfedff;
+    box-shadow: none;
+}
+
+
+@media (max-width: 1000px) {
+    .card {
+        width: 100%;
+    }
+}

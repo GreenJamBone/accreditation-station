@@ -1,0 +1,14 @@
+<div class="user-management-container">
+    <div class="title">
+        <h2>User Management</h2>
+    </div>
+    <div class="breadcrumb"><a routerLink="/admin">Return to Admin Panel</a></div>
+    <div class="user-btn">
+        <button class="block-btn" (click)="buttonFn('add-user')">Add User</button>
+        <button class="block-btn" (click)="buttonFn('view-users')">View Users</button>
+    </div>
+    <div class="user-content">
+        <app-add-user *ngIf="addUser"></app-add-user>
+        <app-view-users *ngIf="viewUsers"></app-view-users>
+    </div>
+</div>

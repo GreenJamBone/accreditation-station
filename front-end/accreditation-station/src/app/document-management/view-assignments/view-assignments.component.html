@@ -1,0 +1,18 @@
+<div class="view-assignments-container ">
+    <div *ngFor="let assignment of assignments">
+        <div class="row">
+            <div class="col">
+                <div class="name">
+                    {{assignment.name}}
+                </div>
+                <div class="assignment-info">
+                    <span class="info">{{assignment.title}} {{assignment.course}} {{assignment.category}} {{assignment.fulfilled_requirements}}</span>
+                    <div><span class="description">{{assignment.description}}</span></div>
+                    <span class="documents-btn">View Documents</span>
+                    <span class="edit-btn"><button>Edit</button></span>
+                    <span class="delete-btn"><button>Remove Assignment</button></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
