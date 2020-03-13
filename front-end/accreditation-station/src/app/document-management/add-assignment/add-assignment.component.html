@@ -1,1 +1,57 @@
-<p>add-assignment works!</p>
+<form [formGroup]="addAssignmentForm" (ngSubmit)="onSubmit()">
+  
+    <label>
+        <span>Assignemnt Title:</span>
+        <input id="name" type="text" formControlName="name">
+    </label>
+    <span *ngIf="addAssignmentForm.controls.name.invalid && (addAssignmentForm.controls.name.dirty || addAssignmentForm.controls.name.touched)"
+        class="alert text-danger">
+        <span *ngIf="addAssignmentForm.controls.name.errors.required">
+            Assignemnt Title is required.
+        </span>
+        <span *ngIf="addAssignmentForm.controls.name.errors.minlength">
+            Assignemnt Title must be at least 4 characters long.
+        </span>
+    </span>
+   <label>
+        <span>Year:</span>
+        <input type="text" formControlName="year">
+    </label>
+    <label>
+        <span>Semester:</span>
+        <input type="text" formControlName="semester">
+    </label>
+    <label>
+        <span>Course:</span>
+        <input type="text" formControlName="course">
+    </label>
+    <label>
+        <span>Section:</span>
+        <input type="text" formControlName="section">
+    </label>
+    <label>
+       <span>Description:</span>
+        <input type="text" formControlName="description">
+    </label>
+    <label>
+        <span>Category:</span>
+        <input type="text" formControlName="category">
+    </label>
+    <label>
+        <span>Authorized Roles:</span>
+        <input type="text" formControlName="authorized_role">
+    </label>
+    <label>
+        <span>Fulfilled Requirements:</span>
+        <input type="text" formControlName="fulfilled_requirements">
+    </label>
+    <label>
+        <span>File:</span>
+        <input type="file" formControlName="file"/>
+    </label>
+    <label>
+        <span>Student Files:</span>
+        <input type="file" formControlName="student_file"/>
+    </label>
+    <button type="submit" [disabled]="addAssignmentForm.invalid || addAssignmentForm.pristine">Submit</button>
+  </form>
