@@ -2,24 +2,24 @@
   
     <label>
         <span>Assignemnt Title:</span>
-        <input id="name" type="text" formControlName="name">
+        <input id="title" type="text" formControlName="title">
     </label>
-    <span *ngIf="addAssignmentForm.controls.name.invalid && (addAssignmentForm.controls.name.dirty || addAssignmentForm.controls.name.touched)"
+    <span *ngIf="addAssignmentForm.controls.title.invalid && (addAssignmentForm.controls.title.dirty || addAssignmentForm.controls.title.touched)"
         class="alert text-danger">
-        <span *ngIf="addAssignmentForm.controls.name.errors.required">
+        <span *ngIf="addAssignmentForm.controls.title.errors.required">
             Assignemnt Title is required.
         </span>
-        <span *ngIf="addAssignmentForm.controls.name.errors.minlength">
+        <span *ngIf="addAssignmentForm.controls.title.errors.minlength">
             Assignemnt Title must be at least 4 characters long.
         </span>
     </span>
+    <label>
+        <span>Semester (SPRING or FALL):</span>
+        <input type="text" formControlName="semester">
+    </label>
    <label>
         <span>Year:</span>
         <input type="text" formControlName="year">
-    </label>
-    <label>
-        <span>Semester:</span>
-        <input type="text" formControlName="semester">
     </label>
     <label>
         <span>Course:</span>
@@ -39,19 +39,31 @@
     </label>
     <label>
         <span>Authorized Roles:</span>
-        <input type="text" formControlName="authorized_role">
+        <input type="text" formControlName="authorized_roles">
     </label>
     <label>
         <span>Fulfilled Requirements:</span>
         <input type="text" formControlName="fulfilled_requirements">
     </label>
     <label>
-        <span>File:</span>
-        <input type="file" formControlName="file"/>
+        <span>Assignment Document Name:</span>
+        <input type="text" formControlName="assignment_document_name">
     </label>
     <label>
-        <span>Student Files:</span>
-        <input type="file" formControlName="student_file"/>
+        <span>Assignment Document:</span>
+        <input type="file" formControlName="assignment_document"/>
+    </label>
+    <label>
+        <span>Student Document Title:</span>
+        <input type="text" formControlName="student_document_name">
+    </label>
+    <label>
+        <span>Student Document Rating:</span>
+        <input type="text" formControlName="student_document_rating">
+    </label>
+    <label>
+        <span>Student Document:</span>
+        <input type="file" formControlName="student_document"/>
     </label>
     <button type="submit" [disabled]="addAssignmentForm.invalid || addAssignmentForm.pristine">Submit</button>
   </form>

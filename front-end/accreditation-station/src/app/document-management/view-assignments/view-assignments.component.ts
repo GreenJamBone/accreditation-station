@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-view-assignments',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view-assignments.component.css']
 })
 export class ViewAssignmentsComponent implements OnInit {
+  @Input() courseId = '';
   assignments = [
     {
       id: 1232345,
@@ -42,6 +43,21 @@ export class ViewAssignmentsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    //getAssignments
+    if (this.courseId !== '') {
+      //get assignment for this course
+    } else {
+      // get all assignments
+    }
+
+  }
+
+  ngOnChanges() {
+    if (this.courseId !== '') {
+      //get assignment for this course
+      } else {
+        // get all assignments
+    }
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./add-assignment.component.css']
 })
 export class AddAssignmentComponent implements OnInit {
+  @Input() courseInfo: any = {};
   addAssignmentForm: FormGroup;
   submitted = false;
 
@@ -16,27 +17,39 @@ export class AddAssignmentComponent implements OnInit {
     this.addAssignmentForm = this.fb.group({
       title: ['', [Validators.required]],
       course: ['', [Validators.required]],
-      semester: [''],
+      section: ['', [Validators.required]],
+      semester: ['', [Validators.required]],
       year: [''],
       description: ['', [Validators.required]],
       category: ['', [Validators.required]],
-      authorized_roles: ["ABET","Admin","Instructor"],
-      fulfilled_requirements: ["ABET104","ABET102"],
-      assignment_documents:[
-        {
-          name: "document_name.pdf",
-          rating: "Excellent",
-          file: [null, Validators.required]
-        }
-      ],
-      student_documents:[
-        {
-          name: "document_name.pdf",
-          rating: "Excellent",
-          student_file: [null, Validators.required]
-        }
-      ]
+      authorized_roles: ["", [Validators.required]],
+      fulfilled_requirements: ["", [Validators.required]],
+      assignment_document_name: [""],
+      assignment_document: [null],
+      student_document_name: [""],
+      student_document_rating: [""],
+      student_document:[null]
     });
+    this.fillInForm();
+  }
+  ngOnChanges() {
+    this.fillInForm();
+  }
+  fillInForm(){
+    if (this.addAssignmentForm && this.courseInfo) {
+      this.addAssignmentForm.patchValue({
+        course: this.courseInfo.course_number,
+        semester: this.courseInfo.semester,
+        year: this.courseInfo.year,
+        section: this.courseInfo.section
+      });
+      if (this.courseInfo.course_number){
+        this.addAssignmentForm.controls['course'].disable();
+        this.addAssignmentForm.controls['semester'].disable();
+        this.addAssignmentForm.controls['year'].disable();
+        this.addAssignmentForm.controls['section'].disable();
+      }
+    }
   }
   onFileChange(event) {
     const reader = new FileReader();
@@ -75,7 +88,7 @@ export class AddAssignmentComponent implements OnInit {
   onSubmit() {
     console.warn(this.addAssignmentForm.value);
     this.submitted = true;
-    if (this.addAssignmentForm.valid) {
+    if (!this.addAssignmentForm.invalid) {
       alert('Form Submitted succesfully!!!\n Check the values in browser console.');
       console.table(this.addAssignmentForm.value);
 
