@@ -27,6 +27,7 @@ import { AddAssignmentComponent } from './document-management/add-assignment/add
 import { ViewAssignmentsComponent } from './document-management/view-assignments/view-assignments.component';
 import { ViewRequirementsComponent } from './requirements-management/view-requirements/view-requirements.component';
 import { AddRequirementComponent } from './requirements-management/add-requirement/add-requirement.component';
+import { EditAssignmentComponent } from './document-management/edit-assignment/edit-assignment.component';
 
 const appRoutes: Routes = [
   {
@@ -68,6 +69,10 @@ const appRoutes: Routes = [
   {
     path: 'document-management',
     component: DocumentManagementComponent
+  },
+  {
+    path: 'edit-assignment/:id',
+    component: EditAssignmentComponent
   }
   //{ path: '**', component: PageNotFoundComponent }
 ];
@@ -94,6 +99,7 @@ const appRoutes: Routes = [
     ViewAssignmentsComponent,
     ViewRequirementsComponent,
     AddRequirementComponent,
+    EditAssignmentComponent,
   ],
   imports: [
     BrowserModule,
