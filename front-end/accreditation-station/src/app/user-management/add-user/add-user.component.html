@@ -34,12 +34,16 @@
 
     <label>
        <span>Roles:</span>
-        <input type="text" formControlName="roles">
+       <select formControlName="roles">
+            <option *ngFor="let r of roles" [value]="r.id">
+                {{r.name}}
+            </option>
+        </select>
     </label>
 
     <label>
         <span>Email Address:</span>
-        <input type="text" formControlName="email_address">
+        <input type="text" formControlName="email">
     </label>
     <button type="submit" [disabled]="!addUserForm.valid">Submit</button>
   </form>
