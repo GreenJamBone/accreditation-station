@@ -174,7 +174,7 @@ router.post('/update', async (req, res, next) =>
         return
         }
         const db = client.db('accreditation-station');
-        const collection = db.collection('users')
+        const collection = db.collection('users');
 
         let id = ObjectId(userId);
         const query = {_id:id};
@@ -185,7 +185,7 @@ router.post('/update', async (req, res, next) =>
             if (err) {
                 console.log("ERROR");
                 console.log(err);
-                return res.status(400).json({ error: err});
+                return res.status(400).json({ error: err, status: "E"});
             } else {
                 let resultObj = {
                     status: "S",

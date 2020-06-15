@@ -1,16 +1,16 @@
 <form [formGroup]="addAssignmentForm" (ngSubmit)="onSubmit()">
   
     <label>
-        <span>Assignemnt Title:</span>
+        <span>Assignment Title:</span>
         <input id="title" type="text" formControlName="title">
     </label>
     <span *ngIf="addAssignmentForm.controls.title.invalid && (addAssignmentForm.controls.title.dirty || addAssignmentForm.controls.title.touched)"
         class="alert text-danger">
         <span *ngIf="addAssignmentForm.controls.title.errors.required">
-            Assignemnt Title is required.
+            Assignment Title is required.
         </span>
         <span *ngIf="addAssignmentForm.controls.title.errors.minlength">
-            Assignemnt Title must be at least 4 characters long.
+            Assignment Title must be at least 4 characters long.
         </span>
     </span>
     <label>
