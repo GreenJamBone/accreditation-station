@@ -1,3 +1,6 @@
+<div class="message text-danger">
+    <span *ngIf="showMessage">{{displayMessage}}</span>
+</div>
 <div class="view-courses-container ">
     <div *ngFor="let user of users">
         <div class="row">
@@ -10,7 +13,7 @@
                         <span><div class="role" *ngFor="let role of user.roles">{{role}}</div></span>
                     </span>
                     <span (click)="editUserModal(user)" class="edit-btn"><button>Edit</button></span>
-                    <span class="delete-btn"><button>Remove User</button></span>
+                    <span (click)="removeUser(user)" class="delete-btn"><button>Remove User</button></span>
                 </div>
             </div>
         </div>

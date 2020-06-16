@@ -11,8 +11,14 @@ export class AddUserComponent implements OnInit {
 
   addUserForm: FormGroup;
   submitted = false;
+  showMessage = false;
+  theMessage = "";
+  messages = {
+    success: "User Successfully Added",
+    error: "Error Adding User - Please try again later"
+  }
   roles = [
-    {name: "ABET", id:"abet"},
+    {name: "ABET", id:"audit"},
     {name: "Admin", id:"admin"},
     {name: "Instructor", id:"instructor"}
   ]
@@ -31,6 +37,7 @@ export class AddUserComponent implements OnInit {
   onSubmit() {
     let userObj;
     this.submitted = true;
+    this.showMessage = false;
     if (this.addUserForm.valid) {
       console.log(this.addUserForm.value);
       userObj = {
@@ -44,6 +51,15 @@ export class AddUserComponent implements OnInit {
       this.userSvc.addUser(userObj).subscribe(resp => {
         if (resp) {
           console.log(resp);
+          if (resp.status === "S") {
+            this.addUserForm.reset();
+            this.theMessage = this.messages.success;
+            this.showMessage = true;
+          } else {
+            this.theMessage = this.messages.error;
+            this.showMessage = true;
+          }
+          
         }
       });
     }

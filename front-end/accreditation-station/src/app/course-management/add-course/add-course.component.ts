@@ -24,7 +24,7 @@ export class AddCourseComponent implements OnInit {
       instructor: [''],
       preceded_by: [''],
       succeeded_by: [''],
-      abet_requirements: [''],
+      audit_requirements: [''],
     });
   }
   

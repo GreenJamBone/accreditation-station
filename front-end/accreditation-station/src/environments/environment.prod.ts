@@ -2,5 +2,6 @@ export const environment = {
   production: true,
   createUser: "/api/user/create",
   allUsers: "/api/user/allUsers",
-  updateUser: "/api/user/update"
+  updateUser: "/api/user/update",
+  removeUser: "/api/user/remove",
 };

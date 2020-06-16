@@ -18,7 +18,7 @@ export class EditUserComponent implements OnInit {
     id: ""
   };
   roles = [
-    {name: "ABET", id:"abet"},
+    {name: "ABET", id:"audit"},
     {name: "Admin", id:"admin"},
     {name: "Instructor", id:"instructor"}
   ]

@@ -23,5 +23,9 @@ export class UserService {
 
     updateUser(payload): Observable<any> {
         return this.http.post(environment.updateUser, payload);
+    } 
+
+    removeUser(payload): Observable<any> {
+        return this.http.post(environment.removeUser, payload);
     }
 }

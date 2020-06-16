@@ -16,7 +16,7 @@ export class ViewCoursesComponent implements OnInit {
       name: "Intro to Thesisizing",
       description: "An introduction to the methodologies involved in creating a thesis.",
       instructor: "Dr. Rosca",
-      abet_requirements:["1.5", "1.4"],
+      audit_requirements:["1.5", "1.4"],
       preceded_by: "",
       succeeded_by: ""
     },
@@ -29,7 +29,7 @@ export class ViewCoursesComponent implements OnInit {
       name: "Angular 6",
       description: "An course on building Angular applications.",
       instructor: "Some student",
-      abet_requirements:["1.8", "2.4"],
+      audit_requirements:["1.8", "2.4"],
       preceded_by: "",
       succeeded_by: ""
     }

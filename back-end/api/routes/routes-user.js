@@ -201,19 +201,44 @@ router.post('/update', async (req, res, next) =>
 });
 
 /* removes the user from the user list by uid */
-router.delete('/:id', async (req, res, next) =>
+router.post('/remove', async (req, res, next) =>
 {
-	try
-	{
-		const user = await UserService.delete(req.params.id);
+    const data = req.body;
+    const userId = req.body._id;
+   console.log(req.body);
+    mongo.connect(constants.constants.db_url, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+        }, (err, client) => {
+        if (err) {
+            client.close();
+        console.error(err)
+        return
+        }
+        const db = client.db('accreditation-station');
+        const collection = db.collection('users');
+        
+        let id = ObjectId(userId);
+        const query = {"_id":id};
+        console.log(id);
+        console.log(query);
+        collection.deleteOne(query, (err, result) => {
+            if (err) {
+                console.log("ERROR");
+                console.log(err);
+                return res.status(400).json({ error: err, status: "E"});
+            } else {
+                let resultObj = {
+                    status: "S",
+                    statusMessage: "Successfully removed user",
+                    deletedCOunt: result.matchedCount,
+                    userInfo: userId
+                }
+                return res.status(200).json(resultObj);
+            }
+        });     
+    });    
 
-		return res.json({success: true});
-	}
-	catch(err)
-	{
-		// unexpected error
-		return next(err);
-	}
 });
 
 module.exports = router;

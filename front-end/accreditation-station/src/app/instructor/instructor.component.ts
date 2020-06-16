@@ -29,7 +29,7 @@ export class InstructorComponent implements OnInit {
       name: "Intro to Thesisizing",
       description: "An introduction to the methodologies involved in creating a thesis.",
       instructor: "John Doe",
-      abet_requirements:["asfasf", "asfasg"],
+      audit_requirements:["asfasf", "asfasg"],
       preceded_by: "MIS 519",
       succeeded_by: ""
     },
@@ -42,7 +42,7 @@ export class InstructorComponent implements OnInit {
       name: "Intro to Angular",
       description: "An introduction to Angular.",
       instructor: "John Doe",
-      abet_requirements:["asfasf", "asfasg"],
+      audit_requirements:["asfasf", "asfasg"],
       preceded_by: "",
       succeeded_by: ""
     }

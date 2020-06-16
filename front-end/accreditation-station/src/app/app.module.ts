@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminComponent } from './admin/admin.component';
-import { AbetComponent } from './abet/abet.component';
+import { AuditComponent } from './audit/audit.component';
 import { InstructorComponent } from './instructor/instructor.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -52,8 +52,8 @@ const appRoutes: Routes = [
     component: InstructorComponent
   },
   {
-    path: 'abet',
-    component: AbetComponent
+    path: 'audit',
+    component: AuditComponent
   },
   {
     path: 'page-not-found',
@@ -87,7 +87,7 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     AdminComponent,
-    AbetComponent,
+    AuditComponent,
     InstructorComponent,
     PageNotFoundComponent,
     RequirementsManagementComponent,

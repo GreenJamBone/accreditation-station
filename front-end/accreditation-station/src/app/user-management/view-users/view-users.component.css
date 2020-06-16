@@ -18,3 +18,8 @@
 .role {
     display: block;
 }
+.text-danger {
+    display: inline-block;
+    margin-bottom: 16px;
+    color: red;
+}

@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   createUser: localhost + "/api/user/create",
   allUsers: localhost + "/api/user/allUsers",
-  updateUser: localhost + "/api/user/update"
+  updateUser: localhost + "/api/user/update",
+  removeUser: localhost + "/api/user/remove",
 };
 
 /*

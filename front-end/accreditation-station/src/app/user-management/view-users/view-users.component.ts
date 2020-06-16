@@ -12,7 +12,8 @@ export class ViewUsersComponent implements OnInit {
 
   dialogRef;
   messages = {
-    updatedUserMsg: "",
+    updatedUserMsg: "User successfully updated.",
+    removedUserMsg: "User successfully removed.",
     errMsg: "There has been an error processing your request. Please try again later."
   }
   showMessage = false;
@@ -30,17 +31,25 @@ export class ViewUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.showMessage = false;
+    this.getUsers();
+  }
+
+  getUsers() {
     this.userSvc.getAllUsers().subscribe((resp) => {
       if (resp) {
         if (resp.status === "S") {
           console.log(resp.statusMessage);
           this.users = resp.users;
+        } else {
+          this.displayMessage = this.messages.errMsg;
+          this.showMessage = true;
         }
       }
     });
   }
-
+  
   editUserModal(user) {
+    this.showMessage = false;
     console.log(user);
     this.messages.updatedUserMsg = user.first_name + ' ' + user.last_name + ' has been successfully updated!';
     this.dialogRef = this.dialog.open(EditUserComponent, {
@@ -62,6 +71,25 @@ export class ViewUsersComponent implements OnInit {
           }
         }
       });
+    });
+  }
+
+  removeUser(user) {
+    this.showMessage = false;
+    console.log(user);
+    this.userSvc.removeUser(user).subscribe(resp => {
+      if (resp) {
+        console.log(resp);
+        if (resp.status === "S") {
+          console.log("User Successfully Removed");
+          this.showMessage = true;
+          this.displayMessage = this.messages.removedUserMsg;
+          this.getUsers();
+        } else {
+          this.showMessage = true;
+          this.displayMessage = this.messages.errMsg;
+        }
+      }
     });
   }
 
