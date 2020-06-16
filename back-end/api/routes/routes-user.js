@@ -5,8 +5,8 @@ const constants = require('../constants');
 const UserModel = require("../models/model.user");
 const mongodb = require('mongodb');
 const mongo = require('mongodb').MongoClient;
-ObjectId = mongodb.ObjectID,
 
+ObjectId = mongodb.ObjectID, 
 require('dotenv/config');
 
 let Validator = require('fastest-validator');
@@ -125,21 +125,21 @@ router.post('/create', async (req, res, next) => {
     });    	
 });
 
-/* retrieves a user by uid */
-router.get('get/:id', async (req, res, next) =>
-{
-	try
-	{
-		const user = await UserService.retrieve(req.params.id);
+/* retrieves a user by uid -- NOT CURRENTLY USED*/
+// router.get('get/:id', async (req, res, next) =>
+// {
+// 	try
+// 	{
+// 		const user = await UserService.retrieve(req.params.id);
 
-		return res.json({ user: user });
-	}
-	catch(err)
-	{
-		// unexpected error
-		return next(err);
-	}
-});
+// 		return res.json({ user: user });
+// 	}
+// 	catch(err)
+// 	{
+// 		// unexpected error
+// 		return next(err);
+// 	}
+// });
 
 /* updates the user by uid */
 router.post('/update', async (req, res, next) =>

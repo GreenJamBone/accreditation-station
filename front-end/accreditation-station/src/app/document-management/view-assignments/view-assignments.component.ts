@@ -14,8 +14,8 @@ export class ViewAssignmentsComponent implements OnInit {
       course: "MIS 123",
       description: "this research paper was assigned to test the students' abilities in research papering",
       category: "paper",
-      authorized_roles: ["ABET","Admin","Instructor"],
-      fulfilled_requirements: ["ABET104","ABET102"],
+      authorized_roles: ["Audit","Admin","Instructor"],
+      fulfilled_requirements: ["Audit104","Audit102"],
       assignment_documents:[
         {
           id: 123234,

@@ -18,7 +18,7 @@ export class AddUserComponent implements OnInit {
     error: "Error Adding User - Please try again later"
   }
   roles = [
-    {name: "ABET", id:"audit"},
+    {name: "Audit", id:"audit"},
     {name: "Admin", id:"admin"},
     {name: "Instructor", id:"instructor"}
   ]

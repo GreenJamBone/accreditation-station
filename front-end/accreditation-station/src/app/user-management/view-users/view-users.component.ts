@@ -23,7 +23,7 @@ export class ViewUsersComponent implements OnInit {
       first_name: "John",
       last_name: "Doe",
       title: "Professor", //from AD
-      roles: ["Instructor","Admin","ABET"],
+      roles: ["Instructor","Admin","Audit"],
       email_address: "john@doe.com" //from AD
     }
   ];
