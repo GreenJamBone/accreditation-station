@@ -49,7 +49,7 @@ router.get('/allRequirements', async function(req, res, next) {
                     resultObj = {
                         status: "S",
                         statusMessage: "Successfully returned all requirements",
-                        users: result
+                        requirements: result
                     }
                     client.close();
                     return res.status(200).json(resultObj);
@@ -57,7 +57,7 @@ router.get('/allRequirements', async function(req, res, next) {
                     resultObj = {
                         status: "I",
                         statusMessage: "No Requirements Returned",
-                        users: result
+                        requirements: result
                     }
                     client.close();
                     return res.status (100).json(resultObj);

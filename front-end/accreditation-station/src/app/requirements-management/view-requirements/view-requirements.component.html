@@ -4,7 +4,7 @@
             <div class="col">
                 <span class="name">{{requirement.name}} </span>{{requirement.description}} - {{requirement.type | titlecase}}
                 <!-- <span class="edit-btn"><button>Edit</button></span> -->
-                <span class="delete-btn"><button>Remove Requirement</button></span>
+                <span class="delete-btn"><button (click)="removeRequirement(requirement)">Remove Requirement</button></span>
             </div>
         </div>
     </div>
