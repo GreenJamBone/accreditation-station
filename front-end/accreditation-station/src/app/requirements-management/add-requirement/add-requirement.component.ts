@@ -47,6 +47,7 @@ export class AddRequirementComponent implements OnInit {
           console.log(resp);
           if (resp.status === "S") {
             this.addRequirementForm.reset();
+            this.addRequirementForm.controls['type'].setValue(this.default, {onlySelf: true});
             this.theMessage = this.messages.success;
             this.showMessage = true;
           } else {
