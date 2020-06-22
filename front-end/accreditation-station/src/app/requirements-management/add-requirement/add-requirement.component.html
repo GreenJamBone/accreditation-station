@@ -25,5 +25,13 @@
             Description must be at least 4 characters long.
         </span>
     </span>
+    <label>
+        <span>Type:</span>
+        <select formControlName="type">
+            <option *ngFor="let t of types" [value]="t" [ngValue]="t">
+                {{t | titlecase}}
+            </option>
+        </select>
+    </label>
     <button type="submit" [disabled]="!addRequirementForm.valid">Submit</button>
   </form>

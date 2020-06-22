@@ -10,6 +10,7 @@ export class ViewRequirementsComponent implements OnInit {
     {
       id: 1231242,
       name: "Requirement 1",
+      type: "outcome",
       description: "This requirement enforces a student's ability to perform logical analysis to effectively test applications."
     }	
     
