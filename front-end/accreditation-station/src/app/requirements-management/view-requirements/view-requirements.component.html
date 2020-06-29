@@ -1,4 +1,7 @@
 <div class="view-requirements-container ">
+    <div class="message text-danger">
+        <span *ngIf="showMessage">{{theMessage}}</span>
+    </div>
     <div *ngFor="let requirement of requirements">
         <div class="row">
             <div class="col">

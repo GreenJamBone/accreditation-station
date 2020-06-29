@@ -9,7 +9,7 @@ import { RequirementsService } from '../../services/requirements.service';
 export class ViewRequirementsComponent implements OnInit {
   
   showMessage = false;
-  displayMessage = "";
+  theMessage = "";
   messages = {
     success: "The requirement was successfully removed.",
     error: "There was an issue removing this requirement. Please try again later."
@@ -47,11 +47,11 @@ export class ViewRequirementsComponent implements OnInit {
         if (resp.status === "S") {
           console.log("User Successfully Removed");
           this.showMessage = true;
-          this.displayMessage = this.messages.success;
+          this.theMessage = this.messages.success;
           this.getRequirements();
         } else {
           this.showMessage = true;
-          this.displayMessage = this.messages.error;
+          this.theMessage = this.messages.error;
         }
       }
     });
