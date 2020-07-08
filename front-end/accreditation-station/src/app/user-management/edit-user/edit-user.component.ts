@@ -51,12 +51,12 @@ export class EditUserComponent implements OnInit {
         first_name: this.userData.fname,
         last_name: this.userData.lname,
         title: this.userData.title,
-        roles: this.userData.roles,
+        roles: this.userData.roles[0],
         email: this.userData.email
       });
     }
   }
-  onSubmit() {
+  submit() {
     let userObj;
     this.submitted = true;
     if (this.editUserForm.valid) {
@@ -73,11 +73,14 @@ export class EditUserComponent implements OnInit {
       this.userSvc.updateUser(userObj).subscribe(resp => {
         if (resp) {
           console.log(resp);
-          this.dialogRef.close();
+          this.dialogRef.close({data: "submitted"});
         }
       });
     }
+  }
 
+  cancel() {
+    this.dialogRef.close({data: "cancelled"});
   }
 
   get addUserFormControl() {

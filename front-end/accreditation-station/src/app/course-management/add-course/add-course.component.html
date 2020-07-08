@@ -38,10 +38,15 @@
         <input type="text" formControlName="description">
     </label>
     
+    
     <label>
         <span>Instructor:</span>
-        <input type="text" formControlName="instructor">
-    </label>
+        <select formControlName="instructor">
+             <option *ngFor="let i of instructors" [value]="i.id">
+                 {{i.first_name}} {{i.last_name}}
+             </option>
+         </select>
+     </label>
 
     <label>
         <span>Preceded By Course:</span>
@@ -55,7 +60,11 @@
 
     <label>
         <span>Audit Requirements Fulfilled:</span>
-        <input type="text" formControlName="audit_requirements">
-    </label>
+        <select formControlName="audit_requirements">
+             <option *ngFor="let r of requirements" [value]="r.id">
+                 {{r.name}}
+             </option>
+         </select>
+     </label>
     <button type="submit" [disabled]="!addCourseForm.valid">Submit</button>
   </form>

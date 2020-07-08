@@ -1,5 +1,5 @@
 <h2>Edit User</h2>
-<form [formGroup]="editUserForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="editUserForm">
   
     <label>
         <span>First Name:</span>
@@ -46,5 +46,6 @@
         <span>Email Address:</span>
         <input type="text" formControlName="email">
     </label>
-    <button type="submit" [disabled]="!editUserForm.valid">Submit</button>
+    <button (click)="submit()" [disabled]="!editUserForm.valid">Submit</button>
+    <button (click)="cancel()">Cancel</button>
   </form>
