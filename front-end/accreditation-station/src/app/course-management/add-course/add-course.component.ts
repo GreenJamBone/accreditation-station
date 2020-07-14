@@ -54,7 +54,7 @@ export class AddCourseComponent implements OnInit {
             let theRoles = theUser.roles;
             for (let j = 0; j < theRoles.length; j++) {
               let theRole = theRoles[j];
-              if (theRole !== 'audit') {
+              if (theRole === 'instructor') {
                 this.instructors.push(this.users[i]);
                 console.log(this.instructors);
               }
