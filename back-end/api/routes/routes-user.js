@@ -125,22 +125,6 @@ router.post('/create', async (req, res, next) => {
     });    	
 });
 
-/* retrieves a user by uid -- NOT CURRENTLY USED*/
-// router.get('get/:id', async (req, res, next) =>
-// {
-// 	try
-// 	{
-// 		const user = await UserService.retrieve(req.params.id);
-
-// 		return res.json({ user: user });
-// 	}
-// 	catch(err)
-// 	{
-// 		// unexpected error
-// 		return next(err);
-// 	}
-// });
-
 /* updates the user by uid */
 router.post('/update', async (req, res, next) =>
 {
