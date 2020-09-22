@@ -1,9 +1,9 @@
 class CourseModel
 {
-	constructor(name, dept, course_number, section, semester, year, description, instructor, preceded_by, succeeded_by, audit_requirements)
+	constructor(name, department, course_number, section, semester, year, description, instructor, preceded_by, succeeded_by, audit_requirements)
 	{
 		this.name = name;
-        this.dept = dept;
+        this.department = department;
         this.course_number = course_number;
         this.section = section;
         this.semester = semester;

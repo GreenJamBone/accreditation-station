@@ -17,16 +17,14 @@ let namePattern = /([A-Za-z\-\’])*/;
 
 /* course validator shema */
 const courseVSchema = {
-	name: { type: "string", min: 1, max: 50, pattern: namePattern },
+	name: { type: "string", min: 1, max: 100, pattern: namePattern },
 	department: { type: "string", min: 1, max: 5 },
-	course_number: { type: "number", max: 5 },
+	course_number: { type: "string", max: 5 },
     section: { type: "string", min: 1, max: 3 },
     semester: { type: "string", min: 1, max: 3},
-    year: { type: "number", min: 1, max: 5},
-    description: { type: "string", min: 1, max: 200},
-    instructor: { type: "string", min: 1},
-    preceded_by: { type: "string"},
-    succeeded_by: { type: "string"},
+    year: { type: "string", min: 1, max: 5},
+    description: { type: "string", min: 1, max: 500},
+    instructor: { type: "string"},
 	audit_requirements: { type: "array"} 
 };
 
@@ -90,14 +88,14 @@ router.post('/create', async (req, res, next) => {
             item = vres[index];
             errors[item.field] = item.message;
         }
-        
+        console.log(errors);
         throw {
             name: "ValidationError",
             message: errors
         };
     }
     let course = new CourseModel(data.name, data.department, data.course_number, data.section, data.semester, data.year, data.description, data.instructor, data.preceded_by, data.succeeded_by, data.audit_requirements);
-
+    
     mongo.connect(constants.constants.db_url, {
         useNewUrlParser: true,
         useUnifiedTopology: true

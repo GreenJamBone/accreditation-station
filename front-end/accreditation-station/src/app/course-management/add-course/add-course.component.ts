@@ -97,13 +97,13 @@ export class AddCourseComponent implements OnInit {
         department: this.addCourseForm.value.department,
         course_number: this.addCourseForm.value.course_number,
         section: this.addCourseForm.value.section,
-        senester: this.addCourseForm.value.senester,
+        semester: this.addCourseForm.value.semester,
         year: this.addCourseForm.value.year,
         description: this.addCourseForm.value.description,
         instructor: this.addCourseForm.value.instructor,
         preceded_by: this.addCourseForm.value.preceded_by,
         succeeded_by: this.addCourseForm.value.succeeded_by,
-        audit_requirements: [this.addCourseForm.value.audit_requirements],
+        audit_requirements: this.addCourseForm.value.audit_requirements,
       }
       this.courseSvc.addCourse(courseObj).subscribe(resp => {
         if (resp) {

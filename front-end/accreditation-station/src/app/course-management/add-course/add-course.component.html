@@ -52,7 +52,7 @@
     <label>
         <span>Instructor:</span>
         <select formControlName="instructor">
-             <option *ngFor="let i of instructors" [value]="i.id">
+             <option *ngFor="let i of instructors" [value]="i._id">
                  {{i.first_name}} {{i.last_name}}
              </option>
          </select>
@@ -71,7 +71,7 @@
     <label>
         <span>Audit Requirements Fulfilled:</span>
         <select formControlName="audit_requirements" multiple>
-             <option *ngFor="let r of requirements" [value]="r.id">
+             <option *ngFor="let r of requirements" [value]="r._id">
                  {{r.name}}
              </option>
          </select>
