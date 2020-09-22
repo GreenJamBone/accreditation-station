@@ -35,6 +35,7 @@ import { UserService } from './services/user.service';
 import { CourseService } from './services/course.service';
 import { RequirementsService } from './services/requirements.service';
 import { EditUserComponent } from './user-management/edit-user/edit-user.component';
+import { EditCourseComponent } from './course-management/edit-course/edit-course.component';
 import { AreYouSureModalComponent } from './are-you-sure-modal/are-you-sure-modal.component';
 
 const appRoutes: Routes = [
@@ -109,6 +110,7 @@ const appRoutes: Routes = [
     AddRequirementComponent,
     EditAssignmentComponent,
     EditUserComponent,
+    EditCourseComponent,
     AreYouSureModalComponent,
   ],
   imports: [

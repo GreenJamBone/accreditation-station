@@ -8,6 +8,7 @@ export const environment = {
   allUsers: localhost + "/api/user/allUsers",
   updateUser: localhost + "/api/user/update",
   removeUser: localhost + "/api/user/remove",
+  getUser: localhost + "/api/user/getUser",
   createRequirement: localhost + "/api/requirement/create",
   allRequirements: localhost + "/api/requirement/allRequirements",
   updateRequirement: localhost + "/api/requirement/update",

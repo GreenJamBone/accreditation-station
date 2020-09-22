@@ -29,16 +29,16 @@ export class AddCourseComponent implements OnInit {
   ngOnInit() {
     this.addCourseForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
-      department: [''],
-      course_number: [''],
-      section: [''],
-      semester: [''],
-      year: [''],
-      description: [''],
-      instructor: [''],
+      department: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(5)]],
+      course_number: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(5)]],
+      section: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(3)]],
+      semester: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(3)]],
+      year: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
+      description: ['', [Validators.required, Validators.minLength(1)]],
+      instructor: ['', [Validators.required]],
       preceded_by: [''],
       succeeded_by: [''],
-      audit_requirements: [''],
+      audit_requirements: ['', [Validators.required]],
     });
     this.getYears();
     this.getUsers();

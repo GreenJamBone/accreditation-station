@@ -21,6 +21,10 @@ export class UserService {
         return this.http.get(environment.allUsers);
     }
 
+    getUser(payload): Observable<any> {
+        return this.http.get(environment.getUser + '/' + payload);
+    }
+
     updateUser(payload): Observable<any> {
         return this.http.post(environment.updateUser, payload);
     } 
