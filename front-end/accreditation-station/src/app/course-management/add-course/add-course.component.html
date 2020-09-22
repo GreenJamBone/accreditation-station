@@ -14,6 +14,10 @@
         </span>
     </span>
     <label>
+        <span>Department:</span>
+        <input type="text" formControlName="department">
+    </label>
+    <label>
         <span>Course Number:</span>
         <input type="text" formControlName="course_number">
     </label>
@@ -25,12 +29,18 @@
 
     <label>
        <span>Semester:</span>
-        <input type="text" formControlName="semester">
+       <select formControlName="semester">
+            <option *ngFor="let s of semesters" [value]="s">
+                {{s}}
+            </option>
+        </select>
     </label>
 
     <label>
         <span>Year:</span>
-        <input type="text" formControlName="year">
+        <select formControlName="year">
+            <option *ngFor="let y of years" [value]="y">{{y}}</option>
+        </select>
     </label>
 
     <label>
@@ -60,7 +70,7 @@
 
     <label>
         <span>Audit Requirements Fulfilled:</span>
-        <select formControlName="audit_requirements">
+        <select formControlName="audit_requirements" multiple>
              <option *ngFor="let r of requirements" [value]="r.id">
                  {{r.name}}
              </option>

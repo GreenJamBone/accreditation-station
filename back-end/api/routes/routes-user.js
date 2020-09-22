@@ -124,7 +124,7 @@ router.post('/create', async (req, res, next) => {
         });     
     });    	
 });
-
+    
 /* updates the user by uid */
 router.post('/update', async (req, res, next) =>
 {

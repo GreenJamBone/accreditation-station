@@ -8,4 +8,8 @@ export const environment = {
   allRequirements: "/api/requirement/allRequirements",
   updateRequirement: "/api/requirement/update",
   removeRequirement: "/api/requirement/remove",
+  createCourse: "/api/course/create",
+  allCourses: "/api/course/allCourses",
+  updateCourse: "/api/course/update",
+  removeCourse: "/api/course/remove",
 };

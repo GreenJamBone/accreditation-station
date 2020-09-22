@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { RequirementsService } from '../../services/requirements.service';
+import { CourseService } from '../../services/course.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -12,15 +13,23 @@ export class AddCourseComponent implements OnInit {
 
   addCourseForm: FormGroup;
   submitted = false;
+  showMessage = false;
   requirements: any;
   users: any;
   instructors = [];
-
-  constructor(private fb: FormBuilder, private requirementsSvc: RequirementsService, private userSvc: UserService) { }
+  theMessage = "";
+  messages = {
+    success: "Course Successfully Added",
+    error: "Error Adding Course - Please try again later"
+  }
+  semesters = ["SP","SU","FA"];
+  years = [];
+  constructor(private fb: FormBuilder, private requirementsSvc: RequirementsService, private userSvc: UserService, private courseSvc: CourseService) { }
 
   ngOnInit() {
     this.addCourseForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
+      department: [''],
       course_number: [''],
       section: [''],
       semester: [''],
@@ -31,8 +40,16 @@ export class AddCourseComponent implements OnInit {
       succeeded_by: [''],
       audit_requirements: [''],
     });
+    this.getYears();
     this.getUsers();
     this.getRequirements();
+  }
+
+  getYears() {
+    const thisDate = new Date();
+    let year = thisDate.getFullYear();
+    this.years.push(year.toString());
+    this.years.push((year + 1).toString())
   }
   
   getRequirements() {
@@ -70,10 +87,38 @@ export class AddCourseComponent implements OnInit {
 
   onSubmit() {
     console.warn(this.addCourseForm.value);
+    let courseObj;
     this.submitted = true;
+    this.showMessage = false;
     if (this.addCourseForm.valid) {
-      alert('Form Submitted succesfully!!!\n Check the values in browser console.');
-      console.table(this.addCourseForm.value);
+
+      courseObj = {
+        name: this.addCourseForm.value.name,
+        department: this.addCourseForm.value.department,
+        course_number: this.addCourseForm.value.course_number,
+        section: this.addCourseForm.value.section,
+        senester: this.addCourseForm.value.senester,
+        year: this.addCourseForm.value.year,
+        description: this.addCourseForm.value.description,
+        instructor: this.addCourseForm.value.instructor,
+        preceded_by: this.addCourseForm.value.preceded_by,
+        succeeded_by: this.addCourseForm.value.succeeded_by,
+        audit_requirements: [this.addCourseForm.value.audit_requirements],
+      }
+      this.courseSvc.addCourse(courseObj).subscribe(resp => {
+        if (resp) {
+          console.log(resp);
+          if (resp.status === "S") {
+            this.addCourseForm.reset();
+            this.theMessage = this.messages.success;
+            this.showMessage = true;
+          } else {
+            this.theMessage = this.messages.error;
+            this.showMessage = true;
+          }
+          
+        }
+      });
     }
   }
 
