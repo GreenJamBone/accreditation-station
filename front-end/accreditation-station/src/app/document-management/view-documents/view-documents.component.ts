@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DocumentService } from '../../services/document.service';
 import { AreYouSureModalComponent } from '../../are-you-sure-modal/are-you-sure-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-view-documents',
@@ -33,7 +34,7 @@ export class ViewDocumentsComponent implements OnInit {
       modified_date: "Mon Feb 10 2020 11:35:39 GMT-0500 (Eastern Standard Time)",
     }    
   ];
-  constructor(private docSvc: DocumentService) { }
+  constructor(private docSvc: DocumentService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.showMessage = false;
@@ -56,7 +57,7 @@ export class ViewDocumentsComponent implements OnInit {
   removeDocument(document) {
     this.showMessage = false;
     console.log(document);
-    this.areYouSureDialogRef = this.dialogRef.open(AreYouSureModalComponent, {
+    this.areYouSureDialogRef = this.dialog.open(AreYouSureModalComponent, {
       height: "",
       width: "600px",
       data: {data: "Are you sure you want to delete this document?"}
