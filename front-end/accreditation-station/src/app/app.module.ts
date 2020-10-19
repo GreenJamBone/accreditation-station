@@ -34,6 +34,7 @@ import { EditAssignmentComponent } from './assignment-management/edit-assignment
 import { UserService } from './services/user.service';
 import { CourseService } from './services/course.service';
 import { RequirementsService } from './services/requirements.service';
+import { DocumentService } from './services/document.service';
 import { EditUserComponent } from './user-management/edit-user/edit-user.component';
 import { EditCourseComponent } from './course-management/edit-course/edit-course.component';
 import { AreYouSureModalComponent } from './are-you-sure-modal/are-you-sure-modal.component';
@@ -136,7 +137,7 @@ const appRoutes: Routes = [
     ),
     // BrowserAnimationsModule
   ],
-  providers: [UserService, MatDialog, CourseService, RequirementsService],
+  providers: [UserService, MatDialog, CourseService, RequirementsService, DocumentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

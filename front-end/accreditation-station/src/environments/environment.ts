@@ -17,6 +17,10 @@ export const environment = {
   allCourses: localhost + "/api/course/allCourses",
   updateCourse: localhost + "/api/course/update",
   removeCourse: localhost + "/api/course/remove",
+  createDocument: localhost + "/api/document/create",
+  allDocuments: localhost + "/api/document/allDocuments",
+  updateDocument: localhost + "/api/document/update",
+  removeDocument: localhost + "/api/document/remove",
 };
 
 /*

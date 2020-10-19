@@ -9,10 +9,9 @@
                     {{course.instructor_name}}
                 </div>
                 <div class="course-info">
-                    <span class="info">{{course.department}}{{course.course_number}} {{course.section}} {{course.semester}} {{course.year}}
-                        
-                        <span><div class="audit" *ngFor="let req of course.req_names">{{req}}</div></span>
-                    </span>
+                    <span class="info">{{course.department}}{{course.course_number}} {{course.section}} {{course.semester}} {{course.year}}</span>
+                    <span><div class="audit" *ngFor="let req of course.req_names">{{req}}</div></span>
+                    <span class="info">{{course.description}}</span>
                     <span (click)="editCourseModal(course)" class="edit-btn"><button>Edit</button></span>
                     <span (click)="removeCourse(course)" class="delete-btn"><button>Remove Course</button></span>
                 </div>

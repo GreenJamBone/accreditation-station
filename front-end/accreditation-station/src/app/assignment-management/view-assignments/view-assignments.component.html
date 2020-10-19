@@ -6,7 +6,7 @@
                     {{assignment.name}}
                 </div>
                 <div class="assignment-info">
-                    <span class="info">{{assignment.title}} {{assignment.course}} {{assignment.category}} {{assignment.fulfilled_requirements}}</span>
+                    <span class="info">{{assignment.title}} {{assignment.semester}}{{assignment.year}} {{assignment.department}}{{assignment.course_number}}{{assignment.section}} {{assignment.category}} {{assignment.fulfilled_requirements}} {{assignment.rating}}</span>
                     <div><span class="description">{{assignment.description}}</span></div>
                     <span class="documents-btn">View Documents</span>
                     <span class="edit-btn" [routerLink]="['/edit-assignment',assignment.id]"><button>Edit</button></span>
