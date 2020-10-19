@@ -1,5 +1,7 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DocumentService } from 'src/app/services/document.service';
+import { FILE } from 'dns';
 
 @Component({
   selector: 'app-add-document',
@@ -11,7 +13,17 @@ export class AddDocumentComponent implements OnInit {
   submitted = false;
   semesters = ["SP","SU","FA"];
   years = [];
-  constructor(private fb: FormBuilder, private cd: ChangeDetectorRef) { }
+  filePreview;
+  private file: File | null = null;
+
+  // @HostListener('change', ['$event.target.files']) emitFiles( event: FileList ) {
+  //   if (!this.file) {
+  //     const file = event && event.item(0);
+  //     this.file = file;
+  //   }
+  // }
+
+  constructor(private docSvc: DocumentService, private fb: FormBuilder, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.addDocumentForm = this.fb.group({
@@ -22,7 +34,10 @@ export class AddDocumentComponent implements OnInit {
       course_number: [''],
       section: [''],
       rating: [''],
-      file: [null, Validators.required]
+      file: [null, Validators.required],
+      filename: [''],
+      type: [''],
+      filesize: [Number]
     });
     this.getYears();
   }
@@ -36,28 +51,34 @@ export class AddDocumentComponent implements OnInit {
 
   onFileChange(event) {
     const reader = new FileReader();
- 
-    if(event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
-  
+     if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      console.log(file);
+      reader.readAsDataURL(file)
       reader.onload = () => {
         this.addDocumentForm.patchValue({
           file: reader.result
-       });
-      
-        // need to run CD since file load runs outside of zone
-        this.cd.markForCheck();
-      };
-    }
+        });
+      }
+      this.addDocumentForm.patchValue({
+        filename: file.name,
+        type: file.type,
+        filesize: file.size
+      });
+     }
   }
   onSubmit() {
-    console.warn(this.addDocumentForm.value);
+    console.log(this.addDocumentForm.value);
     this.submitted = true;
     if (this.addDocumentForm.valid) {
       alert('Form Submitted succesfully!!!\n Check the values in browser console.');
       console.table(this.addDocumentForm.value);
-
+      const payload = this.addDocumentForm.value;
+      this.docSvc.addDocument(payload).subscribe(resp => {
+        if (resp) {
+          console.log(resp);
+        }
+      });
     }
   }
 

@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
+const fs = require('fs');
+const process = require('process'); 
 
 const constants = require('../constants');
-const CourseModel = require("../models/model.course");
+const DocumentModel = require("../models/model.document");
 const mongodb = require('mongodb');
 const mongo = require('mongodb').MongoClient;
 
@@ -10,27 +12,28 @@ ObjectId = mongodb.ObjectID,
 require('dotenv/config');
 
 let Validator = require('fastest-validator');
-let courseValidator = new Validator();
+let documentValidator = new Validator();
 
 /* use the same patterns as on the client to validate the request */
 let namePattern = /([A-Za-z\-\’])*/;
 
-/* course validator shema */
-const courseVSchema = {
+/* document validator shema */
+const documentVSchema = {
 	name: { type: "string", min: 1, max: 100, pattern: namePattern },
 	department: { type: "string", min: 1, max: 5 },
 	course_number: { type: "string", max: 5 },
     section: { type: "string", min: 1, max: 3 },
     semester: { type: "string", min: 1, max: 3},
     year: { type: "string", min: 1, max: 5},
-    filepath: { type: "string"},
     type: { type: "string"},
     creation_date: { type: "string" },
     modified_date: { type: "string" },
-    rating: { type: "string" }
+    rating: { type: "string" },
+    filepath: { type: "string"},
+    filename: { type: "string" }
 };
 
-/* GET course listing. */
+/* GET document listing. */
 router.get('/allDocuments', async function(req, res, next) {
 	mongo.connect(constants.constants.db_url, {
         useNewUrlParser: true,
@@ -76,11 +79,14 @@ router.get('/allDocuments', async function(req, res, next) {
     });    	
 });
 
-/* adds a new course to the list */
+/* adds a new document to the list */
 router.post('/create', async (req, res, next) => {
-	const data = req.body;
-
-    var vres = courseValidator.validate(data, courseVSchema);
+    
+	let data = req.body;
+    data.creation_date = (new Date()).toDateString();
+    data.modified_date = data.creation_date;
+    data.filepath = 'documents/' + data.year + '/' + data.semester + '/' + data.department + data.course_number + data.section + '/' + data.assignment + '/';
+    var vres = documentValidator.validate(data, documentVSchema);
     /* validation failed */
     if(!(vres === true))
     {
@@ -96,8 +102,20 @@ router.post('/create', async (req, res, next) => {
             message: errors
         };
     }
-    let course = new CourseModel(data.name, data.department, data.course_number, data.section, data.semester, data.year, data.description, data.instructor, data.preceded_by, data.succeeded_by, data.audit_requirements);
+    let document = new DocumentModel(data.name, data.department, data.course_number, data.section, data.semester, data.year, data.type, data.rating, data.creation_date, data.modified_date, data.filepath, data.filename);
     
+    const savedata = { fieldname: 'file',
+        originalname: data.filename,
+        encoding: 'base64',
+        mimetype: data.type,
+        buffer: data.file,
+        size: data.filesize 
+    };
+
+    process.chdir('C:/MonmouthUniversity/thesis');
+    createDirectoryAndSave(data, savedata);
+    process.chdir('C:/MonmouthUniversity/thesis');
+
     mongo.connect(constants.constants.db_url, {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -110,7 +128,7 @@ router.post('/create', async (req, res, next) => {
         const db = client.db('accreditation-station');
         const collection = db.collection('documents')
         
-        collection.insertOne(course, (err, result) => {
+        collection.insertOne(document, (err, result) => {
             if (err) {
                 console.log("ERROR");
                 console.log(err);
@@ -119,10 +137,10 @@ router.post('/create', async (req, res, next) => {
             } else {
                 let resultObj = {
                     status: "S",
-                    statusMessage: "Successfully added course to database.",
+                    statusMessage: "Successfully added document to database.",
                     insertedCount: result.insertedCount,
                     insertedId: result.insertedId,
-                    courseInfo: course
+                    documentInfo: document
                 }
                 client.close();
                 return res.status(200).json(resultObj);
@@ -131,70 +149,11 @@ router.post('/create', async (req, res, next) => {
     });    	
 });
     
-/* updates the course by uid */
-router.post('/update', async (req, res, next) =>
-{
-	const data = req.body;
-    const courseId = req.body._id;
-    var vres = courseValidator.validate(data, courseVSchema);
-    /* validation failed */
-    if(!(vres === true))
-    {
-        let errors = {}, item;
-        for(const index in vres)
-        {
-            item = vres[index];
-            errors[item.field] = item.message;
-        }
-        
-        throw {
-            name: "ValidationError",
-            message: errors
-        };
-    }
-    let course = new CourseModel(data.name, data.department, data.course_number, data.section, data.semester, data.year, data.description, data.instructor, data.preceded_by, data.succeeded_by, data.audit_requirements);
-
-    mongo.connect(constants.constants.db_url, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-        }, (err, client) => {
-        if (err) {
-            client.close();
-        console.error(err)
-        return
-        }
-        const db = client.db('accreditation-station');
-        const collection = db.collection('documents');
-
-        let id = ObjectId(courseId);
-        const query = {_id:id};
-        const data = {
-            $set: course
-        };
-        collection.updateOne(query, data, {upsert: true}, (err, result) => {
-            if (err) {
-                console.log("ERROR");
-                console.log(err);
-                return res.status(400).json({ error: err, status: "E"});
-            } else {
-                let resultObj = {
-                    status: "S",
-                    statusMessage: "Successfully updated course",
-                    matchedCount: result.matchedCount,
-                    modifiedCount: result.modifiedCount,
-                    courseInfo: course
-                }
-                return res.status(200).json(resultObj);
-            }
-        });     
-    });    
-});
-
-/* removes the course from the course list by uid */
+/* removes the document from the document list by uid */
 router.post('/remove', async (req, res, next) =>
 {
     const data = req.body;
-    const courseId = req.body._id;
+    const documentId = req.body._id;
    console.log(req.body);
     mongo.connect(constants.constants.db_url, {
         useNewUrlParser: true,
@@ -208,7 +167,7 @@ router.post('/remove', async (req, res, next) =>
         const db = client.db('accreditation-station');
         const collection = db.collection('documents');
         
-        let id = ObjectId(courseId);
+        let id = ObjectId(documentId);
         const query = {"_id":id};
         console.log(id);
         console.log(query);
@@ -220,9 +179,9 @@ router.post('/remove', async (req, res, next) =>
             } else {
                 let resultObj = {
                     status: "S",
-                    statusMessage: "Successfully removed course",
+                    statusMessage: "Successfully removed document",
                     deletedCOunt: result.matchedCount,
-                    courseInfo: courseId
+                    documentInfo: documentId
                 }
                 return res.status(200).json(resultObj);
             }
@@ -230,5 +189,28 @@ router.post('/remove', async (req, res, next) =>
     });    
 
 });
+
+function createDirectoryAndSave(theData, theSD) {
+    if (!fs.existsSync(theData.filepath)) {
+        fs.mkdirSync(theData.filepath, { recursive: true }, function(err) {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log("New directory successfully created.")
+            }
+        });
+        console.log('creating directory');
+        createDirectoryAndSave(theData, theSD);
+    } else {
+        console.log('directory exists');
+        process.chdir(theData.filepath);
+        fs.writeFile(theData.filename, theSD, function(err) {
+            if(err) {
+                return console.log(err);
+            }
+            console.log("The file was saved!");
+        }); 
+    }
+}    
 
 module.exports = router;

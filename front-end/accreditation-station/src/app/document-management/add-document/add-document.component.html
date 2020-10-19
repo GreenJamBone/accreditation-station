@@ -45,7 +45,10 @@
     </label>
     <label>
         <span>File:</span>
-        <input type="file" />
+        <input id="file" type="file" (change)="onFileChange($event)"/>
     </label>
+    <div *ngIf="addDocumentForm.controls.file.touched && addDocumentForm.controls.file.invalid" class="alert alert-danger">
+        <div *ngIf="addDocumentForm.controls.file.errors.required">File is required.</div>
+    </div>
     <button type="submit" [disabled]="addDocumentForm.invalid || addDocumentForm.pristine">Submit</button>
   </form>

@@ -7,7 +7,6 @@
                 </div>
                 <div class="document-info">
                     <span class="info">{{document.name}} {{document.type}} {{document.creation_date | date}} {{document.modified_date | date}} {{document.semester}} {{document.year}} {{document.department}}{{document.course_number}}{{document.section}}</span>
-                    <span (click)="editDocumentModal(document)" class="edit-btn"><button>Edit</button></span>
                     <span (click)="removeDocument(document)" class="delete-btn"><button>Remove Document</button></span>
                 </div>
             </div>

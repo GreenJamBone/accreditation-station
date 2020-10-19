@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DocumentService } from '../../services/document.service'; 
-import { EditDocumentComponent } from '../edit-document/edit-document.component';
+import { DocumentService } from '../../services/document.service';
 import { AreYouSureModalComponent } from '../../are-you-sure-modal/are-you-sure-modal.component';
 
 @Component({
@@ -50,34 +49,6 @@ export class ViewDocumentsComponent implements OnInit {
           this.displayMessage = this.messages.errMsg;
           this.showMessage = true;
         }
-      }
-    });
-  }
-
-  editDocumentModal(document) {
-    this.showMessage = false;
-    this.messages.updatedDocumentMsg = document.name + ' has been successfully updated!';
-    this.dialogRef = this.dialogRef.open(EditDocumentComponent, {
-      height: "",
-      width: "600px",
-      data: document
-    });
-    this.dialogRef.afterClosed().subscribe((result) => {
-      if (result.data === 'submitted') {
-        this.docSvc.getAllDocuments().subscribe((resp) => {
-          if (resp) {
-            if (resp.status === "S") {
-              console.log(resp.statusMessage);
-              this.displayMessage = this.messages.updatedDocumentMsg;
-              this.showMessage = true;
-              this.documents = resp.documents;
-              this.getDocuments();
-            } else {
-              this.displayMessage = this.messages.errMsg;
-              this.showMessage = true;
-            }
-          }
-        });
       }
     });
   }
