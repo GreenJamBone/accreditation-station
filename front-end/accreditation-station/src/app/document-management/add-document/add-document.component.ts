@@ -9,7 +9,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class AddDocumentComponent implements OnInit {
   addDocumentForm: FormGroup;
   submitted = false;
-
+  semesters = ["SP","SU","FA"];
+  years = [];
   constructor(private fb: FormBuilder, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -17,12 +18,22 @@ export class AddDocumentComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(4)]],
       year: [''],
       semester: [''],
+      department: [''],
       course_number: [''],
       section: [''],
       rating: [''],
       file: [null, Validators.required]
     });
+    this.getYears();
   }
+
+  getYears() {
+    const thisDate = new Date();
+    let year = thisDate.getFullYear();
+    this.years.push(year.toString());
+    this.years.push((year + 1).toString())
+  }
+
   onFileChange(event) {
     const reader = new FileReader();
  

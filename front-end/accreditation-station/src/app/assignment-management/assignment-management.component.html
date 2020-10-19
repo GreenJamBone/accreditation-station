@@ -1,0 +1,15 @@
+<div class="document-management-container">
+    <div class="title">
+        <h2>Assignment Management</h2>
+    </div>
+    <div class="breadcrumb"><a routerLink="/admin">Return to Admin Panel</a></div>
+    <div class="document-btn">
+        <button class="block-btn" (click)="buttonFn('add-assignment')">Add Assignment</button>
+        <button class="block-btn" (click)="buttonFn('view-assignments')">View Assignments</button>
+    </div>
+    <div class="document-content">
+        <app-add-assignment *ngIf="addAssignment"></app-add-assignment>
+        <app-view-assignments *ngIf="viewAssignments"></app-view-assignments>
+    </div>
+</div>
+ 

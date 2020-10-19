@@ -26,17 +26,18 @@ import { AddUserComponent } from './user-management/add-user/add-user.component'
 import { ViewUsersComponent } from './user-management/view-users/view-users.component';
 import { AddDocumentComponent } from './document-management/add-document/add-document.component';
 import { ViewDocumentsComponent } from './document-management/view-documents/view-documents.component';
-import { AddAssignmentComponent } from './document-management/add-assignment/add-assignment.component';
-import { ViewAssignmentsComponent } from './document-management/view-assignments/view-assignments.component';
+import { AddAssignmentComponent } from './assignment-management/add-assignment/add-assignment.component';
+import { ViewAssignmentsComponent } from './assignment-management/view-assignments/view-assignments.component';
 import { ViewRequirementsComponent } from './requirements-management/view-requirements/view-requirements.component';
 import { AddRequirementComponent } from './requirements-management/add-requirement/add-requirement.component';
-import { EditAssignmentComponent } from './document-management/edit-assignment/edit-assignment.component';
+import { EditAssignmentComponent } from './assignment-management/edit-assignment/edit-assignment.component';
 import { UserService } from './services/user.service';
 import { CourseService } from './services/course.service';
 import { RequirementsService } from './services/requirements.service';
 import { EditUserComponent } from './user-management/edit-user/edit-user.component';
 import { EditCourseComponent } from './course-management/edit-course/edit-course.component';
 import { AreYouSureModalComponent } from './are-you-sure-modal/are-you-sure-modal.component';
+import { AssignmentManagementComponent } from './assignment-management/assignment-management.component';
 
 const appRoutes: Routes = [
   {
@@ -80,6 +81,10 @@ const appRoutes: Routes = [
     component: DocumentManagementComponent
   },
   {
+    path: 'assignment-management',
+    component: AssignmentManagementComponent
+  },
+  {
     path: 'edit-assignment/:id',
     component: EditAssignmentComponent
   }
@@ -112,6 +117,7 @@ const appRoutes: Routes = [
     EditUserComponent,
     EditCourseComponent,
     AreYouSureModalComponent,
+    AssignmentManagementComponent,
   ],
   imports: [
     BrowserModule,

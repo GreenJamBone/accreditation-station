@@ -7,6 +7,17 @@ form label {
     margin-bottom: 10px;
 }
 
+form label input {
+    display: inline-block;
+    width: 300px;
+}
+
+form label select {
+    display: inline-block;
+    width: 308px;
+    height: 22px;
+}
+
 form label span {
     display: inline-block;
     width: 300px;
