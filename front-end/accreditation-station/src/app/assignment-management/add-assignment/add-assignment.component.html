@@ -1,3 +1,6 @@
+<div class="message text-danger">
+    <span *ngIf="showMessage">{{theMessage}}</span>
+</div>
 <form [formGroup]="addAssignmentForm" (ngSubmit)="onSubmit()">
   
     <label>
@@ -14,56 +17,111 @@
         </span>
     </span>
     <label>
-        <span>Semester (SPRING or FALL):</span>
-        <input type="text" formControlName="semester">
+        <span>Course:</span>
+        <select class="course" formControlName="course" >
+            <option *ngFor="let c of courses" [ngValue]="c">
+                {{c.name}}
+            </option>
+        </select>
     </label>
-   <label>
-        <span>Year:</span>
-        <input type="text" formControlName="year">
+    <!-- <label>
+        <span>Semester:</span>
+        <select formControlName="semester">
+             <option *ngFor="let s of semesters" [value]="s">
+                 {{s}}
+             </option>
+         </select>
     </label>
     <label>
-        <span>Course:</span>
-        <input type="text" formControlName="course">
+    <span>Year:</span>
+    <select formControlName="year">
+        <option *ngFor="let y of years" [value]="y">{{y}}</option>
+    </select>
+    </label>
+    <label>
+        <span>Department:</span>
+        <input type="text" formControlName="department">
+    </label>
+    <label>
+        <span>Course Number:</span>
+        <input type="text" formControlName="course_number">
     </label>
     <label>
         <span>Section:</span>
         <input type="text" formControlName="section">
-    </label>
+    </label> -->
     <label>
        <span>Description:</span>
         <input type="text" formControlName="description">
     </label>
     <label>
         <span>Category:</span>
-        <input type="text" formControlName="category">
+        <select formControlName="category">
+            <option *ngFor="let c of categories" [value]="c">
+                {{c}}
+            </option>
+        </select>
     </label>
     <label>
-        <span>Authorized Roles:</span>
-        <input type="text" formControlName="authorized_roles">
-    </label>
-    <label>
-        <span>Fulfilled Requirements:</span>
-        <input type="text" formControlName="fulfilled_requirements">
+        <span>Fulfilled Requirements (hold ctrl to select multiple):</span>
+        <select class="requirements" formControlName="fulfilled_requirements" multiple>
+            <option *ngFor="let r of theReqs" [value]="{id:r._id, name:r.name}">
+                {{r.name}}
+            </option>
+        </select>
     </label>
     <label>
         <span>Assignment Document Name:</span>
-        <input type="text" formControlName="assignment_document_name">
+        <input type="text" formControlName="assignment_document_title">
+    </label>
+   
+    <label>
+        
     </label>
     <label>
         <span>Assignment Document:</span>
-        <input type="file" formControlName="assignment_document"/>
+        <input id="assignment_document" type="file" (change)="onFileChange($event, 'a')"/>
     </label>
-    <label>
-        <span>Student Document Title:</span>
-        <input type="text" formControlName="student_document_name">
-    </label>
-    <label>
-        <span>Student Document Rating:</span>
-        <input type="text" formControlName="student_document_rating">
-    </label>
-    <label>
-        <span>Student Document:</span>
-        <input type="file" formControlName="student_document"/>
-    </label>
+    <div *ngIf="addAssignmentForm.controls.assignment_document.touched && addAssignmentForm.controls.assignment_document.invalid" class="alert alert-danger">
+        <div *ngIf="addAssignmentForm.controls.assignment_document.errors.required">Assignment Document is required.</div>
+    </div>
+    <div>
+        <span>Student Documents:</span><br>
+        
+        <div class="doc">
+            <label>
+                <span>Above Average Student Document Title:</span>
+                <input type="text" formControlName="student_document_title1">
+            </label>
+            <label>
+                <span>Above Average</span> 
+                <input id="student_document1" type="file" (change)="onFileChange($event, 's1')"/>
+            </label>
+        </div>
+        <div class="doc">
+            <label>
+                <span>Average Student Document Title:</span>
+                <input type="text" formControlName="student_document_title2">
+            </label>
+            <label>
+                <span>Average</span>
+                <input id="student_document2" type="file" (change)="onFileChange($event, 's2')"/>
+            </label>
+        </div>
+        <div class="doc">
+            <label>
+                <span>Below Average Student Document Title:</span>
+                <input type="text" formControlName="student_document_title3">
+            </label>
+            <label>
+                <span>Below Average</span>
+                <input id="student_document3" type="file" (change)="onFileChange($event, 's3')"/>
+            </label>
+        </div>        
+    </div>
+    <div *ngIf="addAssignmentForm.controls.student_document1.touched && addAssignmentForm.controls.student_document1.invalid" class="alert alert-danger">
+        <div *ngIf="addAssignmentForm.controls.student_document1.errors.required">All Student Documents are required.</div>
+    </div>
+    
     <button type="submit" [disabled]="addAssignmentForm.invalid || addAssignmentForm.pristine">Submit</button>
   </form>

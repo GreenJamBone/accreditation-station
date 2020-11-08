@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DocumentService } from 'src/app/services/document.service';
-import { FILE } from 'dns';
 
 @Component({
   selector: 'app-add-document',
@@ -11,6 +10,12 @@ import { FILE } from 'dns';
 export class AddDocumentComponent implements OnInit {
   addDocumentForm: FormGroup;
   submitted = false;
+  showMessage = false;
+  theMessage = "";
+  messages = {
+    success: "Document Successfully Added",
+    error: "Error Adding Document - Please try again later"
+  }
   semesters = ["SP","SU","FA"];
   years = [];
   filePreview;
@@ -68,15 +73,28 @@ export class AddDocumentComponent implements OnInit {
      }
   }
   onSubmit() {
+    this.addDocumentForm.patchValue({
+      fileDir: 'document'
+    });
+    
     console.log(this.addDocumentForm.value);
+
     this.submitted = true;
     if (this.addDocumentForm.valid) {
-      alert('Form Submitted succesfully!!!\n Check the values in browser console.');
-      console.table(this.addDocumentForm.value);
-      const payload = this.addDocumentForm.value;
+      const payload = {
+        documents:[this.addDocumentForm.value]
+      };
       this.docSvc.addDocument(payload).subscribe(resp => {
         if (resp) {
           console.log(resp);
+          if (resp.status === "S") {
+            this.addDocumentForm.reset();
+            this.theMessage = this.messages.success;
+            this.showMessage = true;
+          } else {
+            this.theMessage = this.messages.error;
+            this.showMessage = true;
+          }
         }
       });
     }

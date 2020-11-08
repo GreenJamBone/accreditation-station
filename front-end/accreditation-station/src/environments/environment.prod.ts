@@ -17,5 +17,9 @@ export const environment = {
   allDocuments: "/api/document/allDocuments",
   updateDocument: "/api/document/update",
   removeDocument: "/api/document/remove",
+  createAssignment: "/api/assignment/create",
+  allAssignments: "/api/assignment/allAssignments",
+  updateAssignment: "/api/assignment/update",
+  removeAssignment: "/api/assignment/remove",
 
 };

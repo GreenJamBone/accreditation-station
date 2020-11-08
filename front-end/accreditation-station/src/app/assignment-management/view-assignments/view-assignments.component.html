@@ -1,3 +1,6 @@
+<div class="message text-danger">
+    <span *ngIf="showMessage">{{displayMessage}}</span>
+</div>
 <div class="view-assignments-container ">
     <div *ngFor="let assignment of assignments">
         <div class="row">
@@ -6,11 +9,13 @@
                     {{assignment.name}}
                 </div>
                 <div class="assignment-info">
-                    <span class="info">{{assignment.title}} {{assignment.semester}}{{assignment.year}} {{assignment.department}}{{assignment.course_number}}{{assignment.section}} {{assignment.category}} {{assignment.fulfilled_requirements}} {{assignment.rating}}</span>
-                    <div><span class="description">{{assignment.description}}</span></div>
+                    <div class="info">{{assignment.title}} - {{assignment.semester}}{{assignment.year}} - {{assignment.department}}{{assignment.course_number}}{{assignment.section}}</div>
+                    <div class="info">Assignment Category: {{assignment.category}} - Rating: {{assignment.rating}}</div>
+                    <div class="info"> Fulfilled Requirements: <div class="req" *ngFor="let req of assignment.fulfilled_requirements">{{req.name}}</div> </div>
+                    <div><span class="description">Description: {{assignment.description}}</span></div>
                     <span class="documents-btn">View Documents</span>
                     <span class="edit-btn" [routerLink]="['/edit-assignment',assignment.id]"><button>Edit</button></span>
-                    <span class="delete-btn"><button>Remove Assignment</button></span>
+                    <span (click)="removeAssignment(assignment)" class="delete-btn"><button>Remove Assignment</button></span>
                 </div>
             </div>
         </div>

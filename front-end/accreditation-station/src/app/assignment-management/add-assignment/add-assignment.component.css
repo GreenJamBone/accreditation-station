@@ -7,9 +7,21 @@ form label {
     margin-bottom: 10px;
 }
 
+form label input {
+    display: inline-block;
+    width: 300px;
+}
+
+form label select {
+    display: inline-block;
+    width: 308px;
+    height: 22px;
+}
+
 form label span {
     display: inline-block;
     width: 300px;
+    vertical-align: top;
 }
 form button {
     margin-top: 10px;
@@ -21,4 +33,17 @@ form button {
     display: inline-block;
     margin-bottom: 16px;
     color: red;
+}
+
+form label .doc {
+    margin-bottom: 10px;
+}
+
+form label .doc span {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+form label select.requirements {
+    height: 300px;
 }

@@ -12,6 +12,7 @@ ObjectId = mongodb.ObjectID,
 require('dotenv/config');
 
 let Validator = require('fastest-validator');
+const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
 let documentValidator = new Validator();
 
 /* use the same patterns as on the client to validate the request */
@@ -81,41 +82,59 @@ router.get('/allDocuments', async function(req, res, next) {
 
 /* adds a new document to the list */
 router.post('/create', async (req, res, next) => {
-    
-	let data = req.body;
-    data.creation_date = (new Date()).toDateString();
-    data.modified_date = data.creation_date;
-    data.filepath = 'documents/' + data.year + '/' + data.semester + '/' + data.department + data.course_number + data.section + '/' + data.assignment + '/';
-    var vres = documentValidator.validate(data, documentVSchema);
-    /* validation failed */
-    if(!(vres === true))
-    {
-        let errors = {}, item;
-        for(const index in vres)
-        {
-            item = vres[index];
-            errors[item.field] = item.message;
+    let rootDir = 'C:/MonmouthUniversity/thesis';
+    let payload = [];
+    let theReq = req.body;
+    let data = theReq.documents;
+       
+    for (let i = 0; i < data.length; i++) {
+        let singleDoc = data[i];
+        
+        singleDoc.creation_date = (new Date()).toDateString();
+        singleDoc.modified_date = singleDoc.creation_date;
+
+        let saveDir = 'documents/';
+        if (singleDoc.fileDir && singleDoc.fileDir === 'assignment') {
+            saveDir = 'assignments/';
         }
-        console.log(errors);
-        throw {
-            name: "ValidationError",
-            message: errors
+        if (!singleDoc.assignment || singleDoc.assignment === 'undefined') {
+            singleDoc.assignment = '!NO-ASSIGNMENT';
+        }
+        singleDoc.filepath = saveDir + singleDoc.year + '/' + singleDoc.semester + '/' + singleDoc.department + singleDoc.course_number + singleDoc.section + '/' + singleDoc.assignment + '/';
+
+        let document = new DocumentModel(singleDoc.name, singleDoc.department, singleDoc.course_number, singleDoc.section, singleDoc.semester, singleDoc.year, singleDoc.type, singleDoc.rating, singleDoc.creation_date, singleDoc.modified_date, singleDoc.filepath, singleDoc.filename, singleDoc.assignment);
+        // var vres = documentValidator.validate(document, documentVSchema);
+        // /* validation failed */
+        // if(!(vres === true))
+        // {
+        //     let errors = {}, item;
+        //     for(const index in vres)
+        //     {
+        //         item = vres[index];
+        //         errors[item.field] = item.message;
+        //     }
+        //     console.log(errors);
+        //     return {
+        //         name: "ValidationError",
+        //         message: errors
+        //     };
+        // }
+        
+        payload.push(document);
+        console.log(payload);
+        const savedata = { fieldname: 'file',
+            originalname: singleDoc.filename,
+            encoding: 'base64',
+            mimetype: singleDoc.type,
+            buffer: singleDoc.file,
+            size: singleDoc.filesize 
         };
+
+        process.chdir(rootDir);
+        createDirectoryAndSave(singleDoc, savedata);
+        process.chdir(rootDir);
     }
-    let document = new DocumentModel(data.name, data.department, data.course_number, data.section, data.semester, data.year, data.type, data.rating, data.creation_date, data.modified_date, data.filepath, data.filename);
     
-    const savedata = { fieldname: 'file',
-        originalname: data.filename,
-        encoding: 'base64',
-        mimetype: data.type,
-        buffer: data.file,
-        size: data.filesize 
-    };
-
-    process.chdir('C:/MonmouthUniversity/thesis');
-    createDirectoryAndSave(data, savedata);
-    process.chdir('C:/MonmouthUniversity/thesis');
-
     mongo.connect(constants.constants.db_url, {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -128,7 +147,7 @@ router.post('/create', async (req, res, next) => {
         const db = client.db('accreditation-station');
         const collection = db.collection('documents')
         
-        collection.insertOne(document, (err, result) => {
+        collection.insertMany(payload, (err, result) => {
             if (err) {
                 console.log("ERROR");
                 console.log(err);
@@ -140,7 +159,7 @@ router.post('/create', async (req, res, next) => {
                     statusMessage: "Successfully added document to database.",
                     insertedCount: result.insertedCount,
                     insertedId: result.insertedId,
-                    documentInfo: document
+                    documentInfo: payload
                 }
                 client.close();
                 return res.status(200).json(resultObj);
@@ -191,6 +210,13 @@ router.post('/remove', async (req, res, next) =>
 });
 
 function createDirectoryAndSave(theData, theSD) {
+    // let saveDir = 'documents/';
+    // if (theData.fileDir && theData.fileDir === 'assignment') {
+    //     saveDir = 'assignments/';
+    // }
+
+    // theData.filepath = saveDir + theData.year + '/' + theData.semester + '/' + theData.department + theData.course_number + theData.section + '/' + theData.assignment + '/';
+    
     if (!fs.existsSync(theData.filepath)) {
         fs.mkdirSync(theData.filepath, { recursive: true }, function(err) {
             if (err) {
