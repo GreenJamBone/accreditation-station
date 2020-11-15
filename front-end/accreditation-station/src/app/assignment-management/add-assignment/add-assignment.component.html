@@ -19,37 +19,11 @@
     <label>
         <span>Course:</span>
         <select class="course" formControlName="course" >
-            <option *ngFor="let c of courses" [ngValue]="c">
-                {{c.name}}
+            <option *ngFor="let course of courses" [ngValue]="course">
+                {{course.name}}
             </option>
         </select>
     </label>
-    <!-- <label>
-        <span>Semester:</span>
-        <select formControlName="semester">
-             <option *ngFor="let s of semesters" [value]="s">
-                 {{s}}
-             </option>
-         </select>
-    </label>
-    <label>
-    <span>Year:</span>
-    <select formControlName="year">
-        <option *ngFor="let y of years" [value]="y">{{y}}</option>
-    </select>
-    </label>
-    <label>
-        <span>Department:</span>
-        <input type="text" formControlName="department">
-    </label>
-    <label>
-        <span>Course Number:</span>
-        <input type="text" formControlName="course_number">
-    </label>
-    <label>
-        <span>Section:</span>
-        <input type="text" formControlName="section">
-    </label> -->
     <label>
        <span>Description:</span>
         <input type="text" formControlName="description">

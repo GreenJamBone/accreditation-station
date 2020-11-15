@@ -87,7 +87,7 @@ const appRoutes: Routes = [
     component: AssignmentManagementComponent
   },
   {
-    path: 'edit-assignment/:id',
+    path: 'edit-assignment/:theAssignment',
     component: EditAssignmentComponent
   }
   //{ path: '**', component: PageNotFoundComponent }

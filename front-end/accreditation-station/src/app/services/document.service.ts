@@ -28,4 +28,11 @@ export class DocumentService {
     removeDocument(payload): Observable<any> {
         return this.http.post(environment.removeDocument, payload);
     }
+
+    getDocument(payload): Observable<any> {
+        return this.http.get(environment.getSingleDoc + '/' + payload);
+    }
+    getMultipleDocsById(payload): Observable<any> {
+        return this.http.post(environment.getMultipleDocs, payload);
+    }
 }

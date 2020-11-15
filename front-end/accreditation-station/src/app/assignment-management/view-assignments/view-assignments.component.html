@@ -14,7 +14,7 @@
                     <div class="info"> Fulfilled Requirements: <div class="req" *ngFor="let req of assignment.fulfilled_requirements">{{req.name}}</div> </div>
                     <div><span class="description">Description: {{assignment.description}}</span></div>
                     <span class="documents-btn">View Documents</span>
-                    <span class="edit-btn" [routerLink]="['/edit-assignment',assignment.id]"><button>Edit</button></span>
+                    <span class="edit-btn" [routerLink]="['/edit-assignment', assignment._id]"><button>Edit</button></span>
                     <span (click)="removeAssignment(assignment)" class="delete-btn"><button>Remove Assignment</button></span>
                 </div>
             </div>

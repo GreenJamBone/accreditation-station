@@ -74,8 +74,9 @@ export class EditCourseComponent implements OnInit {
   getYears() {
     const thisDate = new Date();
     let year = thisDate.getFullYear();
-    this.years.push(year.toString());
-    this.years.push((year + 1).toString())
+    for (let i = -4; i < 2; i++) {
+      this.years.push((year + i).toString())
+    }
   }
 
   getRequirements() {

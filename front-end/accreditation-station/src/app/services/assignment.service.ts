@@ -20,7 +20,9 @@ export class AssignmentService {
     getAllAssignments(): Observable<any> {
         return this.http.get(environment.allAssignments);
     }
-
+    getAssignment(assID): Observable<any> {
+        return this.http.get(environment.getAssignment + '/' + assID);
+    }
     updateAssignment(payload): Observable<any> {
         return this.http.post(environment.updateAssignment, payload);
     } 

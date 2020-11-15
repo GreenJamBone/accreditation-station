@@ -80,6 +80,106 @@ router.get('/allDocuments', async function(req, res, next) {
     });    	
 });
 
+router.get('/getDocument/:id', async function(req, res, next) {
+    const data = ObjectId(req.params.id);
+	mongo.connect(constants.constants.db_url, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+        }, (err, client) => {
+        if (err) {
+        console.error(err);
+        client.close();
+        return
+        }
+        const db = client.db('accreditation-station');
+        const collection = db.collection('documents')
+        console.log("ID");
+        console.log(data);
+        collection.find({_id:data}).toArray((err, result) => {
+            if (err) {
+                console.log("ERROR");
+                console.log(err);
+                client.close();
+                return res.status(400).json({ error: err});
+            } else {
+                
+                let resultObj;
+                if (result.length > 0) {
+                    resultObj = {
+                        status: "S",
+                        statusMessage: "Successfully returned document",
+                        documents: result
+                    }
+                    client.close();
+                    return res.status(200).json(resultObj);
+                } else {
+                    resultObj = {
+                        status: "I",
+                        statusMessage: "No document Returned",
+                        documents: result
+                    }
+                    client.close();
+                    return res.status (100).json(resultObj);
+                }
+                
+            }
+        });     
+    });    	
+});
+
+router.post('/getMultipleDocs/', async function(req, res, next) {
+    let theReq = req.body;
+    let theDocs = theReq.theDocs;
+    let docsArray = [];
+    for (let d = 0; d < theDocs.length; d++) {
+        docsArray.push(ObjectId(theDocs[d]));
+    }
+    console.log(docsArray);
+	mongo.connect(constants.constants.db_url, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+        }, (err, client) => {
+        if (err) {
+        console.error(err);
+        client.close();
+        return
+        }
+        const db = client.db('accreditation-station');
+        const collection = db.collection('documents')
+
+        collection.find({_id: {$in: docsArray}}).toArray((err, result) => {
+            if (err) {
+                console.log("ERROR");
+                console.log(err);
+                client.close();
+                return res.status(400).json({ error: err});
+            } else {
+                
+                let resultObj;
+                if (result.length > 0) {
+                    resultObj = {
+                        status: "S",
+                        statusMessage: "Successfully returned document",
+                        documents: result
+                    }
+                    client.close();
+                    return res.status(200).json(resultObj);
+                } else {
+                    resultObj = {
+                        status: "I",
+                        statusMessage: "No document Returned",
+                        documents: result
+                    }
+                    client.close();
+                    return res.status (100).json(resultObj);
+                }
+                
+            }
+        });     
+    });    	
+});
+
+
 /* adds a new document to the list */
 router.post('/create', async (req, res, next) => {
     let rootDir = 'C:/MonmouthUniversity/thesis';
@@ -98,28 +198,12 @@ router.post('/create', async (req, res, next) => {
             saveDir = 'assignments/';
         }
         if (!singleDoc.assignment || singleDoc.assignment === 'undefined') {
-            singleDoc.assignment = '!NO-ASSIGNMENT';
+            singleDoc.assignment = 'SELF-STUDY';
         }
-        singleDoc.filepath = saveDir + singleDoc.year + '/' + singleDoc.semester + '/' + singleDoc.department + singleDoc.course_number + singleDoc.section + '/' + singleDoc.assignment + '/';
+        singleDoc.filepath = saveDir + singleDoc.course.year + '/' + singleDoc.course.semester + '/' + singleDoc.course.department + singleDoc.course.course_number + singleDoc.course.section + '/' + singleDoc.assignment + '/';
 
-        let document = new DocumentModel(singleDoc.name, singleDoc.department, singleDoc.course_number, singleDoc.section, singleDoc.semester, singleDoc.year, singleDoc.type, singleDoc.rating, singleDoc.creation_date, singleDoc.modified_date, singleDoc.filepath, singleDoc.filename, singleDoc.assignment);
-        // var vres = documentValidator.validate(document, documentVSchema);
-        // /* validation failed */
-        // if(!(vres === true))
-        // {
-        //     let errors = {}, item;
-        //     for(const index in vres)
-        //     {
-        //         item = vres[index];
-        //         errors[item.field] = item.message;
-        //     }
-        //     console.log(errors);
-        //     return {
-        //         name: "ValidationError",
-        //         message: errors
-        //     };
-        // }
-        
+        let document = new DocumentModel(singleDoc.name, singleDoc.course, singleDoc.type, singleDoc.rating, singleDoc.creation_date, singleDoc.modified_date, singleDoc.filepath, singleDoc.filename, singleDoc.assignment);
+ 
         payload.push(document);
         console.log(payload);
         const savedata = { fieldname: 'file',
@@ -210,12 +294,6 @@ router.post('/remove', async (req, res, next) =>
 });
 
 function createDirectoryAndSave(theData, theSD) {
-    // let saveDir = 'documents/';
-    // if (theData.fileDir && theData.fileDir === 'assignment') {
-    //     saveDir = 'assignments/';
-    // }
-
-    // theData.filepath = saveDir + theData.year + '/' + theData.semester + '/' + theData.department + theData.course_number + theData.section + '/' + theData.assignment + '/';
     
     if (!fs.existsSync(theData.filepath)) {
         fs.mkdirSync(theData.filepath, { recursive: true }, function(err) {

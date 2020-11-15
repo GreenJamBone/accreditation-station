@@ -12,6 +12,9 @@ import { CourseService } from '../../services/course.service';
 })
 export class AddAssignmentComponent implements OnInit {
   @Input() courseInfo: any = {};
+  @Input() theAssignmentID: any = "";
+  prefillAssignment;
+
   addAssignmentForm: FormGroup;
   submitted = false;
   showMessage = false;
@@ -34,12 +37,7 @@ export class AddAssignmentComponent implements OnInit {
     
     this.addAssignmentForm = this.fb.group({
       title: ['', [Validators.required]],
-      department: [''],
       course: ['', [Validators.required]],
-      course_number: [''],
-      section: [''],
-      semester: [''],
-      year: [''],
       description: ['', [Validators.required]],
       category: ['', [Validators.required]],
       fulfilled_requirements: ["", [Validators.required]],
@@ -67,6 +65,7 @@ export class AddAssignmentComponent implements OnInit {
       student_document2:[null, Validators.required],
       student_document3:[null, Validators.required]
     });
+
     this.getReqs();
     this.getCourses();
     this.getYears();
@@ -93,26 +92,15 @@ export class AddAssignmentComponent implements OnInit {
   getYears() {
     const thisDate = new Date();
     let year = thisDate.getFullYear();
-    this.years.push(year.toString());
-    this.years.push((year + 1).toString())
+    // this.years.push(year.toString());
+    // this.years.push((year + 1).toString())
+    for (let i = -6; i < 2; i++) {
+      this.years.push((year + i).toString())
+    }
   }
   fillInForm(){
-    if (this.addAssignmentForm && this.courseInfo) {
-      this.addAssignmentForm.patchValue({
-        department: this.courseInfo.department,
-        course_number: this.courseInfo.course_number,
-        semester: this.courseInfo.semester,
-        year: this.courseInfo.year,
-        section: this.courseInfo.section
-      });
-      if (this.courseInfo.course_number){
-        this.addAssignmentForm.controls['department'].disable();
-        this.addAssignmentForm.controls['course_number'].disable();
-        this.addAssignmentForm.controls['semester'].disable();
-        this.addAssignmentForm.controls['year'].disable();
-        this.addAssignmentForm.controls['section'].disable();
-      }
-    }
+    // if (this.addAssignmentForm) {
+    // }
   }
   onFileChange(event, whichDoc) {
     const reader = new FileReader();
@@ -199,20 +187,8 @@ export class AddAssignmentComponent implements OnInit {
       alert('Form Submitted succesfully!!!\n Check the values in browser console.');
       console.table(this.addAssignmentForm.value);
       let theCourse = this.addAssignmentForm.controls['course'].value;
-      this.addAssignmentForm.patchValue({
-        department: theCourse.department,
-        course_number: theCourse.course_number,
-        section: theCourse.section,
-        semester: theCourse.semester,
-        year: theCourse.year
-      });
       let assignmentPayload = {
         title: this.addAssignmentForm.controls['title'].value,
-        department: theCourse.department,
-        course_number: theCourse.course_number,
-        section: theCourse.section,
-        semester: theCourse.semester,
-        year: theCourse.year,
         course: theCourse,
         description: this.addAssignmentForm.controls['description'].value,
         category: this.addAssignmentForm.controls['category'].value,
@@ -279,11 +255,7 @@ export class AddAssignmentComponent implements OnInit {
     let theDocPL = { documents:[
       {
         name: doc.assignment_document_title,
-        year: doc.year,
-        semester: doc.semester,
-        department: doc.department,
-        course_number: doc.course_number,
-        section: doc.section,
+        course: doc. course,
         rating: "",
         file: doc.assignment_document,
         filename: doc.assignment_document_name,
@@ -294,11 +266,7 @@ export class AddAssignmentComponent implements OnInit {
       },
       {
         name: doc.student_document_title1,
-        year: doc.year,
-        semester: doc.semester,
-        department: doc.department,
-        course_number: doc.course_number,
-        section: doc.section,
+        course: doc. course,
         rating: doc.student_document_rating1,
         file: doc.student_document1,
         filename: doc.student_document_name1,
@@ -309,11 +277,7 @@ export class AddAssignmentComponent implements OnInit {
       },
       {
         name: doc.student_document_title2,
-        year: doc.year,
-        semester: doc.semester,
-        department: doc.department,
-        course_number: doc.course_number,
-        section: doc.section,
+        course: doc. course,
         rating: doc.student_document_rating2,
         file: doc.student_document2,
         filename: doc.student_document_name2,
@@ -324,11 +288,7 @@ export class AddAssignmentComponent implements OnInit {
       },
       {
         name: doc.student_document_title3,
-        year: doc.year,
-        semester: doc.semester,
-        department: doc.department,
-        course_number: doc.course_number,
-        section: doc.section,
+        course: doc. course,
         rating: doc.student_document_rating3,
         file: doc.student_document3,
         filename: doc.student_document_name3,

@@ -21,10 +21,13 @@ export const environment = {
   allDocuments: localhost + "/api/document/allDocuments",
   updateDocument: localhost + "/api/document/update",
   removeDocument: localhost + "/api/document/remove",
+  getSingleDoc: localhost + "/api/document/getDocument",
+  getMultipleDocs: localhost + "/api/document/getMultipleDocs",
   createAssignment: localhost + "/api/assignment/create",
   allAssignments: localhost + "/api/assignment/allAssignments",
   updateAssignment: localhost + "/api/assignment/update",
   removeAssignment: localhost + "/api/assignment/remove",
+  getAssignment: localhost + "/api/assignment/getAssignment"
 };
 
 /*

@@ -21,7 +21,7 @@ let namePattern = /([A-Za-z\-\’])*/;
 const assignmentVSchema = {
 	title: { type: "string", min: 1, max: 100},
 	department: { type: "string", min: 1, max: 5 },
-	course_number: { type: "string", max: 5 },
+	course: { type: "object"},
     section: { type: "string", min: 1, max: 3 },
     semester: { type: "string", min: 1, max: 3},
     year: { type: "string", min: 1, max: 5},
@@ -83,7 +83,7 @@ router.get('/allAssignments', async function(req, res, next) {
 router.post('/create', async (req, res, next) => {
     
 	let data = req.body;
-    data.filepath = 'assignments/' + data.year + '/' + data.semester + '/' + data.department + data.course_number + data.section + '/' + data.assignment + '/';
+    
     var vres = assignmentValidator.validate(data, assignmentVSchema);
     /* validation failed */
     if(!(vres === true))
@@ -100,7 +100,7 @@ router.post('/create', async (req, res, next) => {
             message: errors
         };
     }
-    let assignment = new AssignmentModel(data.title, data.department, data.course_number, data.section, data.semester, data.year, data.description, data.category, data.fulfilled_requirements, data.assignment_document, data.student_documents);
+    let assignment = new AssignmentModel(data.title, data.course, data.description, data.category, data.fulfilled_requirements, data.assignment_document, data.student_documents);
     
     const savedata = { fieldname: 'file',
         originalname: data.filename,
@@ -164,7 +164,7 @@ router.post('/update', async (req, res, next) =>
             message: errors
         };
     }
-    let assignment = new AssignmentModel(data.title, data.department, data.course, data.course_number, data.section, data.semester, data.year, data.description, data.category, data.fulfilled_requirements, data.assignment_document, data.student_documents);
+    let assignment = new AssignmentModel(data.title, data.course, data.description, data.category, data.fulfilled_requirements, data.assignment_document, data.student_documents);
 
     mongo.connect(constants.constants.db_url, {
         useNewUrlParser: true,
@@ -242,5 +242,52 @@ router.post('/remove', async (req, res, next) =>
     });    
 
 });   
+
+router.get('/getAssignment/:id', async function(req, res, next) {
+    const data = ObjectId(req.params.id);
+	mongo.connect(constants.constants.db_url, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+        }, (err, client) => {
+        if (err) {
+        console.error(err);
+        client.close();
+        return
+        }
+        const db = client.db('accreditation-station');
+        const collection = db.collection('assignments')
+        console.log("ID");
+        console.log(data);
+        collection.find({_id:data}).toArray((err, result) => {
+            if (err) {
+                console.log("ERROR");
+                console.log(err);
+                client.close();
+                return res.status(400).json({ error: err});
+            } else {
+                
+                let resultObj;
+                if (result.length > 0) {
+                    resultObj = {
+                        status: "S",
+                        statusMessage: "Successfully returned assignment",
+                        assignments: result
+                    }
+                    client.close();
+                    return res.status(200).json(resultObj);
+                } else {
+                    resultObj = {
+                        status: "I",
+                        statusMessage: "No User Returned",
+                        assignments: result
+                    }
+                    client.close();
+                    return res.status (100).json(resultObj);
+                }
+                
+            }
+        });     
+    });    	
+});
 
 module.exports = router;
