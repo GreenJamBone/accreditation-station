@@ -1,3 +1,4 @@
+<div class="breadcrumb"><a routerLink="/assignment-management">Return to Assignment Management</a></div>
 <div class="message text-danger">
     <span *ngIf="showMessage">{{theMessage}}</span>
 </div>
@@ -39,11 +40,12 @@
     <label>
         <span>Fulfilled Requirements (hold ctrl to select multiple):</span>
         <select class="requirements" formControlName="fulfilled_requirements" multiple [compareWith]="compareFnReq"> 
-            <option *ngFor="let r of theReqs" [value]="{id:r._id, name:r.name}">
+            <option *ngFor="let r of theReqs" [value]="{id:r._id, name:r.name}" >
                 {{r.name}}
             </option>
         </select>
     </label>
+    <h3>To Replace Documents, Choose a File to Upload</h3>
     <label>
         <span>Assignment Document Name:</span>
         <input type="text" formControlName="assignment_document_title">

@@ -20,15 +20,11 @@ let namePattern = /([A-Za-z\-\’])*/;
 /* assignment validator shema */
 const assignmentVSchema = {
 	title: { type: "string", min: 1, max: 100},
-	department: { type: "string", min: 1, max: 5 },
 	course: { type: "object"},
-    section: { type: "string", min: 1, max: 3 },
-    semester: { type: "string", min: 1, max: 3},
-    year: { type: "string", min: 1, max: 5},
     description: { type: "string"},
     category: { type: "string"},
     fulfilled_requirements: { type: "array"},
-    assignment_document: {type: "string"},
+    assignment_document: {type: "object"},
     student_documents: { type: "array"},
 };
 
@@ -101,14 +97,34 @@ router.post('/create', async (req, res, next) => {
         };
     }
     let assignment = new AssignmentModel(data.title, data.course, data.description, data.category, data.fulfilled_requirements, data.assignment_document, data.student_documents);
-    
-    const savedata = { fieldname: 'file',
-        originalname: data.filename,
-        encoding: 'base64',
-        mimetype: data.type,
-        buffer: data.file,
-        size: data.filesize 
-    };
+    let rootDir = 'C:/MonmouthUniversity/thesis';
+    docdata = data.student_documents;
+    docdata.push(data.assignment_document);
+
+    for (let i = 0; i < docdata.length; i++) {
+        let singleDoc = docdata[i];
+        let assignment = data.title;
+        assignment = assignment.split(" ").join("");
+
+        singleDoc.creation_date = (new Date()).toDateString();
+        singleDoc.modified_date = singleDoc.creation_date;
+
+        let saveDir = 'assignments/';
+
+        singleDoc.filepath = saveDir + data.course.year + '/' + data.course.semester + '/' + data.course.department + data.course.course_number + data.course.section + '/' + assignment + '/';
+
+        const savedata = { fieldname: 'file',
+            originalname: singleDoc.filename,
+            encoding: 'base64',
+            mimetype: singleDoc.type,
+            buffer: singleDoc.file,
+            size: singleDoc.filesize 
+        };
+
+        process.chdir(rootDir);
+        createDirectoryAndSave(singleDoc, savedata);
+        process.chdir(rootDir);
+    }
 
     mongo.connect(constants.constants.db_url, {
         useNewUrlParser: true,
@@ -145,9 +161,11 @@ router.post('/create', async (req, res, next) => {
 
 /* updates the assignment by uid */
 router.post('/update', async (req, res, next) =>
-{
+{   
+    let rootDir = 'C:/MonmouthUniversity/thesis';
 	const data = req.body;
     const assignmentId = req.body._id;
+    let docdata = [];
     var vres = assignmentValidator.validate(data, assignmentVSchema);
     /* validation failed */
     if(!(vres === true))
@@ -165,6 +183,38 @@ router.post('/update', async (req, res, next) =>
         };
     }
     let assignment = new AssignmentModel(data.title, data.course, data.description, data.category, data.fulfilled_requirements, data.assignment_document, data.student_documents);
+    if (data.student_documents) {
+        docdata = data.student_documents;
+    }
+    if (data.assignment_document) {
+        docdata.push(data.assignment_document);
+    }
+    
+    for (let i = 0; i < docdata.length; i++) {
+        let singleDoc = docdata[i];
+        let assignment = data.title;
+        assignment = assignment.split(" ").join("");
+
+        singleDoc.creation_date = (new Date()).toDateString();
+        singleDoc.modified_date = singleDoc.creation_date;
+
+        let saveDir = 'assignments/';
+
+        singleDoc.filepath = saveDir + data.course.year + '/' + data.course.semester + '/' + data.course.department + data.course.course_number + data.course.section + '/' + assignment + '/';
+
+        const savedata = { fieldname: 'file',
+            originalname: singleDoc.filename,
+            encoding: 'base64',
+            mimetype: singleDoc.type,
+            buffer: singleDoc.file,
+            size: singleDoc.filesize 
+        };
+
+        process.chdir(rootDir);
+        createDirectoryAndSave(singleDoc, savedata);
+        process.chdir(rootDir);
+    }
+    
 
     mongo.connect(constants.constants.db_url, {
         useNewUrlParser: true,
@@ -289,5 +339,29 @@ router.get('/getAssignment/:id', async function(req, res, next) {
         });     
     });    	
 });
+
+function createDirectoryAndSave(theData, theSD) {
+    
+    if (!fs.existsSync(theData.filepath)) {
+        fs.mkdirSync(theData.filepath, { recursive: true }, function(err) {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log("New directory successfully created.")
+            }
+        });
+        console.log('creating directory');
+        createDirectoryAndSave(theData, theSD);
+    } else {
+        console.log('directory exists');
+        process.chdir(theData.filepath);
+        fs.writeFile(theData.filename, theSD, function(err) {
+            if(err) {
+                return console.log(err);
+            }
+            console.log("The file was saved!");
+        }); 
+    }
+} 
 
 module.exports = router;

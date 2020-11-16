@@ -193,14 +193,9 @@ router.post('/create', async (req, res, next) => {
         singleDoc.creation_date = (new Date()).toDateString();
         singleDoc.modified_date = singleDoc.creation_date;
 
-        let saveDir = 'documents/';
-        if (singleDoc.fileDir && singleDoc.fileDir === 'assignment') {
-            saveDir = 'assignments/';
-        }
-        if (!singleDoc.assignment || singleDoc.assignment === 'undefined') {
-            singleDoc.assignment = 'SELF-STUDY';
-        }
-        singleDoc.filepath = saveDir + singleDoc.course.year + '/' + singleDoc.course.semester + '/' + singleDoc.course.department + singleDoc.course.course_number + singleDoc.course.section + '/' + singleDoc.assignment + '/';
+        let saveDir = 'self-study/';
+        
+        singleDoc.filepath = saveDir + singleDoc.course.year + '/';
 
         let document = new DocumentModel(singleDoc.name, singleDoc.course, singleDoc.type, singleDoc.rating, singleDoc.creation_date, singleDoc.modified_date, singleDoc.filepath, singleDoc.filename, singleDoc.assignment);
  

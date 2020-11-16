@@ -66,10 +66,10 @@ export class EditAssignmentComponent implements OnInit {
       student_document_rating3: [""],
       student_document_type3: [""],
       student_document_filesize3: [Number],
-      assignment_document: [null, Validators.required],
-      student_document1:[null, Validators.required],
-      student_document2:[null, Validators.required],
-      student_document3:[null, Validators.required]
+      assignment_document: [null],
+      student_document1:[null],
+      student_document2:[null],
+      student_document3:[null]
     });
 
     if (this.theAssignmentID) {
@@ -77,22 +77,7 @@ export class EditAssignmentComponent implements OnInit {
       this.assignmentSvc.getAssignment(this.theAssignmentID).subscribe(resp => {
         if (resp) {
           this.prefillAssignment = resp.assignments[0];
-          let docsPayload = {
-            theDocs: this.prefillAssignment.student_documents
-          }
-          this.docSvc.getDocument(this.prefillAssignment.assignment_document).subscribe(resp1 => {
-            if (resp1) {
-              this.assDoc = resp1.documents;
-              this.docSvc.getMultipleDocsById(docsPayload).subscribe(resp2 => {
-                if (resp2) {
-                  console.log(resp2);
-                  this.stDocs = resp2.documents;
-                  this.fillInForm();
-                }
-              });
-              
-            }
-          })
+          this.fillInForm();
         } 
       })
     }
@@ -117,7 +102,7 @@ export class EditAssignmentComponent implements OnInit {
     console.log(this.addAssignmentForm.get('fulfilled_requirements'))
   }
   compareFnReq(r1: any, r2:any): boolean {     
-    return r1 && r2 ? r1.id === r2.id : r1 === r2; 
+    return r1 && r2 ? r1.name === r2.name : r1 === r2; 
   }
   compareFnCrs(c1: any, c2:any): boolean {     
     return c1 && c2 ? c1._id === c2._id : c1 === c2; 
@@ -132,32 +117,33 @@ export class EditAssignmentComponent implements OnInit {
         description: this.prefillAssignment.description,
         category: this.prefillAssignment.category,
         fulfilled_requirements: this.prefillAssignment.fulfilled_requirements,
-        assignment_document_title: this.assDoc[0].name,
-        // assignment_document_name: this.assDoc.assignment_document_name,      
-        // assignment_document_type: this.assDoc.assignment_document_type,
-        // assignment_document_filesize: this.assDoc.assignment_document_filesize,
-        // student_document_name1: this.stDocs[0].student_document_name1,
-        student_document_title1: this.stDocs[0].name,
-        // student_document_rating1: this.stDocs[0].student_document_rating1,
-        // student_document_type1: this.stDocs[0].student_document_type1,
-        // student_document_filesize1: this.stDocs[0].student_document_filesize1,
-        student_document_title2: this.stDocs[1].name,
-        // student_document_name2: this.stDocs[1].student_document_name2,
-        // student_document_rating2: this.stDocs[1].student_document_rating2,
-        // student_document_type2: this.stDocs[1].student_document_type2,
-        // student_document_filesize2: this.stDocs[1].student_document_filesize2,
-        // student_document_name3: this.stDocs[2].name,
-        student_document_title3: this.stDocs[2].name,
-        // student_document_rating3: this.stDocs[2].student_document_rating3,
-        // student_document_type3: this.stDocs[2].student_document_type3,
-        // student_document_filesize3: this.stDocs[2].student_document_filesize3,
-        // assignment_document: this.prefillAssignment.assignment_document,
-        // student_document1: this.prefillAssignment.student_document1,
-        // student_document2: this.prefillAssignment.student_document2,
-        // student_document3: this.prefillAssignment.student_document3
+        assignment_document_title: this.prefillAssignment.assignment_document.name,
+        assignment_document_name: this.prefillAssignment.assignment_document.filename,      
+        assignment_document_type: this.prefillAssignment.assignment_document.type,
+        assignment_document_filesize: this.prefillAssignment.assignment_document.filesize,
+        student_document_name1: this.prefillAssignment.student_documents[0].filename,
+        student_document_title1: this.prefillAssignment.student_documents[0].name,
+        student_document_rating1: this.prefillAssignment.student_documents[0].rating,
+        student_document_type1: this.prefillAssignment.student_documents[0].type,
+        student_document_filesize1: this.prefillAssignment.student_documents[0].filesize,
+        student_document_title2: this.prefillAssignment.student_documents[1].name,
+        student_document_name2: this.prefillAssignment.student_documents[1].filename,
+        student_document_rating2: this.prefillAssignment.student_documents[1].rating,
+        student_document_type2: this.prefillAssignment.student_documents[1].type,
+        student_document_filesize2: this.prefillAssignment.student_documents[1].filesize,
+        student_document_name3: this.prefillAssignment.student_documents[2].filename,
+        student_document_title3: this.prefillAssignment.student_documents[2].name,
+        student_document_rating3: this.prefillAssignment.student_documents[2].rating,
+        student_document_type3: this.prefillAssignment.student_documents[2].type,
+        student_document_filesize3: this.prefillAssignment.student_documents[2].filesize,
+        assignment_document: this.prefillAssignment.assignment_document.file,
+        student_document1: this.prefillAssignment.student_documents[0].file,
+        student_document2: this.prefillAssignment.student_documents[1].file,
+        student_document3: this.prefillAssignment.student_documents[2].file
       });
+      
       this.addAssignmentForm.get('fulfilled_requirements').setValue(this.prefillAssignment.fulfilled_requirements);
-
+      console.log(this.addAssignmentForm.value);
     }
   }
   onFileChange(event, whichDoc) {
@@ -222,88 +208,62 @@ export class EditAssignmentComponent implements OnInit {
       
      }
   }
-  onStudentFileChange(event) {
-    const reader = new FileReader();
-     if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      reader.readAsDataURL(file)
-      reader.onload = () => {
-        this.addAssignmentForm.patchValue({
-          file: reader.result
-        });
-      }
-      this.addAssignmentForm.patchValue({
-        filename: file.name,
-        type: file.type,
-        filesize: file.size
-      });
-     }
-  }
+ 
+  
   onSubmit() {
     this.submitted = true;
     if (!this.addAssignmentForm.invalid) {
-      alert('Form Submitted succesfully!!!\n Check the values in browser console.');
-      console.table(this.addAssignmentForm.value);
       let theCourse = this.addAssignmentForm.controls['course'].value;
+      let studentDocs = [];
       let assignmentPayload = {
+        _id: this.prefillAssignment._id,
         title: this.addAssignmentForm.controls['title'].value,
-        department: theCourse.department,
-        course_number: theCourse.course_number,
-        section: theCourse.section,
-        semester: theCourse.semester,
-        year: theCourse.year,
         course: theCourse,
         description: this.addAssignmentForm.controls['description'].value,
         category: this.addAssignmentForm.controls['category'].value,
         fulfilled_requirements: this.addAssignmentForm.controls['fulfilled_requirements'].value,
-        assignment_document: "",
-        student_documents: []
+        assignment_document:  {
+          name: this.addAssignmentForm.controls['assignment_document_title'].value,
+          rating: "",
+          file: this.addAssignmentForm.controls['assignment_document'].value,
+          filename: this.addAssignmentForm.controls['assignment_document_name'].value,
+          type: this.addAssignmentForm.controls['assignment_document_type'].value,
+          filesize: this.addAssignmentForm.controls['assignment_document_filesize'].value
+        },
+        student_documents: [{
+          name: this.addAssignmentForm.controls['student_document_title1'].value,
+          rating: this.addAssignmentForm.controls['student_document_rating1'].value,
+          file: this.addAssignmentForm.controls['student_document1'].value,
+          filename: this.addAssignmentForm.controls['student_document_name1'].value,
+          type: this.addAssignmentForm.controls['student_document_type1'].value,
+          filesize: this.addAssignmentForm.controls['student_document_filesize1'].value,
+        },
+        {
+          name: this.addAssignmentForm.controls['student_document_title2'].value,
+          rating: this.addAssignmentForm.controls['student_document_rating2'].value,
+          file: this.addAssignmentForm.controls['student_document2'].value,
+          filename: this.addAssignmentForm.controls['student_document_name2'].value,
+          type: this.addAssignmentForm.controls['student_document_type2'].value,
+          filesize: this.addAssignmentForm.controls['student_document_filesize2'].value,
+        },
+        {
+          name: this.addAssignmentForm.controls['student_document_title3'].value,
+          rating: this.addAssignmentForm.controls['student_document_rating3'].value,
+          file: this.addAssignmentForm.controls['student_document3'].value,
+          filename: this.addAssignmentForm.controls['student_document_name3'].value,
+          type: this.addAssignmentForm.controls['student_document_type3'].value,
+          filesize: this.addAssignmentForm.controls['student_document_filesize3'].value,
+        }]
       }
 
-      this.assignmentSvc.addAssignment(assignmentPayload).subscribe(resp => {
+      this.assignmentSvc.updateAssignment(assignmentPayload).subscribe(resp => {
         if (resp) {
-          if (resp.status === 'S') {
-            
-            const assID = resp.assignmentInfo._id;
-
-            const docPayload = this.createDocPayload(this.addAssignmentForm.value, assID);
-
-            console.log(docPayload);
-            this.docSvc.addDocument(docPayload).subscribe(resp => {
-              if (resp) {
-                if (resp.status === 'S') {
-                  let docInfo = resp.documentInfo;
-                  let assDoc;
-                  let stDocs = [];
-                  for (let i = 0; i < docInfo.length; i++) {
-                    if (docInfo[i].filepath.indexOf('assignments') !== -1) {
-                      assDoc = docInfo[i]._id;
-                    } else {
-                      stDocs.push(docInfo[i]._id);
-                    }
-                  }
-                  assignmentPayload['_id'] = assID;
-                  assignmentPayload.assignment_document = assDoc;
-                  assignmentPayload.student_documents = stDocs;
-                  this.assignmentSvc.updateAssignment(assignmentPayload).subscribe(resp => {
-                    if (resp) {
-                      if (resp.status === 'S') {
-                        if (resp.status === "S") {
-                          this.addAssignmentForm.reset();
-                          this.theMessage = this.messages.success;
-                          this.showMessage = true;
-                        } else {
-                          this.theMessage = this.messages.error;
-                          this.showMessage = true;
-                        }
-                      }
-                    }
-                  });
-
-                }
-              }
-            });
-            
+          if (resp.status === "S") {
+            this.theMessage = this.messages.success;
+            this.showMessage = true;
+          } else {
+            this.theMessage = this.messages.error;
+            this.showMessage = true;
           }
         }
       });
@@ -313,73 +273,6 @@ export class EditAssignmentComponent implements OnInit {
 
     }
   }
-  createDocPayload(doc, assignmentID) {
-
-    let theDocPL = { documents:[
-      {
-        name: doc.assignment_document_title,
-        year: doc.year,
-        semester: doc.semester,
-        department: doc.department,
-        course_number: doc.course_number,
-        section: doc.section,
-        rating: "",
-        file: doc.assignment_document,
-        filename: doc.assignment_document_name,
-        type: doc.assignment_document_type,
-        filesize: doc.assignment_document_filesize,
-        fileDir: 'assignment',
-        assignment: assignmentID
-      },
-      {
-        name: doc.student_document_title1,
-        year: doc.year,
-        semester: doc.semester,
-        department: doc.department,
-        course_number: doc.course_number,
-        section: doc.section,
-        rating: doc.student_document_rating1,
-        file: doc.student_document1,
-        filename: doc.student_document_name1,
-        type: doc.student_document_type1,
-        filesize: doc.student_document_filesize1,
-        fileDir: 'document',
-        assignment: assignmentID
-      },
-      {
-        name: doc.student_document_title2,
-        year: doc.year,
-        semester: doc.semester,
-        department: doc.department,
-        course_number: doc.course_number,
-        section: doc.section,
-        rating: doc.student_document_rating2,
-        file: doc.student_document2,
-        filename: doc.student_document_name2,
-        type: doc.student_document_type2,
-        filesize: doc.student_document_filesize2,
-        fileDir: 'document',
-        assignment: assignmentID
-      },
-      {
-        name: doc.student_document_title3,
-        year: doc.year,
-        semester: doc.semester,
-        department: doc.department,
-        course_number: doc.course_number,
-        section: doc.section,
-        rating: doc.student_document_rating3,
-        file: doc.student_document3,
-        filename: doc.student_document_name3,
-        type: doc.student_document_type3,
-        filesize: doc.student_document_filesize3,
-        fileDir: 'document',
-        assignment: assignmentID
-      }
-    ]}
-    return theDocPL;
-  }
-
 
   get addAssignmentFormControl() {
     return this.addAssignmentForm.controls;
