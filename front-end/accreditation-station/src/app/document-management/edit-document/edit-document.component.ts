@@ -1,14 +1,16 @@
-import { Component, OnInit, ChangeDetectorRef, HostListener } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, HostListener, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DocumentService } from 'src/app/services/document.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-add-document',
-  templateUrl: './add-document.component.html',
-  styleUrls: ['./add-document.component.css']
+  selector: 'app-edit-document',
+  templateUrl: './edit-document.component.html',
+  styleUrls: ['./edit-document.component.css']
 })
-export class AddDocumentComponent implements OnInit {
-  addDocumentForm: FormGroup;
+export class EditDocumentComponent implements OnInit {
+  editDocumentForm: FormGroup;
+
   submitted = false;
   showMessage = false;
   theMessage = "";
@@ -362,20 +364,22 @@ export class AddDocumentComponent implements OnInit {
   //   }
   // }
 
-  constructor(private docSvc: DocumentService, private fb: FormBuilder, private cd: ChangeDetectorRef) { }
+  constructor(private docSvc: DocumentService, private fb: FormBuilder, private cd: ChangeDetectorRef, public dialogRef: MatDialogRef<EditDocumentComponent>, @Inject(MAT_DIALOG_DATA) public docData) { }
 
   ngOnInit() {
-    this.addDocumentForm = this.fb.group({
+    this.editDocumentForm = this.fb.group({
+      _id: [''],
       name: ['', [Validators.required, Validators.minLength(4)]],
       chapter_section: ['', Validators.required],
       year: [''],
       department: [''],
-      file: [null, Validators.required],
+      file: [null],
       filename: [''],
       type: [''],
       filesize: [Number]
     });
     this.getYears();
+    this.fillInForm();
   }
 
   getYears() {
@@ -386,6 +390,10 @@ export class AddDocumentComponent implements OnInit {
     }
   }
 
+  compareFnChapter(r1: any, r2:any): boolean {     
+    return r1 && r2 ? (r1.value_c === r2.value_c && r1.value_s === r2.value_s) : r1 === r2; 
+  }
+
   onFileChange(event) {
     const reader = new FileReader();
      if (event.target.files.length > 0) {
@@ -393,31 +401,43 @@ export class AddDocumentComponent implements OnInit {
       console.log(file);
       reader.readAsDataURL(file)
       reader.onload = () => {
-        this.addDocumentForm.patchValue({
+        this.editDocumentForm.patchValue({
           file: reader.result
         });
       }
-      this.addDocumentForm.patchValue({
+      this.editDocumentForm.patchValue({
         filename: file.name,
         type: file.type,
         filesize: file.size
       });
      }
   }
+  fillInForm(){
+    if (this.editDocumentForm && this.docData.name) {
+      this.editDocumentForm.patchValue({
+        _id: this.docData._id,
+        name: this.docData.name,
+        chapter_section: this.docData.chapter_section,
+        year: this.docData.year,
+        department: this.docData.department,
+        file: this.docData.file,
+        filename: this.docData.filename,
+        type: this.docData.type,
+        filesize: this.docData.filesize
+      });
+    }
+  }
+
   onSubmit() {
     
-    console.log(this.addDocumentForm.value);
-
     this.submitted = true;
-    if (this.addDocumentForm.valid) {
-      const payload = {
-        documents:[this.addDocumentForm.value]
-      };
-      this.docSvc.addDocument(payload).subscribe(resp => {
+    if (this.editDocumentForm.valid) {
+      const payload = this.editDocumentForm.value;
+      this.docSvc.updateDocument(payload).subscribe(resp => {
         if (resp) {
           console.log(resp);
           if (resp.status === "S") {
-            this.addDocumentForm.reset();
+            this.dialogRef.close({data: "submitted"});
             this.theMessage = this.messages.success;
             this.showMessage = true;
           } else {
@@ -429,7 +449,7 @@ export class AddDocumentComponent implements OnInit {
     }
   }
 
-  get addDocumentFormControl() {
-    return this.addDocumentForm.controls;
+  get editDocumentFormControl() {
+    return this.editDocumentForm.controls;
   }
 }

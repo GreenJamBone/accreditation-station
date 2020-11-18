@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DocumentService } from '../../services/document.service';
 import { AreYouSureModalComponent } from '../../are-you-sure-modal/are-you-sure-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { EditDocumentComponent } from '../edit-document/edit-document.component';
 
 @Component({
   selector: 'app-view-documents',
@@ -50,6 +51,33 @@ export class ViewDocumentsComponent implements OnInit {
           this.displayMessage = this.messages.errMsg;
           this.showMessage = true;
         }
+      }
+    });
+  }
+
+  editDocument(document) {
+    this.showMessage = false;
+    this.messages.updatedDocumentMsg = 'This document has been successfully updated!';
+    this.dialogRef = this.dialog.open(EditDocumentComponent, {
+      height: "",
+      width: "600px",
+      data: document
+    });
+    this.dialogRef.afterClosed().subscribe((result) => {
+      if (result.data === 'submitted') {
+        this.docSvc.getAllDocuments().subscribe((resp) => {
+          if (resp) {
+            if (resp.status === "S") {
+              console.log(resp.statusMessage);
+              this.displayMessage = this.messages.updatedDocumentMsg;
+              this.showMessage = true;
+              this.documents = resp.documents;
+            } else {
+              this.displayMessage = this.messages.errMsg;
+              this.showMessage = true;
+            }
+          }
+        });
       }
     });
   }

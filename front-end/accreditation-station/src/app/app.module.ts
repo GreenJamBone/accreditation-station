@@ -40,6 +40,7 @@ import { EditCourseComponent } from './course-management/edit-course/edit-course
 import { AreYouSureModalComponent } from './are-you-sure-modal/are-you-sure-modal.component';
 import { AssignmentManagementComponent } from './assignment-management/assignment-management.component';
 import { AssignmentService } from './services/assignment.service';
+import { EditDocumentComponent } from './document-management/edit-document/edit-document.component';
 
 const appRoutes: Routes = [
   {
@@ -120,6 +121,7 @@ const appRoutes: Routes = [
     EditCourseComponent,
     AreYouSureModalComponent,
     AssignmentManagementComponent,
+    EditDocumentComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,24 +1,22 @@
-<div class="message text-danger">
-    <span *ngIf="showMessage">{{theMessage}}</span>
-</div>
-<form [formGroup]="addDocumentForm" (ngSubmit)="onSubmit()">
+
+<form [formGroup]="editDocumentForm" (ngSubmit)="onSubmit()">
   
     <label>
         <span>Document Name:</span>
         <input id="name" type="text" formControlName="name">
     </label>
-    <span *ngIf="addDocumentForm.controls.name.invalid && (addDocumentForm.controls.name.dirty || addDocumentForm.controls.name.touched)"
+    <span *ngIf="editDocumentForm.controls.name.invalid && (editDocumentForm.controls.name.dirty || editDocumentForm.controls.name.touched)"
         class="alert text-danger">
-        <span *ngIf="addDocumentForm.controls.name.errors.required">
+        <span *ngIf="editDocumentForm.controls.name.errors.required">
             Name is required.
         </span>
-        <span *ngIf="addDocumentForm.controls.name.errors.minlength">
+        <span *ngIf="editDocumentForm.controls.name.errors.minlength">
             Name must be at least 4 characters long.
         </span>
     </span>
     <label>
         <span>Chapter / Section:</span>
-        <select formControlName="chapter_section">
+        <select formControlName="chapter_section" [compareWith]="compareFnChapter">
             <option *ngFor="let ch of chapters" [ngValue]="ch">
                 {{ch.chapter}} -- {{ch.section}}
             </option>
@@ -38,8 +36,8 @@
         <span>File:</span>
         <input id="file" type="file" (change)="onFileChange($event)"/>
     </label>
-    <div *ngIf="addDocumentForm.controls.file.touched && addDocumentForm.controls.file.invalid" class="alert alert-danger">
-        <div *ngIf="addDocumentForm.controls.file.errors.required">File is required.</div>
+    <div *ngIf="editDocumentForm.controls.file.touched && editDocumentForm.controls.file.invalid" class="alert alert-danger">
+        <div *ngIf="editDocumentForm.controls.file.errors.required">File is required.</div>
     </div>
-    <button type="submit" [disabled]="addDocumentForm.invalid || addDocumentForm.pristine">Submit</button>
+    <button type="submit" [disabled]="editDocumentForm.invalid || editDocumentForm.pristine">Submit</button>
   </form>

@@ -195,9 +195,9 @@ router.post('/create', async (req, res, next) => {
 
         let saveDir = 'self-study/';
         
-        singleDoc.filepath = saveDir + singleDoc.course.year + '/';
+        singleDoc.filepath = saveDir + singleDoc.year + '/';
 
-        let document = new DocumentModel(singleDoc.name, singleDoc.course, singleDoc.type, singleDoc.rating, singleDoc.creation_date, singleDoc.modified_date, singleDoc.filepath, singleDoc.filename, singleDoc.assignment);
+        let document = new DocumentModel(singleDoc.name, singleDoc.type, singleDoc.creation_date, singleDoc.modified_date, singleDoc.filepath, singleDoc.filename, singleDoc.year, singleDoc.department, singleDoc.chapter_section, singleDoc.file, singleDoc.filesize);
  
         payload.push(document);
         console.log(payload);
@@ -246,7 +246,77 @@ router.post('/create', async (req, res, next) => {
         });     
     });    	
 });
+
+/* udpates a new document to the list */
+router.post('/update', async (req, res, next) => {
+    let rootDir = 'C:/MonmouthUniversity/thesis';
+
+    let data = req.body;
+    const documentId = data._id;
+
     
+    data.creation_date = (new Date()).toDateString();
+    data.modified_date = data.creation_date;
+
+    let saveDir = 'self-study/';
+    
+    data.filepath = saveDir + data.year + '/';
+
+    let document = new DocumentModel(data.name, data.type, data.creation_date, data.modified_date, data.filepath, data.filename, data.year, data.department, data.chapter_section, data.file, data.filesize);
+
+
+    const savedata = { fieldname: 'file',
+        originalname: data.filename,
+        encoding: 'base64',
+        mimetype: data.type,
+        buffer: data.file,
+        size: data.filesize 
+    };
+
+    process.chdir(rootDir);
+    createDirectoryAndSave(data, savedata);
+    process.chdir(rootDir);
+    
+    
+    mongo.connect(constants.constants.db_url, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+        }, (err, client) => {
+        if (err) {
+        console.error(err)
+        client.close();
+        return
+        }
+        const db = client.db('accreditation-station');
+        const collection = db.collection('documents')
+
+        let id = ObjectId(documentId);
+        const query = {_id:id};
+        const data = {
+            $set: document
+        };
+        collection.updateOne(query, data, {upsert: true}, (err, result) => {
+            if (err) {
+                console.log("ERROR");
+                console.log(err);
+                client.close();
+                return res.status(400).json({ error: err});
+            } else {
+                let resultObj = {
+                    status: "S",
+                    statusMessage: "Successfully updated document.",
+                    insertedCount: result.insertedCount,
+                    insertedId: result.insertedId,
+                    documentInfo: document
+                }
+                client.close();
+                return res.status(200).json(resultObj);
+            }
+        });     
+    });    	
+});
+
+
 /* removes the document from the document list by uid */
 router.post('/remove', async (req, res, next) =>
 {
