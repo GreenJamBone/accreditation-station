@@ -13,6 +13,7 @@ export const environment = {
   allCourses: "/api/course/allCourses",
   updateCourse: "/api/course/update",
   removeCourse: "/api/course/remove",
+  coursesByUser: "/api/course/byuser",
   createDocument: "/api/document/create",
   allDocuments: "/api/document/allDocuments",
   updateDocument: "/api/document/update",

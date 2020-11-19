@@ -28,4 +28,8 @@ export class CourseService {
     removeCourse(payload): Observable<any> {
         return this.http.post(environment.removeCourse, payload);
     }
+
+    getCoursesByUser(user_id): Observable<any> {
+        return this.http.get(environment.coursesByUser + '/' + user_id);
+    }
 }

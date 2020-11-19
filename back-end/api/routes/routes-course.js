@@ -74,6 +74,53 @@ router.get('/allCourses', async function(req, res, next) {
     });    	
 });
 
+router.get('/byUser/:id', async function(req, res, next) {
+    const data = req.params.id;
+	mongo.connect(constants.constants.db_url, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+        }, (err, client) => {
+        if (err) {
+        console.error(err);
+        client.close();
+        return
+        }
+        const db = client.db('accreditation-station');
+        const collection = db.collection('courses')
+        console.log("ID");
+        console.log(data);
+        collection.find({instructor:data}).toArray((err, result) => {
+            if (err) {
+                console.log("ERROR");
+                console.log(err);
+                client.close();
+                return res.status(400).json({ error: err});
+            } else {
+                
+                let resultObj;
+                if (result.length > 0) {
+                    resultObj = {
+                        status: "S",
+                        statusMessage: "Successfully returned course",
+                        courses: result
+                    }
+                    client.close();
+                    return res.status(200).json(resultObj);
+                } else {
+                    resultObj = {
+                        status: "I",
+                        statusMessage: "No Courses Returned",
+                        courses: result
+                    }
+                    client.close();
+                    return res.status (100).json(resultObj);
+                }
+                
+            }
+        });     
+    });    	
+});
+
 /* adds a new course to the list */
 router.post('/create', async (req, res, next) => {
 	const data = req.body;

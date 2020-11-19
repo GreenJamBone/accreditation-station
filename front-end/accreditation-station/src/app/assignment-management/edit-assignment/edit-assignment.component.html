@@ -2,18 +2,18 @@
 <div class="message text-danger">
     <span *ngIf="showMessage">{{theMessage}}</span>
 </div>
-<form [formGroup]="addAssignmentForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="editAssignmentForm" (ngSubmit)="onSubmit()">
   
     <label>
         <span>Assignment Title:</span>
         <input id="title" type="text" formControlName="title">
     </label>
-    <span *ngIf="addAssignmentForm.controls.title.invalid && (addAssignmentForm.controls.title.dirty || addAssignmentForm.controls.title.touched)"
+    <span *ngIf="editAssignmentForm.controls.title.invalid && (editAssignmentForm.controls.title.dirty || editAssignmentForm.controls.title.touched)"
         class="alert text-danger">
-        <span *ngIf="addAssignmentForm.controls.title.errors.required">
+        <span *ngIf="editAssignmentForm.controls.title.errors.required">
             Assignment Title is required.
         </span>
-        <span *ngIf="addAssignmentForm.controls.title.errors.minlength">
+        <span *ngIf="editAssignmentForm.controls.title.errors.minlength">
             Assignment Title must be at least 4 characters long.
         </span>
     </span>
@@ -58,8 +58,8 @@
         <span>Assignment Document:</span>
         <input id="assignment_document" type="file" (change)="onFileChange($event, 'a')"/>
     </label>
-    <div *ngIf="addAssignmentForm.controls.assignment_document.touched && addAssignmentForm.controls.assignment_document.invalid" class="alert alert-danger">
-        <div *ngIf="addAssignmentForm.controls.assignment_document.errors.required">Assignment Document is required.</div>
+    <div *ngIf="editAssignmentForm.controls.assignment_document.touched && editAssignmentForm.controls.assignment_document.invalid" class="alert alert-danger">
+        <div *ngIf="editAssignmentForm.controls.assignment_document.errors.required">Assignment Document is required.</div>
     </div>
     <div>
         <span>Student Documents:</span><br>
@@ -95,9 +95,9 @@
             </label>
         </div>        
     </div>
-    <div *ngIf="addAssignmentForm.controls.student_document1.touched && addAssignmentForm.controls.student_document1.invalid" class="alert alert-danger">
-        <div *ngIf="addAssignmentForm.controls.student_document1.errors.required">All Student Documents are required.</div>
+    <div *ngIf="editAssignmentForm.controls.student_document1.touched && editAssignmentForm.controls.student_document1.invalid" class="alert alert-danger">
+        <div *ngIf="editAssignmentForm.controls.student_document1.errors.required">All Student Documents are required.</div>
     </div>
     
-    <button type="submit" [disabled]="addAssignmentForm.invalid || addAssignmentForm.pristine">Submit</button>
+    <button type="submit" [disabled]="editAssignmentForm.invalid || editAssignmentForm.pristine">Submit</button>
   </form>

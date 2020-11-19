@@ -10,7 +10,9 @@
 .name {
     font-weight: bold;
 }
-
+.info {
+    width: 400px;
+}
 .info, .edit-btn, .documents-btn {
     margin-right: 20px;
 }

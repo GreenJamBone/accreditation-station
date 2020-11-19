@@ -12,7 +12,15 @@ import { Router } from '@angular/router'
 })
 export class LoginComponent implements OnInit {
   loginForm;
-
+  userInfo = {
+    _id: "5ee821a6f9d5f60e9890d570",
+    first_name: "Mike",
+    last_name: "Roch",
+    email: "mike@roch.hah",
+    title: "New Guy",
+    roles: ['instructor']
+  }
+  role = 'instructor';
   constructor(private formBuilder: FormBuilder, private router: Router) { 
     this.loginForm = this.formBuilder.group({
       username: '',
@@ -24,13 +32,28 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(loginData){
+    //make call
     console.log(loginData);
+    sessionStorage.setItem('user_info', btoa(JSON.stringify(this.userInfo)));
     this.loginForm.reset();
-    if (loginData.username === "admin") {
+    if (this.isAdmin(this.userInfo.roles)) {
       this.router.navigate(['admin']);
-    }
-    if (loginData.username === "instructor") {
+    } else if (this.isInstructor(this.userInfo.roles)) {
       this.router.navigate(['instructor']);
+    } else if (this.isAudit(this.userInfo.roles)) {
+      this.router.navigate(['audit']);
+    } else {
+      console.log("NO ACCESS TO THIS APPLICATION - CONTACT THE ADMINISTRATOR FOR ACCESS");
     }
+  }
+
+  isAdmin(roles) {
+    return roles.some(s => s.includes('admin'));
+  }
+  isInstructor(roles) {
+    return roles.some(s => s.includes('instructor'));
+  }
+  isAudit(roles) {
+    return roles.some(s => s.includes('audit'));
   }
 }

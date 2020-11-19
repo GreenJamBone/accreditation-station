@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
+import { CourseService } from '../services/course.service';
 
 @Component({
   selector: 'app-instructor',
@@ -8,49 +9,24 @@ import {MatCardModule} from '@angular/material/card';
   styleUrls: ['./instructor.component.css']
 })
 export class InstructorComponent implements OnInit {
+  userData;
   viewAssignments = false;
   addAssign = false;
-  courseId = '';
-  courseInfo = {
-    id: '',
-    year: '',
-    semester: '',
-    course_number: '',
-    section: '',
-  }
+  theCourse;
+  courseId;
+  courses = [];
   
-  courses = [
-    {
-      id: "124124124",
-      course_number: "MIS 520",
-      section: "A",
-      semester: "SP",
-      year: "2020",
-      name: "Intro to Thesisizing",
-      description: "An introduction to the methodologies involved in creating a thesis.",
-      instructor: "John Doe",
-      audit_requirements:["asfasf", "asfasg"],
-      preceded_by: "MIS 519",
-      succeeded_by: ""
-    },
-    {
-      id: "124124124",
-      course_number: "MIS 521",
-      section: "A",
-      semester: "SP",
-      year: "2020",
-      name: "Intro to Angular",
-      description: "An introduction to Angular.",
-      instructor: "John Doe",
-      audit_requirements:["asfasf", "asfasg"],
-      preceded_by: "",
-      succeeded_by: ""
-    }
-]
-  
-  constructor() { }
+  constructor(private courseSvc: CourseService) { }
 
   ngOnInit(): void {
+    this.userData = JSON.parse(atob(sessionStorage.getItem('user_info')));
+    console.log(this.userData);
+    this.courseSvc.getCoursesByUser(this.userData._id).subscribe(resp => {
+      if (resp && resp.status === 'S') {
+        console.log(resp);
+        this.courses = resp.courses;
+      }
+    });
   }
 
   showAssignments(theId) {
@@ -59,16 +35,9 @@ export class InstructorComponent implements OnInit {
     this.courseId = theId;
   }
 
-  addAssignment(theId, num, section, semester, year) {
+  addAssignment(course) {
     this.viewAssignments = false;
     this.addAssign = true;
-    this.courseId = theId;
-    this.courseInfo = {
-      id: theId,
-      year: year,
-      semester: semester,
-      course_number: num,
-      section: section,
-    }
+    this.theCourse = course;
   }
 }

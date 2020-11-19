@@ -5,14 +5,19 @@
     <div class="page-content">
         <div *ngFor="let course of courses">
             <div class="row">
-                <span class="info"><span>{{course.course_number}}</span> <span>{{course.section}}</span> -- <span>{{course.semester}}</span> <span>{{course.year}}</span></span>
-                <span class="edit-btn" (click)="addAssignment(course.id, course.course_number, course.section, course.semester, course.year)"><button>Add Assignment</button></span>
+                <span class="info">
+                    <div>{{course.name}}</div>
+                    <div>
+                        <span>{{course.course_number}}</span> <span> {{course.section}}</span> -- <span>{{course.semester}} </span> <span>{{course.year}}</span>
+                    </div>
+                </span>
+                <span class="edit-btn" (click)="addAssignment(course)"><button>Add Assignment</button></span>
                 <span class="edit-btn" (click)="showAssignments(course.id)"><button>Manage Assignments</button></span>
             </div>
         </div>
     </div>
     <div class="assignments">
         <app-view-assignments *ngIf="viewAssignments" [courseId]="courseId"></app-view-assignments>
-        <app-add-assignment *ngIf="addAssign" [courseInfo]="courseInfo"></app-add-assignment>
+        <app-add-assignment *ngIf="addAssign" [courseInfo]="theCourse"></app-add-assignment>
     </div>
 </div>

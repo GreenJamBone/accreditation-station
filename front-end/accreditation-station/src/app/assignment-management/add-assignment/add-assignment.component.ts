@@ -99,8 +99,15 @@ export class AddAssignmentComponent implements OnInit {
     }
   }
   fillInForm(){
-    // if (this.addAssignmentForm) {
-    // }
+    if (this.addAssignmentForm && this.courseInfo) {
+      this.addAssignmentForm.patchValue({
+        course: this.courseInfo,
+      });
+      this.addAssignmentForm.controls.course.disable();
+    }
+  }
+  compareFnCrs(c1: any, c2:any): boolean {     
+    return c1 && c2 ? c1._id === c2._id : c1 === c2; 
   }
   onFileChange(event, whichDoc) {
     const reader = new FileReader();

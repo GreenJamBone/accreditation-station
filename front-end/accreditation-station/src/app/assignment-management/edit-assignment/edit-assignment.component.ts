@@ -18,7 +18,7 @@ export class EditAssignmentComponent implements OnInit {
   prefillAssignment;
   assDoc;
   stDocs = [];
-  addAssignmentForm: FormGroup;
+  editAssignmentForm: FormGroup;
   submitted = false;
   showMessage = false;
   theMessage = "";
@@ -41,7 +41,7 @@ export class EditAssignmentComponent implements OnInit {
     console.log(this.theAssignmentID);
     this.getReqs();
     this.getCourses();
-    this.addAssignmentForm = this.fb.group({
+    this.editAssignmentForm = this.fb.group({
       title: ['', [Validators.required]],
       course: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -99,7 +99,7 @@ export class EditAssignmentComponent implements OnInit {
     });
   }
   printValue() {
-    console.log(this.addAssignmentForm.get('fulfilled_requirements'))
+    console.log(this.editAssignmentForm.get('fulfilled_requirements'))
   }
   compareFnReq(r1: any, r2:any): boolean {     
     return r1 && r2 ? r1.name === r2.name : r1 === r2; 
@@ -110,7 +110,7 @@ export class EditAssignmentComponent implements OnInit {
   fillInForm(){
         
     if (this.prefillAssignment) {
-      this.addAssignmentForm.patchValue({
+      this.editAssignmentForm.patchValue({
         title: this.prefillAssignment.title,
         department: this.prefillAssignment.department,
         course: this.prefillAssignment.course,
@@ -142,8 +142,8 @@ export class EditAssignmentComponent implements OnInit {
         student_document3: this.prefillAssignment.student_documents[2].file
       });
       
-      this.addAssignmentForm.get('fulfilled_requirements').setValue(this.prefillAssignment.fulfilled_requirements);
-      console.log(this.addAssignmentForm.value);
+      this.editAssignmentForm.get('fulfilled_requirements').setValue(this.prefillAssignment.fulfilled_requirements);
+      console.log(this.editAssignmentForm.value);
     }
   }
   onFileChange(event, whichDoc) {
@@ -153,11 +153,11 @@ export class EditAssignmentComponent implements OnInit {
       reader.readAsDataURL(file)
       if (whichDoc === 'a') {
         reader.onload = () => {
-          this.addAssignmentForm.patchValue({
+          this.editAssignmentForm.patchValue({
             assignment_document: reader.result
           });
         }
-        this.addAssignmentForm.patchValue({
+        this.editAssignmentForm.patchValue({
           assignment_document_name: file.name,
           assignment_document_type: file.type,
           assignment_document_filesize: file.size
@@ -166,11 +166,11 @@ export class EditAssignmentComponent implements OnInit {
 
       if (whichDoc === 's1') {
         reader.onload = () => {
-          this.addAssignmentForm.patchValue({
+          this.editAssignmentForm.patchValue({
             student_document1: reader.result
           });
         }
-        this.addAssignmentForm.patchValue({
+        this.editAssignmentForm.patchValue({
           student_document_name1: file.name,
           student_document_type1: file.type,
           student_document_filesize1: file.size,
@@ -180,11 +180,11 @@ export class EditAssignmentComponent implements OnInit {
 
       if (whichDoc === 's2') {
         reader.onload = () => {
-          this.addAssignmentForm.patchValue({
+          this.editAssignmentForm.patchValue({
             student_document2: reader.result
           });
         }
-        this.addAssignmentForm.patchValue({
+        this.editAssignmentForm.patchValue({
           student_document_name2: file.name,
           student_document_type2: file.type,
           student_document_filesize2: file.size,
@@ -194,11 +194,11 @@ export class EditAssignmentComponent implements OnInit {
 
       if (whichDoc === 's3') {
         reader.onload = () => {
-          this.addAssignmentForm.patchValue({
+          this.editAssignmentForm.patchValue({
             student_document3: reader.result
           });
         }
-        this.addAssignmentForm.patchValue({
+        this.editAssignmentForm.patchValue({
           student_document_name3: file.name,
           student_document_type3: file.type,
           student_document_filesize3: file.size,
@@ -212,47 +212,47 @@ export class EditAssignmentComponent implements OnInit {
   
   onSubmit() {
     this.submitted = true;
-    if (!this.addAssignmentForm.invalid) {
-      let theCourse = this.addAssignmentForm.controls['course'].value;
+    if (!this.editAssignmentForm.invalid) {
+      let theCourse = this.editAssignmentForm.controls['course'].value;
       let studentDocs = [];
       let assignmentPayload = {
         _id: this.prefillAssignment._id,
-        title: this.addAssignmentForm.controls['title'].value,
+        title: this.editAssignmentForm.controls['title'].value,
         course: theCourse,
-        description: this.addAssignmentForm.controls['description'].value,
-        category: this.addAssignmentForm.controls['category'].value,
-        fulfilled_requirements: this.addAssignmentForm.controls['fulfilled_requirements'].value,
+        description: this.editAssignmentForm.controls['description'].value,
+        category: this.editAssignmentForm.controls['category'].value,
+        fulfilled_requirements: this.editAssignmentForm.controls['fulfilled_requirements'].value,
         assignment_document:  {
-          name: this.addAssignmentForm.controls['assignment_document_title'].value,
+          name: this.editAssignmentForm.controls['assignment_document_title'].value,
           rating: "",
-          file: this.addAssignmentForm.controls['assignment_document'].value,
-          filename: this.addAssignmentForm.controls['assignment_document_name'].value,
-          type: this.addAssignmentForm.controls['assignment_document_type'].value,
-          filesize: this.addAssignmentForm.controls['assignment_document_filesize'].value
+          file: this.editAssignmentForm.controls['assignment_document'].value,
+          filename: this.editAssignmentForm.controls['assignment_document_name'].value,
+          type: this.editAssignmentForm.controls['assignment_document_type'].value,
+          filesize: this.editAssignmentForm.controls['assignment_document_filesize'].value
         },
         student_documents: [{
-          name: this.addAssignmentForm.controls['student_document_title1'].value,
-          rating: this.addAssignmentForm.controls['student_document_rating1'].value,
-          file: this.addAssignmentForm.controls['student_document1'].value,
-          filename: this.addAssignmentForm.controls['student_document_name1'].value,
-          type: this.addAssignmentForm.controls['student_document_type1'].value,
-          filesize: this.addAssignmentForm.controls['student_document_filesize1'].value,
+          name: this.editAssignmentForm.controls['student_document_title1'].value,
+          rating: this.editAssignmentForm.controls['student_document_rating1'].value,
+          file: this.editAssignmentForm.controls['student_document1'].value,
+          filename: this.editAssignmentForm.controls['student_document_name1'].value,
+          type: this.editAssignmentForm.controls['student_document_type1'].value,
+          filesize: this.editAssignmentForm.controls['student_document_filesize1'].value,
         },
         {
-          name: this.addAssignmentForm.controls['student_document_title2'].value,
-          rating: this.addAssignmentForm.controls['student_document_rating2'].value,
-          file: this.addAssignmentForm.controls['student_document2'].value,
-          filename: this.addAssignmentForm.controls['student_document_name2'].value,
-          type: this.addAssignmentForm.controls['student_document_type2'].value,
-          filesize: this.addAssignmentForm.controls['student_document_filesize2'].value,
+          name: this.editAssignmentForm.controls['student_document_title2'].value,
+          rating: this.editAssignmentForm.controls['student_document_rating2'].value,
+          file: this.editAssignmentForm.controls['student_document2'].value,
+          filename: this.editAssignmentForm.controls['student_document_name2'].value,
+          type: this.editAssignmentForm.controls['student_document_type2'].value,
+          filesize: this.editAssignmentForm.controls['student_document_filesize2'].value,
         },
         {
-          name: this.addAssignmentForm.controls['student_document_title3'].value,
-          rating: this.addAssignmentForm.controls['student_document_rating3'].value,
-          file: this.addAssignmentForm.controls['student_document3'].value,
-          filename: this.addAssignmentForm.controls['student_document_name3'].value,
-          type: this.addAssignmentForm.controls['student_document_type3'].value,
-          filesize: this.addAssignmentForm.controls['student_document_filesize3'].value,
+          name: this.editAssignmentForm.controls['student_document_title3'].value,
+          rating: this.editAssignmentForm.controls['student_document_rating3'].value,
+          file: this.editAssignmentForm.controls['student_document3'].value,
+          filename: this.editAssignmentForm.controls['student_document_name3'].value,
+          type: this.editAssignmentForm.controls['student_document_type3'].value,
+          filesize: this.editAssignmentForm.controls['student_document_filesize3'].value,
         }]
       }
 
@@ -274,7 +274,7 @@ export class EditAssignmentComponent implements OnInit {
     }
   }
 
-  get addAssignmentFormControl() {
-    return this.addAssignmentForm.controls;
+  get editAssignmentFormControl() {
+    return this.editAssignmentForm.controls;
   }
 }
