@@ -50,13 +50,17 @@ export class ViewAssignmentsComponent implements OnInit {
           if (resp.status === "S") {
             this.assignments = resp.assignments;
             this.loading = false;
+          } else if (resp.status === "I") {
+            this.displayMessage = resp.statusMessage;
+            this.showMessage = true;
+            this.loading = false;
+          } else {
+            console.log(resp);
+            this.displayMessage = this.messages.errMsg2;
+            this.showMessage = true;
+            this.loading = false;
           }
-        } else {
-          console.log(resp);
-          this.displayMessage = this.messages.errMsg2;
-          this.showMessage = true;
-          this.loading = false;
-        }
+        } 
       });
     } else {
       this.assignmentSvc.getAllAssignments().subscribe((resp) => {

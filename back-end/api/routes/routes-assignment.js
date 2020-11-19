@@ -61,7 +61,6 @@ router.get('/allAssignments', async function(req, res, next) {
                     client.close();
                     return res.status(200).json(resultObj);
                 } else {
-                    console.log(result);
                     resultObj = {
                         status: "I",
                         statusMessage: "No assignments Returned",
@@ -99,13 +98,13 @@ router.get('/getAssignmentsByCourse/:id', async function(req, res, next) {
                 console.log(err);
                 client.close();
                 return res.status(400).json({ error: err});
-            } else {
-                
+            } 
+            if (result) {
                 let resultObj;
                 if (result.length > 0) {
                     resultObj = {
                         status: "S",
-                        statusMessage: "Successfully returned course",
+                        statusMessage: "Successfully returned assignments",
                         assignments: result
                     }
                     client.close();
@@ -113,14 +112,14 @@ router.get('/getAssignmentsByCourse/:id', async function(req, res, next) {
                 } else {
                     resultObj = {
                         status: "I",
-                        statusMessage: "No Courses Returned",
-                        courses: result
+                        statusMessage: "This course doesn't have any assignments. Please add an assignment.",
+                        assignments: result
                     }
                     client.close();
-                    return res.status(100).json(resultObj);
+                    return res.status(200).json(resultObj);
                 }
-                
-            }
+                 
+            } 
         });     
     });    	
 });
