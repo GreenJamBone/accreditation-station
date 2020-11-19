@@ -23,3 +23,11 @@
     margin-bottom: 16px;
     color: red;
 }
+.loader img {
+    animation: spin .5s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}

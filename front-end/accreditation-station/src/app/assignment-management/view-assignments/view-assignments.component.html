@@ -1,7 +1,7 @@
 <div class="message text-danger">
     <span *ngIf="showMessage">{{displayMessage}}</span>
 </div>
-<div class="view-assignments-container ">
+<div *ngIf="!loading" class="view-assignments-container ">
     <div *ngFor="let assignment of assignments">
         <div class="row">
             <div class="col">
@@ -20,4 +20,7 @@
             </div>
         </div>
     </div>
+</div>
+<div *ngIf="loading" class="loader">
+    <img src="/assets/images/icons/loader.png">
 </div>

@@ -22,6 +22,7 @@ export class EditAssignmentComponent implements OnInit {
   submitted = false;
   showMessage = false;
   theMessage = "";
+  userRole;
   theReqs = [];
   courses = [];
   messages = {
@@ -81,6 +82,8 @@ export class EditAssignmentComponent implements OnInit {
         } 
       })
     }
+
+    this.userRole = sessionStorage.getItem('user_role');
   }
 
   getReqs() {

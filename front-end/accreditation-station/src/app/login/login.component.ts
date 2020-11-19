@@ -37,10 +37,13 @@ export class LoginComponent implements OnInit {
     sessionStorage.setItem('user_info', btoa(JSON.stringify(this.userInfo)));
     this.loginForm.reset();
     if (this.isAdmin(this.userInfo.roles)) {
+      sessionStorage.setItem('user_role', 'admin');
       this.router.navigate(['admin']);
     } else if (this.isInstructor(this.userInfo.roles)) {
+      sessionStorage.setItem('user_role', 'instructor');
       this.router.navigate(['instructor']);
     } else if (this.isAudit(this.userInfo.roles)) {
+      sessionStorage.setItem('user_role', 'audit');
       this.router.navigate(['audit']);
     } else {
       console.log("NO ACCESS TO THIS APPLICATION - CONTACT THE ADMINISTRATOR FOR ACCESS");

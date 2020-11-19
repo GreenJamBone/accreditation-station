@@ -28,7 +28,8 @@ export const environment = {
   allAssignments: localhost + "/api/assignment/allAssignments",
   updateAssignment: localhost + "/api/assignment/update",
   removeAssignment: localhost + "/api/assignment/remove",
-  getAssignment: localhost + "/api/assignment/getAssignment"
+  getAssignment: localhost + "/api/assignment/getAssignment",
+  getAssignmentsByCourse: localhost + "/api/assignment/getAssignmentsByCourse",
 };
 
 /*

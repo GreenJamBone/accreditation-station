@@ -12,54 +12,66 @@ import { AreYouSureModalComponent } from '../../are-you-sure-modal/are-you-sure-
 })
 export class ViewAssignmentsComponent implements OnInit {
   @Input() courseId = '';
+  loading = true;
   dialogRef;
   areYouSureDialogRef;
   messages = {
     updatedAssignmentMsg: "Assignment successfully updated.",
     removedAssignmentMsg: "Assignment successfully removed.",
-    errMsg: "There has been an error processing your request. Please try again later."
+    errMsg: "There has been an error processing your request. Please try again later.",
+    errMsg2: "There has been an error retrieving related assignments, or no related assignments exist. Please try again later."
   }
   showMessage = false;
   displayMessage = "";
   requirements = [];
   assignments = [];
+  lastCourse;
 
   constructor(private assignmentSvc: AssignmentService, private reqSvc: RequirementsService, private documentSvc: DocumentService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.showMessage = false;
     this.getAssignments();
-    //getAssignments
-    if (this.courseId !== '') {
-      //get assignment for this course
-    } else {
-      // get all assignments
-    }
-
   }
 
   ngOnChanges() {
-    if (this.courseId !== '') {
-      //get assignment for this course
-      } else {
-        // get all assignments
+    if (this.courseId && (this.courseId !== this.lastCourse)) {
+      this.getAssignments();
     }
   }
 
   getAssignments() {
-    this.assignmentSvc.getAllAssignments().subscribe((resp) => {
-      if (resp) {
-        if (resp.status === "S") {
-          this.assignments = resp.assignments;
-
-    
-          
+    this.loading = true;
+    this.assignments = [];
+    this.showMessage = false;
+    if (this.courseId) {
+      this.assignmentSvc.getAssignmentsByCourse(this.courseId).subscribe(resp => {
+        if (resp) {
+          if (resp.status === "S") {
+            this.assignments = resp.assignments;
+            this.loading = false;
+          }
         } else {
-          this.displayMessage = this.messages.errMsg;
+          console.log(resp);
+          this.displayMessage = this.messages.errMsg2;
           this.showMessage = true;
+          this.loading = false;
         }
-      }
-    });
+      });
+    } else {
+      this.assignmentSvc.getAllAssignments().subscribe((resp) => {
+        if (resp) {
+          if (resp.status === "S") {
+            this.assignments = resp.assignments;
+            this.loading = false;
+          } else {
+            this.displayMessage = this.messages.errMsg;
+            this.showMessage = true;
+            this.loading = false;
+          }
+        }
+      });
+    }
   }
 
   getDocuments() {

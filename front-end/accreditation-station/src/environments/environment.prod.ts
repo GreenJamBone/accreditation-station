@@ -24,5 +24,6 @@ export const environment = {
   allAssignments: "/api/assignment/allAssignments",
   updateAssignment: "/api/assignment/update",
   removeAssignment: "/api/assignment/remove",
-  getAssignment: "/api/assignment/getAssignment"
+  getAssignment: "/api/assignment/getAssignment",
+  getAssignmentsByCourse: "/api/assignment/getAssignmentsByCourse",
 };

@@ -1,4 +1,7 @@
-<div class="breadcrumb"><a routerLink="/assignment-management">Return to Assignment Management</a></div>
+<div class="breadcrumb">
+    <a *ngIf="userRole === 'admin'" routerLink="/assignment-management">Return to Assignment Management</a>
+    <a *ngIf="userRole === 'instructor'" routerLink="/instructor">Return to My Courses</a>
+</div>
 <div class="message text-danger">
     <span *ngIf="showMessage">{{theMessage}}</span>
 </div>

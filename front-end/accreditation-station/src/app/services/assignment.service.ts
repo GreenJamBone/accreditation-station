@@ -23,6 +23,9 @@ export class AssignmentService {
     getAssignment(assID): Observable<any> {
         return this.http.get(environment.getAssignment + '/' + assID);
     }
+    getAssignmentsByCourse(courseId): Observable<any> {
+        return this.http.get(environment.getAssignmentsByCourse + '/' + courseId);
+    }
     updateAssignment(payload): Observable<any> {
         return this.http.post(environment.updateAssignment, payload);
     } 
