@@ -4,23 +4,33 @@
 <div *ngIf="!loading" class="view-assignments-container ">
     <div *ngFor="let assignment of assignments">
         <div class="row">
-            <div class="col">
+            <div class="col col-1-4">
                 <div class="name">
-                    {{assignment.name}}
+                    {{assignment.title}} ({{assignment.category}})
                 </div>
+                <div class="info"><span class="label">Description: </span> {{assignment.description}}</div>
+            </div>
+            <div class="col col-1-4">
                 <div class="assignment-info">
-                    <div class="info">{{assignment.title}} - {{assignment.semester}}{{assignment.year}} - {{assignment.department}}{{assignment.course_number}}{{assignment.section}}</div>
-                    <div class="info">Assignment Category: {{assignment.category}} - Rating: {{assignment.rating}}</div>
-                    <div class="info"> Fulfilled Requirements: <div class="req" *ngFor="let req of assignment.fulfilled_requirements">{{req.name}}</div> </div>
-                    <div><span class="description">Description: {{assignment.description}}</span></div>
-                    <span class="documents-btn">View Documents</span>
-                    <span class="edit-btn" [routerLink]="['/edit-assignment', assignment._id]"><button>Edit</button></span>
-                    <span (click)="removeAssignment(assignment)" class="delete-btn"><button>Remove Assignment</button></span>
+                    <div class="info label"> Fulfilled Requirements: </div>
+                    <div class="req" *ngFor="let req of assignment.fulfilled_requirements">{{req.name}}</div>        
                 </div>
+            </div>
+            <div class="col col-1-4">
+                <div class="label">Assignment Document:</div>
+                <div><span (click)="showFile(assignment.assignment_document)" class="doc-link">{{assignment.assignment_document.name}}</span></div>
+                <div class="label">Student Documents:</div>
+            </div>
+            <div class="col col-1-4">
+                <span class="edit-btn" [routerLink]="['/edit-assignment', assignment._id]"><button>Edit</button></span>
+                <span (click)="removeAssignment(assignment)" class="delete-btn"><button>Remove Assignment</button></span>
             </div>
         </div>
     </div>
 </div>
 <div *ngIf="loading" class="loader">
     <img src="/assets/images/icons/loader.png">
+</div>
+<div id="fileViewer">
+    
 </div>

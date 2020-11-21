@@ -16,8 +16,10 @@ export class EditDocumentComponent implements OnInit {
   theMessage = "";
   messages = {
     success: "Document Successfully Added",
-    error: "Error Adding Document - Please try again later"
+    error: "Error Adding Document - Please try again later",
+    pdf: "Please upload a .pdf document. Other filetypes are not accepted."
   }
+  isPdf = true;
   semesters = ["SP","SU","FA"];
   years = [];
 
@@ -395,21 +397,28 @@ export class EditDocumentComponent implements OnInit {
   }
 
   onFileChange(event) {
+    this.isPdf = true;
     const reader = new FileReader();
      if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      console.log(file);
-      reader.readAsDataURL(file)
-      reader.onload = () => {
-        this.editDocumentForm.patchValue({
-          file: reader.result
-        });
-      }
-      this.editDocumentForm.patchValue({
-        filename: file.name,
-        type: file.type,
-        filesize: file.size
-      });
+      const nameSegments = file.name.split('.');
+        if (nameSegments[(nameSegments.length - 1)].indexOf('pdf') !== -1) {
+          reader.readAsDataURL(file)
+          reader.onload = () => {
+            this.editDocumentForm.patchValue({
+              file: reader.result
+            });
+          }
+          this.editDocumentForm.patchValue({
+            filename: file.name,
+            type: file.type,
+            filesize: file.size
+          });
+        } else {
+          console.log("NOT A PDF");
+          event.target.value = '';
+          this.isPdf = false;
+        }
      }
   }
   fillInForm(){

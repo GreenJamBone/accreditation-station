@@ -4,15 +4,28 @@
 <div class="view-documents-container ">
     <div *ngFor="let document of documents">
         <div class="row">
-            <div class="col">
+            <div class="col col-1-4">
                 <div class="name">
                     {{document.name}}
                 </div>
-                <div class="document-info">
-                    <span class="info">{{document.name}} {{document.type}} {{document.creation_date | date}} {{document.modified_date | date}} {{document.semester}} {{document.year}} {{document.department}}{{document.course_number}}{{document.section}}</span>
-                    <span (click)="editDocument(document)" class="delete-btn"><button>Edit Document</button></span>
-                    <span (click)="removeDocument(document)" class="delete-btn"><button>Remove Document</button></span>
+                <div class="dept-sec">
+                    {{document.department}} - {{document.year}}
                 </div>
+                    
+            </div>
+            <div class="col col-1-4">
+                
+                <div class="document-info">
+                    <div><span class="label info">Created:</span><span class="info"> {{document.creation_date | date}}</span></div><div><span class="info label">Modified:</span> <span class="info">{{document.modified_date | date}}</span></div>
+                    
+                </div>
+            </div>
+            <div class="col col-1-4">
+                <div><span (click)="showFile(document)" class="doc-link">View Document</span></div>
+            </div>
+            <div class="col col-1-4">
+                <span (click)="editDocument(document)" class="edit-btn"><button>Edit Document</button></span>
+                <span (click)="removeDocument(document)" class="delete-btn"><button>Remove Document</button></span>
             </div>
         </div>
     </div>

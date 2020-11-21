@@ -7,7 +7,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./are-you-sure-modal.component.css']
 })
 export class AreYouSureModalComponent implements OnInit {
-  modalContent = "Are you sure";
+  modalContent = "Are you sure?";
   constructor(private dialogRef: MatDialogRef<AreYouSureModalComponent>) { }
 
   ngOnInit(): void {

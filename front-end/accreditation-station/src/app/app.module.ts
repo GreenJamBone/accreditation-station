@@ -41,6 +41,8 @@ import { AreYouSureModalComponent } from './are-you-sure-modal/are-you-sure-moda
 import { AssignmentManagementComponent } from './assignment-management/assignment-management.component';
 import { AssignmentService } from './services/assignment.service';
 import { EditDocumentComponent } from './document-management/edit-document/edit-document.component';
+import { CommonPdfGeneratorComponent } from './common-pdf-generator/common-pdf-generator.component';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 const appRoutes: Routes = [
   {
@@ -122,6 +124,7 @@ const appRoutes: Routes = [
     AreYouSureModalComponent,
     AssignmentManagementComponent,
     EditDocumentComponent,
+    CommonPdfGeneratorComponent,
   ],
   imports: [
     BrowserModule,
@@ -134,6 +137,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     OverlayModule,
     MatDialogModule,
+    NgxExtendedPdfViewerModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only

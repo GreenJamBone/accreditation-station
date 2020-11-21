@@ -3,6 +3,7 @@ import { DocumentService } from '../../services/document.service';
 import { AreYouSureModalComponent } from '../../are-you-sure-modal/are-you-sure-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { EditDocumentComponent } from '../edit-document/edit-document.component';
+import { CommonPdfGeneratorComponent } from 'src/app/common-pdf-generator/common-pdf-generator.component';
 
 @Component({
   selector: 'app-view-documents',
@@ -53,6 +54,18 @@ export class ViewDocumentsComponent implements OnInit {
         }
       }
     });
+  }
+
+  showFile(fileData){    
+    const commonPdfDialogReg = this.dialog.open(CommonPdfGeneratorComponent, {
+      height: 'auto',
+      width: '150%',
+      data: fileData
+    });
+    commonPdfDialogReg.afterClosed().subscribe(result => {
+      console.log(result);
+    })
+
   }
 
   editDocument(document) {

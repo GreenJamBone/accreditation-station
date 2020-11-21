@@ -1,4 +1,7 @@
-
+<h5>(Only PDFs are allow, and all fields are required)</h5>
+<div class="message text-danger">
+    <span *ngIf="!isPdf">{{messages.pdf}}</span>
+</div>
 <form [formGroup]="editDocumentForm" (ngSubmit)="onSubmit()">
   
     <label>
@@ -34,7 +37,7 @@
     </label>
     <label>
         <span>File:</span>
-        <input id="file" type="file" (change)="onFileChange($event)"/>
+        <input id="file" type="file" accept="application/pdf" (change)="onFileChange($event)"/>
     </label>
     <div *ngIf="editDocumentForm.controls.file.touched && editDocumentForm.controls.file.invalid" class="alert alert-danger">
         <div *ngIf="editDocumentForm.controls.file.errors.required">File is required.</div>

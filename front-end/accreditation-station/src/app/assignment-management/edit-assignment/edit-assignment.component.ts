@@ -27,8 +27,10 @@ export class EditAssignmentComponent implements OnInit {
   courses = [];
   messages = {
     success: "Assignment Successfully Edited",
-    error: "Error Editing Assignment - Please try again later"
+    error: "Error Editing Assignment - Please try again later",
+    pdf: "Please upload a .pdf document. Other filetypes are not accepted."
   }
+  isPdf = true;
   semesters = ["SP","SU","FA"];
   categories = ["Paper", "Group Project", "Quiz", "Test", "Midterm Exam", "Final Exam"];
   years = [];
@@ -149,66 +151,78 @@ export class EditAssignmentComponent implements OnInit {
       console.log(this.editAssignmentForm.value);
     }
   }
+
+  
+
   onFileChange(event, whichDoc) {
+    console.log(event);
+    this.isPdf = true;
     const reader = new FileReader();
      if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      reader.readAsDataURL(file)
-      if (whichDoc === 'a') {
-        reader.onload = () => {
+      const nameSegments = file.name.split('.');
+      if (nameSegments[(nameSegments.length - 1)].indexOf('pdf') !== -1) {
+        reader.readAsDataURL(file)
+        if (whichDoc === 'a') {
+          reader.onload = () => {
+            this.editAssignmentForm.patchValue({
+              assignment_document: reader.result
+            });
+          }
           this.editAssignmentForm.patchValue({
-            assignment_document: reader.result
+            assignment_document_name: file.name,
+            assignment_document_type: file.type,
+            assignment_document_filesize: file.size
           });
         }
-        this.editAssignmentForm.patchValue({
-          assignment_document_name: file.name,
-          assignment_document_type: file.type,
-          assignment_document_filesize: file.size
-        });
-      }
 
-      if (whichDoc === 's1') {
-        reader.onload = () => {
+        if (whichDoc === 's1') {
+          reader.onload = () => {
+            this.editAssignmentForm.patchValue({
+              student_document1: reader.result
+            });
+          }
           this.editAssignmentForm.patchValue({
-            student_document1: reader.result
+            student_document_name1: file.name,
+            student_document_type1: file.type,
+            student_document_filesize1: file.size,
+            student_document_rating1: "Above Average"
           });
         }
-        this.editAssignmentForm.patchValue({
-          student_document_name1: file.name,
-          student_document_type1: file.type,
-          student_document_filesize1: file.size,
-          student_document_rating1: "Above Average"
-        });
-      }
 
-      if (whichDoc === 's2') {
-        reader.onload = () => {
+        if (whichDoc === 's2') {
+          reader.onload = () => {
+            this.editAssignmentForm.patchValue({
+              student_document2: reader.result
+            });
+          }
           this.editAssignmentForm.patchValue({
-            student_document2: reader.result
+            student_document_name2: file.name,
+            student_document_type2: file.type,
+            student_document_filesize2: file.size,
+            student_document_rating2: "Average"
           });
         }
-        this.editAssignmentForm.patchValue({
-          student_document_name2: file.name,
-          student_document_type2: file.type,
-          student_document_filesize2: file.size,
-          student_document_rating2: "Average"
-        });
-      }
 
-      if (whichDoc === 's3') {
-        reader.onload = () => {
+        if (whichDoc === 's3') {
+          reader.onload = () => {
+            this.editAssignmentForm.patchValue({
+              student_document3: reader.result
+            });
+          }
           this.editAssignmentForm.patchValue({
-            student_document3: reader.result
+            student_document_name3: file.name,
+            student_document_type3: file.type,
+            student_document_filesize3: file.size,
+            student_document_rating3: "Below Average"
           });
         }
-        this.editAssignmentForm.patchValue({
-          student_document_name3: file.name,
-          student_document_type3: file.type,
-          student_document_filesize3: file.size,
-          student_document_rating3: "Below Average"
-        });
+      } else {
+        console.log("NOT A PDF");
+        event.target.value = '';
+        this.isPdf = false;
+        
       }
-      
      }
   }
  

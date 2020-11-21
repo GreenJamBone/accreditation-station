@@ -49,6 +49,10 @@
         </select>
     </label>
     <h3>To Replace Documents, Choose a File to Upload</h3>
+    <h5>(Only PDFs are allow, and all fields are required)</h5>
+    <div class="message text-danger">
+        <span *ngIf="!isPdf">{{messages.pdf}}</span>
+    </div>
     <label>
         <span>Assignment Document Name:</span>
         <input type="text" formControlName="assignment_document_title">
@@ -59,7 +63,7 @@
     </label>
     <label>
         <span>Assignment Document:</span>
-        <input id="assignment_document" type="file" (change)="onFileChange($event, 'a')"/>
+        <input id="assignment_document" type="file" accept="application/pdf" (change)="onFileChange($event, 'a')"/>
     </label>
     <div *ngIf="editAssignmentForm.controls.assignment_document.touched && editAssignmentForm.controls.assignment_document.invalid" class="alert alert-danger">
         <div *ngIf="editAssignmentForm.controls.assignment_document.errors.required">Assignment Document is required.</div>
@@ -74,7 +78,7 @@
             </label>
             <label>
                 <span>Above Average</span> 
-                <input id="student_document1" type="file" (change)="onFileChange($event, 's1')"/>
+                <input id="student_document1" type="file" accept="application/pdf" (change)="onFileChange($event, 's1')"/>
             </label>
         </div>
         <div class="doc">
@@ -84,7 +88,7 @@
             </label>
             <label>
                 <span>Average</span>
-                <input id="student_document2" type="file" (change)="onFileChange($event, 's2')"/>
+                <input id="student_document2" type="file" accept="application/pdf" (change)="onFileChange($event, 's2')"/>
             </label>
         </div>
         <div class="doc">
@@ -94,7 +98,7 @@
             </label>
             <label>
                 <span>Below Average</span>
-                <input id="student_document3" type="file" (change)="onFileChange($event, 's3')"/>
+                <input id="student_document3" type="file" accept="application/pdf" (change)="onFileChange($event, 's3')"/>
             </label>
         </div>        
     </div>

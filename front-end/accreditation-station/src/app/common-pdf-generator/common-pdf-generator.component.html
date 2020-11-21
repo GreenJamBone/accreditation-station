@@ -1,0 +1,26 @@
+<div class="border_top pdf-viewer">
+    <div>
+        <button class="close_button" (click)="closeButton()">X</button>
+    </div>
+    <div class="div"></div>
+    <div class="errorMessage" *ngIf="errorFlag == true">{{errorMessage}}</div>
+    <div *ngIf="errorFlag == false">
+        <ngx-extended-pdf-viewer
+        [filenameForDownload]="pdfName"
+        [src]="decodedPDF"
+        [base64Src]="theFile"
+        [height]="'90vh'"
+        [useBrowserLocale]="true"
+        [showBorders]="true"
+        [handTool]="true"
+        [showPrintButton]="true"
+        [showDownloadButton]="true"
+        [showBookmarkButton]="false"
+        [showOpenFileButton]="false"
+        [showFindButton]="true"
+        [showRotateButton]="true"
+        [showHandToolButton]="true">
+    </ngx-extended-pdf-viewer>
+
+    </div>
+</div>

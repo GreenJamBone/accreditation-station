@@ -23,3 +23,16 @@
     margin-bottom: 16px;
     color: red;
 }
+.label {
+    font-weight: bold;
+}
+.col {
+    display: inline-block;
+    vertical-align: top;
+}
+.col-1-4 {
+    width: 25%;
+}
+.col-2-4 {
+    width: 50%;
+}

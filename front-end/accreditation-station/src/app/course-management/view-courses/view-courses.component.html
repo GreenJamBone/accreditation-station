@@ -4,20 +4,28 @@
 <div class="view-courses-container ">
     <div *ngFor="let course of courses">
         <div class="row">
-            <div class="col">
+            <div class="col col-1-4">
                 <div class="name">
-                    {{course.name}}
+                    {{course.name}} ({{course.department}}{{course.course_number}}-{{course.section}})
                 </div>
+                
+                <span class="info"><span class="label">Semester: </span> {{course.semester}} {{course.year}}</span>
                 <div class="prof">
-                    {{course.instructor_name}}
+                    <span class="label">Instructor:</span> {{course.instructor_name}}
                 </div>
-                <div class="course-info">
-                    <span class="info">{{course.department}}{{course.course_number}} {{course.section}} {{course.semester}} {{course.year}}</span>
-                    <span><div class="audit" *ngFor="let req of course.req_names">{{req}}</div></span>
-                    <span class="info">{{course.description}}</span>
-                    <span (click)="editCourseModal(course)" class="edit-btn"><button>Edit</button></span>
-                    <span (click)="removeCourse(course)" class="delete-btn"><button>Remove Course</button></span>
-                </div>
+                
+            </div>
+            <div class="col col-1-4">
+                <div class="label">Description:</div>
+                <div class="info">{{course.description}}</div>
+            </div>
+            <div class="course-info col col-1-4">
+                <div class="label">Fulfilled Requirements:</div>
+                <div class="audit" *ngFor="let req of course.req_names">{{req}}</div>                
+            </div>
+            <div class="col col-1-4">
+                <span (click)="editCourseModal(course)" class="edit-btn"><button>Edit</button></span>
+                <span (click)="removeCourse(course)" class="delete-btn"><button>Remove Course</button></span>
             </div>
         </div>
     </div>

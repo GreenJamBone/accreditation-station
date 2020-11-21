@@ -4,6 +4,7 @@ import { AssignmentService } from '../../services/assignment.service';
 import { RequirementsService } from '../../services/requirements.service';
 import { DocumentService } from '../../services/document.service';
 import { AreYouSureModalComponent } from '../../are-you-sure-modal/are-you-sure-modal.component';
+import { CommonPdfGeneratorComponent } from 'src/app/common-pdf-generator/common-pdf-generator.component';
 
 @Component({
   selector: 'app-view-assignments',
@@ -86,6 +87,21 @@ export class ViewAssignmentsComponent implements OnInit {
       }
     });
   }
+
+  showFile(fileData){    
+    const commonPdfDialogReg = this.dialog.open(CommonPdfGeneratorComponent, {
+      height: 'auto',
+      width: '150%',
+      data: fileData
+    });
+    commonPdfDialogReg.afterClosed().subscribe(result => {
+      console.log(result);
+    })
+
+  }
+  
+
+
 
   removeAssignment(assignment) {
     this.showMessage = false;

@@ -31,3 +31,21 @@
   0% { transform: rotate(360deg); }
   100% { transform: rotate(0deg); }
 }
+
+.label {
+    font-weight: bold;
+}
+.col {
+    display: inline-block;
+    vertical-align: top;
+}
+.col-1-4 {
+    width: 25%;
+}
+.col-2-4 {
+    width: 50%;
+}
+.doc-link {
+    cursor: pointer;
+    text-decoration: underline;
+}
