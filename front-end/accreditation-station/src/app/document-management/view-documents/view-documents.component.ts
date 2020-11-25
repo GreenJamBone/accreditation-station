@@ -4,6 +4,7 @@ import { AreYouSureModalComponent } from '../../are-you-sure-modal/are-you-sure-
 import { MatDialog } from '@angular/material/dialog';
 import { EditDocumentComponent } from '../edit-document/edit-document.component';
 import { CommonPdfGeneratorComponent } from 'src/app/common-pdf-generator/common-pdf-generator.component';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-view-documents',
@@ -22,10 +23,14 @@ export class ViewDocumentsComponent implements OnInit {
   showMessage = false;
   displayMessage = "";
   documents = [];
+  allDocs = [];
+  theYears = [];
+  userRole;
   constructor(private docSvc: DocumentService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.showMessage = false;
+    this.userRole = sessionStorage.getItem('user_role');
     this.getDocuments();
   }
 
@@ -43,12 +48,33 @@ export class ViewDocumentsComponent implements OnInit {
                }
                return a.chapter_section.value_c > b.chapter_section.value_c ? 1 : -1;
             });
+            this.allDocs = JSON.parse(JSON.stringify(this.documents));;
+            this.theYears = this.getDropdownYears(this.documents);
+            this.theYears.unshift('All');
         } else {
           this.displayMessage = this.messages.errMsg;
           this.showMessage = true;
         }
       }
     });
+  }
+
+  getDropdownYears(docs) {
+    const unique = [...new Set(docs.map(item => item.year))];
+    return unique;
+  }
+
+  filterYears(event) {
+    let tempDocs = JSON.parse(JSON.stringify(this.allDocs));
+    let val = event.target.value;
+    console.log(tempDocs);
+    console.log(val);
+    if (val === 'All') {
+      this.documents = tempDocs;
+    } else {
+      this. documents = _.filter(tempDocs, { 'year': val});
+    }
+    console.log(this.documents);
   }
 
   showFile(fileData){    

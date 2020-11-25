@@ -1,6 +1,13 @@
 <div *ngIf="!loading" class="message text-danger">
     <span *ngIf="showMessage">{{displayMessage}}</span>
 </div>
+<div class="filters">
+    <div class="bold filter-heading">Filter:</div>
+    <label for="year-dd">Year</label>
+    <select (change)="filterYears($event)" id="year-dd" name="year-dd">
+        <option *ngFor="let year of theYears" [value]="year">{{year}}</option>
+    </select>
+</div>
 <div class="view-documents-container ">
     <div *ngFor="let document of documents">
         <div class="row">
@@ -26,7 +33,7 @@
                 <span (click)="removeDocument(document)" class="delete-btn"><button>Remove Document</button></span>
             </div>
 
-            <div>
+            <div *ngIf="userRole !== 'audit'">
                 <div class="col col-3-10"><span class="label-sm ">Created:</span><span class=""> {{document.creation_date | date}}</span></div>
                 <div class="col col-3-10"><span class=" label"> Modified:</span><span class="">{{document.modified_date | date}}</span></div>
             </div>
