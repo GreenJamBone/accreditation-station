@@ -2,13 +2,20 @@
     <div class="top-rpw">
         <h2 class="title">My Courses</h2>
     </div>
+    <div class="intro">
+        <p class="greeting">Hello, {{name}}!</p>
+        <p>Your courses are listed below. This is where you will add and manage your assignments for each course.</p>
+    </div>
     <div class="page-content">
         <div *ngFor="let course of courses">
             <div class="row">
                 <span class="info">
-                    <div>{{course.name}}</div>
+                    <div class="bold name">{{course.name}}</div>
                     <div>
-                        <span>{{course.course_number}}</span> <span> {{course.section}}</span> -- <span>{{course.semester}} </span> <span>{{course.year}}</span>
+                        <span class="label bold">Course:</span>{{course.course_number}}-{{course.section}}
+                    </div>
+                    <div>
+                        <span class="label bold">Semester:</span>{{course.semester}} {{course.year}}
                     </div>
                 </span>
                 <span class="edit-btn" (click)="addAssignment(course)"><button>Add Assignment</button></span>

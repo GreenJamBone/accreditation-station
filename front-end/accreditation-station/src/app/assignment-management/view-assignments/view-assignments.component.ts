@@ -5,6 +5,7 @@ import { RequirementsService } from '../../services/requirements.service';
 import { DocumentService } from '../../services/document.service';
 import { AreYouSureModalComponent } from '../../are-you-sure-modal/are-you-sure-modal.component';
 import { CommonPdfGeneratorComponent } from 'src/app/common-pdf-generator/common-pdf-generator.component';
+import { EditAssignmentComponent } from '../edit-assignment/edit-assignment.component';
 
 @Component({
   selector: 'app-view-assignments',
@@ -33,6 +34,7 @@ export class ViewAssignmentsComponent implements OnInit {
   ngOnInit(): void {
     this.showMessage = false;
     this.getAssignments();
+    
   }
 
   ngOnChanges() {
@@ -100,7 +102,23 @@ export class ViewAssignmentsComponent implements OnInit {
 
   }
   
-
+  editAssignment(assignment) {
+    
+    this.showMessage = false;
+    this.messages.updatedAssignmentMsg = 'This document has been successfully updated!';
+    this.dialogRef = this.dialog.open(EditAssignmentComponent, {
+      width: "600px",
+      height: "90%",
+      data: assignment
+    });
+    this.dialogRef.afterClosed().subscribe((result) => {
+      if (result.data === 'submitted') {
+        this.displayMessage = this.messages.updatedAssignmentMsg;
+        this.showMessage = true;
+        this.getAssignments();
+      }
+    });
+  }
 
 
   removeAssignment(assignment) {

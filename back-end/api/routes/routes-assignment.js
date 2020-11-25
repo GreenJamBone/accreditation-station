@@ -128,7 +128,7 @@ router.get('/getAssignmentsByCourse/:id', async function(req, res, next) {
 router.post('/create', async (req, res, next) => {
     
 	let data = req.body;
-    
+    let docdata = [];
     var vres = assignmentValidator.validate(data, assignmentVSchema);
     /* validation failed */
     if(!(vres === true))
@@ -147,20 +147,23 @@ router.post('/create', async (req, res, next) => {
     }
     let assignment = new AssignmentModel(data.title, data.course, data.description, data.category, data.fulfilled_requirements, data.assignment_document, data.student_documents);
     let rootDir = 'C:/MonmouthUniversity/thesis';
-    docdata = data.student_documents;
+    
+    for (let i = 0; i<data.student_documents.length; i++) {
+        docdata.push(data.student_documents[i]);
+    }
     docdata.push(data.assignment_document);
 
     for (let i = 0; i < docdata.length; i++) {
         let singleDoc = docdata[i];
-        let assignment = data.title;
-        assignment = assignment.split(" ").join("");
+        let assignmentDir = data.title;
+        assignmentDir = assignmentDir.split(" ").join("");
 
         singleDoc.creation_date = (new Date()).toDateString();
         singleDoc.modified_date = singleDoc.creation_date;
 
         let saveDir = 'assignments/';
 
-        singleDoc.filepath = saveDir + data.course.year + '/' + data.course.semester + '/' + data.course.department + data.course.course_number + data.course.section + '/' + assignment + '/';
+        singleDoc.filepath = saveDir + data.course.year + '/' + data.course.semester + '/' + data.course.department + data.course.course_number + data.course.section + '/' + assignmentDir + '/';
 
         const savedata = { fieldname: 'file',
             originalname: singleDoc.filename,
@@ -233,7 +236,9 @@ router.post('/update', async (req, res, next) =>
     }
     let assignment = new AssignmentModel(data.title, data.course, data.description, data.category, data.fulfilled_requirements, data.assignment_document, data.student_documents);
     if (data.student_documents) {
-        docdata = data.student_documents;
+        for (let i = 0; i < data.student_documents.length; i++) {
+            docdata.push(data.student_documents[i]);
+        }
     }
     if (data.assignment_document) {
         docdata.push(data.assignment_document);

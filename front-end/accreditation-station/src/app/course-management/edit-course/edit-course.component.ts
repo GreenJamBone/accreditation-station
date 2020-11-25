@@ -148,7 +148,7 @@ export class EditCourseComponent implements OnInit {
         succeeded_by: this.editCourseForm.value.succeeded_by,
         audit_requirements: this.editCourseForm.value.audit_requirements
       }
-      console.log(courseObj);
+
       this.courseSvc.updateCourse(courseObj).subscribe(resp => {
         if (resp) {
           console.log(resp);

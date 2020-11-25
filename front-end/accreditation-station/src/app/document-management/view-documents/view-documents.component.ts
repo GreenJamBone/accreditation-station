@@ -11,6 +11,7 @@ import { CommonPdfGeneratorComponent } from 'src/app/common-pdf-generator/common
   styleUrls: ['./view-documents.component.css']
 })
 export class ViewDocumentsComponent implements OnInit {
+  loading = false;
   dialogRef;
   areYouSureDialogRef;
   messages = {
@@ -20,22 +21,7 @@ export class ViewDocumentsComponent implements OnInit {
   }
   showMessage = false;
   displayMessage = "";
-  documents = [
-    {
-      id: 123234,
-      name: "document_name.pdf",
-      rating: "Excellent",
-      filepath: "documents/course/semester/section/assignment/assignment2_average.pdf",
-      type: "pdf",
-      department: "MIS",
-      course_number: "101",
-      section: "B",
-      year: "2020",
-      semester: "FA",
-      creation_date: "Mon Feb 10 2020 11:35:11 GMT-0500 (Eastern Standard Time)",
-      modified_date: "Mon Feb 10 2020 11:35:39 GMT-0500 (Eastern Standard Time)",
-    }    
-  ];
+  documents = [];
   constructor(private docSvc: DocumentService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -44,10 +30,19 @@ export class ViewDocumentsComponent implements OnInit {
   }
 
   getDocuments() {
+    this.loading = true;
     this.docSvc.getAllDocuments().subscribe((resp) => {
       if (resp) {
+        this.loading = false;
         if (resp.status === "S") {
           this.documents = resp.documents;
+          this.documents = this.documents.sort(
+            function(a, b) {          
+               if (a.chapter_section.value_c === b.chapter_section.value_c) {
+                  return b.chapter_section.value_s - a.chapter_section.value_s;
+               }
+               return a.chapter_section.value_c > b.chapter_section.value_c ? 1 : -1;
+            });
         } else {
           this.displayMessage = this.messages.errMsg;
           this.showMessage = true;

@@ -1,16 +1,16 @@
 <div class="message text-danger">
     <span *ngIf="showMessage">{{displayMessage}}</span>
 </div>
-<div class="view-courses-container ">
+<div *ngIf="!loading" class="view-courses-container ">
     <div *ngFor="let course of courses">
         <div class="row">
             <div class="col col-1-4">
-                <div class="name">
+                <div class="name marginb">
                     {{course.name}} ({{course.department}}{{course.course_number}}-{{course.section}})
                 </div>
                 
-                <span class="info"><span class="label">Semester: </span> {{course.semester}} {{course.year}}</span>
-                <div class="prof">
+                <div class="info marginb"><span class="label">Semester: </span> {{course.semester}} {{course.year}}</div>
+                <div class="prof marginb">
                     <span class="label">Instructor:</span> {{course.instructor_name}}
                 </div>
                 
@@ -29,4 +29,7 @@
             </div>
         </div>
     </div>
+</div>
+<div *ngIf="loading" class="loader">
+    <img src="/assets/images/icons/loader.png">
 </div>

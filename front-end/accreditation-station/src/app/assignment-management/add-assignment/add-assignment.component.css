@@ -20,7 +20,7 @@ form label select {
 
 form label span {
     display: inline-block;
-    width: 300px;
+    width: 340px;
     vertical-align: top;
 }
 form button {
@@ -46,4 +46,12 @@ form label .doc span {
 
 form label select.requirements {
     height: 300px;
+}
+.doc-header {
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.bold {
+    font-weight: bold;
 }

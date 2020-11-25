@@ -34,10 +34,14 @@
 
 .label {
     font-weight: bold;
+    width: 100%;
 }
 .col {
     display: inline-block;
     vertical-align: top;
+}
+.col div.marginb {
+    margin-bottom: 10px;
 }
 .col-1-4 {
     width: 25%;

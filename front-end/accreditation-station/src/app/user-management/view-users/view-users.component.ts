@@ -10,7 +10,7 @@ import { AreYouSureModalComponent } from 'src/app/are-you-sure-modal/are-you-sur
   styleUrls: ['./view-users.component.css']
 })
 export class ViewUsersComponent implements OnInit {
-
+  loading = false;
   dialogRef;
   areYouSureDialogRef;
   messages = {
@@ -37,8 +37,10 @@ export class ViewUsersComponent implements OnInit {
   }
 
   getUsers() {
+    this.loading = true;
     this.userSvc.getAllUsers().subscribe((resp) => {
       if (resp) {
+        this.loading = false;
         if (resp.status === "S") {
           console.log(resp.statusMessage);
           this.users = resp.users;

@@ -1,110 +1,112 @@
-<div class="breadcrumb">
-    <a *ngIf="userRole === 'admin'" routerLink="/assignment-management">Return to Assignment Management</a>
-    <a *ngIf="userRole === 'instructor'" routerLink="/instructor">Return to My Courses</a>
-</div>
-<div class="message text-danger">
-    <span *ngIf="showMessage">{{theMessage}}</span>
-</div>
-<form [formGroup]="editAssignmentForm" (ngSubmit)="onSubmit()">
-  
-    <label>
-        <span>Assignment Title:</span>
-        <input id="title" type="text" formControlName="title">
-    </label>
-    <span *ngIf="editAssignmentForm.controls.title.invalid && (editAssignmentForm.controls.title.dirty || editAssignmentForm.controls.title.touched)"
-        class="alert text-danger">
-        <span *ngIf="editAssignmentForm.controls.title.errors.required">
-            Assignment Title is required.
-        </span>
-        <span *ngIf="editAssignmentForm.controls.title.errors.minlength">
-            Assignment Title must be at least 4 characters long.
-        </span>
-    </span>
-    <label>
-        <span>Course:</span>
-        <select class="course" formControlName="course" [compareWith]="compareFnCrs">
-            <option *ngFor="let course of courses" [ngValue]="course" >
-                {{course.name}}
-            </option>
-        </select>
-    </label>
-    <label>
-       <span>Description:</span>
-        <input type="text" formControlName="description">
-    </label>
-    <label>
-        <span>Category:</span>
-        <select formControlName="category">
-            <option *ngFor="let c of categories" [value]="c">
-                {{c}}
-            </option>
-        </select>
-    </label>
-    <label>
-        <span>Fulfilled Requirements (hold ctrl to select multiple):</span>
-        <select class="requirements" formControlName="fulfilled_requirements" multiple [compareWith]="compareFnReq"> 
-            <option *ngFor="let r of theReqs" [value]="{id:r._id, name:r.name}" >
-                {{r.name}}
-            </option>
-        </select>
-    </label>
-    <h3>To Replace Documents, Choose a File to Upload</h3>
-    <h5>(Only PDFs are allow, and all fields are required)</h5>
+<div class="ass-comp">
+    <div class="breadcrumb">
+        <div class="close-link" *ngIf="userRole === 'admin'" (click)="closeButton()">Return to Assignment Management</div>
+        <div class="close-link" *ngIf="userRole === 'instructor'" (click)="closeButton()">Return to My Courses</div>
+    </div>
     <div class="message text-danger">
-        <span *ngIf="!isPdf">{{messages.pdf}}</span>
+        <span *ngIf="showMessage">{{theMessage}}</span>
     </div>
-    <label>
-        <span>Assignment Document Name:</span>
-        <input type="text" formControlName="assignment_document_title">
-    </label>
-   
-    <label>
-        
-    </label>
-    <label>
-        <span>Assignment Document:</span>
-        <input id="assignment_document" type="file" accept="application/pdf" (change)="onFileChange($event, 'a')"/>
-    </label>
-    <div *ngIf="editAssignmentForm.controls.assignment_document.touched && editAssignmentForm.controls.assignment_document.invalid" class="alert alert-danger">
-        <div *ngIf="editAssignmentForm.controls.assignment_document.errors.required">Assignment Document is required.</div>
-    </div>
-    <div>
-        <span>Student Documents:</span><br>
-        
-        <div class="doc">
-            <label>
-                <span>Above Average Student Document Title:</span>
-                <input type="text" formControlName="student_document_title1">
-            </label>
-            <label>
-                <span>Above Average</span> 
-                <input id="student_document1" type="file" accept="application/pdf" (change)="onFileChange($event, 's1')"/>
-            </label>
-        </div>
-        <div class="doc">
-            <label>
-                <span>Average Student Document Title:</span>
-                <input type="text" formControlName="student_document_title2">
-            </label>
-            <label>
-                <span>Average</span>
-                <input id="student_document2" type="file" accept="application/pdf" (change)="onFileChange($event, 's2')"/>
-            </label>
-        </div>
-        <div class="doc">
-            <label>
-                <span>Below Average Student Document Title:</span>
-                <input type="text" formControlName="student_document_title3">
-            </label>
-            <label>
-                <span>Below Average</span>
-                <input id="student_document3" type="file" accept="application/pdf" (change)="onFileChange($event, 's3')"/>
-            </label>
-        </div>        
-    </div>
-    <div *ngIf="editAssignmentForm.controls.student_document1.touched && editAssignmentForm.controls.student_document1.invalid" class="alert alert-danger">
-        <div *ngIf="editAssignmentForm.controls.student_document1.errors.required">All Student Documents are required.</div>
-    </div>
+    <form [formGroup]="editAssignmentForm" (ngSubmit)="onSubmit()">
     
-    <button type="submit" [disabled]="editAssignmentForm.invalid || editAssignmentForm.pristine">Submit</button>
-  </form>
+        <label>
+            <span>Assignment Title:</span>
+            <input id="title" type="text" formControlName="title">
+        </label>
+        <span *ngIf="editAssignmentForm.controls.title.invalid && (editAssignmentForm.controls.title.dirty || editAssignmentForm.controls.title.touched)"
+            class="alert text-danger">
+            <span *ngIf="editAssignmentForm.controls.title.errors.required">
+                Assignment Title is required.
+            </span>
+            <span *ngIf="editAssignmentForm.controls.title.errors.minlength">
+                Assignment Title must be at least 4 characters long.
+            </span>
+        </span>
+        <label>
+            <span>Course:</span>
+            <select class="course" formControlName="course" [compareWith]="compareFnCrs">
+                <option *ngFor="let course of courses" [ngValue]="course" >
+                    {{course.name}}
+                </option>
+            </select>
+        </label>
+        <label>
+        <span>Description:</span>
+            <input type="text" formControlName="description">
+        </label>
+        <label>
+            <span>Category:</span>
+            <select formControlName="category">
+                <option *ngFor="let c of categories" [value]="c">
+                    {{c}}
+                </option>
+            </select>
+        </label>
+        <label>
+            <span>Fulfilled Requirements (hold ctrl to select multiple):</span>
+            <select class="requirements" formControlName="fulfilled_requirements" multiple [compareWith]="compareFnReq"> 
+                <option *ngFor="let r of theReqs" [value]="{id:r._id, name:r.name}" >
+                    {{r.name}}
+                </option>
+            </select>
+        </label>
+        <h3>To Replace Documents, Choose a File to Upload</h3>
+        <h5>(Only PDFs are allow, and all fields are required)</h5>
+        <div class="message text-danger">
+            <span *ngIf="!isPdf">{{messages.pdf}}</span>
+        </div>
+        <label>
+            <span>Assignment Document Name:</span>
+            <input type="text" formControlName="assignment_document_title">
+        </label>
+    
+        <label>
+            
+        </label>
+        <label>
+            <span>Assignment Document:</span>
+            <input id="assignment_document" type="file" accept="application/pdf" (change)="onFileChange($event, 'a')"/>
+        </label>
+        <div *ngIf="editAssignmentForm.controls.assignment_document.touched && editAssignmentForm.controls.assignment_document.invalid" class="alert alert-danger">
+            <div *ngIf="editAssignmentForm.controls.assignment_document.errors.required">Assignment Document is required.</div>
+        </div>
+        <div>
+            <span>Student Documents:</span><br>
+            
+            <div class="doc">
+                <label>
+                    <span>Above Average Student Document Title:</span>
+                    <input type="text" formControlName="student_document_title1">
+                </label>
+                <label>
+                    <span>Above Average</span> 
+                    <input id="student_document1" type="file" accept="application/pdf" (change)="onFileChange($event, 's1')"/>
+                </label>
+            </div>
+            <div class="doc">
+                <label>
+                    <span>Average Student Document Title:</span>
+                    <input type="text" formControlName="student_document_title2">
+                </label>
+                <label>
+                    <span>Average</span>
+                    <input id="student_document2" type="file" accept="application/pdf" (change)="onFileChange($event, 's2')"/>
+                </label>
+            </div>
+            <div class="doc">
+                <label>
+                    <span>Below Average Student Document Title:</span>
+                    <input type="text" formControlName="student_document_title3">
+                </label>
+                <label>
+                    <span>Below Average</span>
+                    <input id="student_document3" type="file" accept="application/pdf" (change)="onFileChange($event, 's3')"/>
+                </label>
+            </div>        
+        </div>
+        <div *ngIf="editAssignmentForm.controls.student_document1.touched && editAssignmentForm.controls.student_document1.invalid" class="alert alert-danger">
+            <div *ngIf="editAssignmentForm.controls.student_document1.errors.required">All Student Documents are required.</div>
+        </div>
+        
+        <button type="submit" [disabled]="editAssignmentForm.invalid || editAssignmentForm.pristine">Submit</button>
+    </form>
+</div>

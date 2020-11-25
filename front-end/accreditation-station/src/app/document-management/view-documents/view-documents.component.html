@@ -1,32 +1,38 @@
-<div class="message text-danger">
+<div *ngIf="!loading" class="message text-danger">
     <span *ngIf="showMessage">{{displayMessage}}</span>
 </div>
 <div class="view-documents-container ">
     <div *ngFor="let document of documents">
         <div class="row">
-            <div class="col col-1-4">
+            <div class="col col-3-10">
+                <div><span class="label-sm">Chapter:</span>{{document.chapter_section.chapter}}</div>
+                <div><span class="label-sm">Section:</span>{{document.chapter_section.section}}</div>
+            </div>
+            <div class="col col-4-10">
                 <div class="name">
-                    {{document.name}}
+                    <span class="label bold">Document Name:</span>{{document.name}}
                 </div>
-                <div class="dept-sec">
-                    {{document.department}} - {{document.year}}
-                </div>
-                    
-            </div>
-            <div class="col col-1-4">
                 
-                <div class="document-info">
-                    <div><span class="label info">Created:</span><span class="info"> {{document.creation_date | date}}</span></div><div><span class="info label">Modified:</span> <span class="info">{{document.modified_date | date}}</span></div>
-                    
-                </div>
+                <div><span class="label bold">Department:</span>{{document.department}}<br></div>
+                <div><span class="label bold">Year:</span>{{document.year}}</div>
+                
             </div>
-            <div class="col col-1-4">
+            
+            <div class="col col-1-10">
                 <div><span (click)="showFile(document)" class="doc-link">View Document</span></div>
             </div>
-            <div class="col col-1-4">
+            <div class="col col-2-10">
                 <span (click)="editDocument(document)" class="edit-btn"><button>Edit Document</button></span>
                 <span (click)="removeDocument(document)" class="delete-btn"><button>Remove Document</button></span>
             </div>
+
+            <div>
+                <div class="col col-3-10"><span class="label-sm ">Created:</span><span class=""> {{document.creation_date | date}}</span></div>
+                <div class="col col-3-10"><span class=" label"> Modified:</span><span class="">{{document.modified_date | date}}</span></div>
+            </div>
         </div>
     </div>
+</div>
+<div *ngIf="loading" class="loader">
+    <img src="/assets/images/icons/loader.png">
 </div>

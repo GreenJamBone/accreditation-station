@@ -87,7 +87,6 @@ export class AddCourseComponent implements OnInit {
   }
 
   onSubmit() {
-    console.warn(this.addCourseForm.value);
     let courseObj;
     this.submitted = true;
     this.showMessage = false;

@@ -11,7 +11,7 @@ import { CourseService } from '../../services/course.service';
   styleUrls: ['./add-assignment.component.css']
 })
 export class AddAssignmentComponent implements OnInit {
-  @Input() courseInfo: any = {};
+  @Input() courseInfo: any;
   @Input() theAssignmentID: any = "";
   prefillAssignment;
 
@@ -94,13 +94,12 @@ export class AddAssignmentComponent implements OnInit {
   getYears() {
     const thisDate = new Date();
     let year = thisDate.getFullYear();
-    // this.years.push(year.toString());
-    // this.years.push((year + 1).toString())
     for (let i = -6; i < 2; i++) {
       this.years.push((year + i).toString())
     }
   }
   fillInForm(){
+    console.log(this.courseInfo);
     if (this.addAssignmentForm && this.courseInfo) {
       this.addAssignmentForm.patchValue({
         course: this.courseInfo,
@@ -185,8 +184,6 @@ export class AddAssignmentComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (!this.addAssignmentForm.invalid) {
-      alert('Form Submitted succesfully!!!\n Check the values in browser console.');
-      console.table(this.addAssignmentForm.value);
       let theCourse = this.addAssignmentForm.controls['course'].value;
       let assignmentPayload = {
         title: this.addAssignmentForm.controls['title'].value,

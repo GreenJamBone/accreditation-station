@@ -33,7 +33,7 @@
     </label>
     <label>
         <span>Department:</span>
-        <input type="text" formControlName="department">
+        <input oninput="this.value = this.value.toUpperCase()" type="text" formControlName="department">
     </label>
     <label>
         <span>File:</span>

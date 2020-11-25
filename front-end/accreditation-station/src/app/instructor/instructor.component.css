@@ -8,7 +8,7 @@
 }
 
 .name {
-    font-weight: bold;
+    margin-bottom: 6px;
 }
 .info {
     width: 400px;
@@ -19,4 +19,13 @@
 
 .audit {
     display: block;
+}
+.bold {
+    font-weight: bold;
+}
+.label {
+    width: 100px;
+}
+.greeting {
+    font-weight: bold;
 }

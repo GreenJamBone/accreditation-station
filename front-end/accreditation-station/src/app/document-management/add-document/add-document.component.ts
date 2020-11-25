@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, HostListener } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DocumentService } from 'src/app/services/document.service';
 
@@ -17,6 +17,9 @@ export class AddDocumentComponent implements OnInit {
     error: "Error Adding Document - Please try again later",
     pdf: "Please upload a .pdf document. Other filetypes are not accepted."
   }
+
+  @ViewChild('fileEl')
+  fileEl: ElementRef;
   isPdf = true;
   semesters = ["SP","SU","FA"];
   years = [];
@@ -414,8 +417,6 @@ export class AddDocumentComponent implements OnInit {
      }
   }
   onSubmit() {
-    
-    console.log(this.addDocumentForm.value);
 
     this.submitted = true;
     if (this.addDocumentForm.valid) {
@@ -427,6 +428,7 @@ export class AddDocumentComponent implements OnInit {
           console.log(resp);
           if (resp.status === "S") {
             this.addDocumentForm.reset();
+            this.fileEl.nativeElement.value = '';  
             this.theMessage = this.messages.success;
             this.showMessage = true;
           } else {

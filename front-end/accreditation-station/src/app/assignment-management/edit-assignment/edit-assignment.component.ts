@@ -1,10 +1,11 @@
-import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DocumentService } from '../../services/document.service';
 import { AssignmentService } from '../../services/assignment.service';
 import { RequirementsService } from '../../services/requirements.service';
 import { CourseService } from '../../services/course.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-edit-assignment',
@@ -37,10 +38,10 @@ export class EditAssignmentComponent implements OnInit {
   filePreview;
   private file: File | null = null;
 
-  constructor(private route: ActivatedRoute, private assignmentSvc: AssignmentService, private courseSvc: CourseService, private reqSvc: RequirementsService, private docSvc: DocumentService, private fb: FormBuilder, private cd: ChangeDetectorRef) { }
+  constructor(private route: ActivatedRoute, public dialogRef: MatDialogRef<EditAssignmentComponent>, @Inject(MAT_DIALOG_DATA) public assData, private assignmentSvc: AssignmentService, private courseSvc: CourseService, private reqSvc: RequirementsService, private docSvc: DocumentService, private fb: FormBuilder, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.theAssignmentID = this.route.snapshot.params.theAssignment;
+    this.theAssignmentID = this.assData;
     console.log(this.theAssignmentID);
     this.getReqs();
     this.getCourses();
@@ -276,6 +277,7 @@ export class EditAssignmentComponent implements OnInit {
       this.assignmentSvc.updateAssignment(assignmentPayload).subscribe(resp => {
         if (resp) {
           if (resp.status === "S") {
+            this.dialogRef.close({data: "submitted"});
             this.theMessage = this.messages.success;
             this.showMessage = true;
           } else {
@@ -289,6 +291,9 @@ export class EditAssignmentComponent implements OnInit {
 
 
     }
+  }
+  closeButton() {
+    this.dialogRef.close({data: "cancelled"});
   }
 
   get editAssignmentFormControl() {

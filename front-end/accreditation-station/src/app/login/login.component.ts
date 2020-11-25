@@ -13,14 +13,13 @@ import { Router } from '@angular/router'
 export class LoginComponent implements OnInit {
   loginForm;
   userInfo = {
-    _id: "5ee821a6f9d5f60e9890d570",
-    first_name: "Mike",
-    last_name: "Roch",
-    email: "mike@roch.hah",
-    title: "New Guy",
-    roles: ['admin']
-  }
-  role = 'instructor';
+    "_id": "5ea1b54bc2c0f44c9dfb50ab",
+    "first_name": "John",
+    "last_name": "Doe",
+    "title": "instructors",
+    "roles": ["instructor"],
+    "email": "test@gmail.com"
+}
   constructor(private formBuilder: FormBuilder, private router: Router) { 
     this.loginForm = this.formBuilder.group({
       username: '',
@@ -33,7 +32,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit(loginData){
     //make call
-    console.log(loginData);
     sessionStorage.setItem('user_info', btoa(JSON.stringify(this.userInfo)));
     this.loginForm.reset();
     if (this.isAdmin(this.userInfo.roles)) {
@@ -51,12 +49,12 @@ export class LoginComponent implements OnInit {
   }
 
   isAdmin(roles) {
-    return roles.some(s => s.includes('admin'));
+    return roles.some(s => s.toLowerCase().includes('admin'));
   }
   isInstructor(roles) {
-    return roles.some(s => s.includes('instructor'));
+    return roles.some(s => s.toLowerCase().includes('instructor'));
   }
   isAudit(roles) {
-    return roles.some(s => s.includes('audit'));
+    return roles.some(s => s.toLowerCase().includes('audit'));
   }
 }

@@ -10,6 +10,7 @@ import { CourseService } from '../services/course.service';
 })
 export class InstructorComponent implements OnInit {
   userData;
+  name;
   viewAssignments = false;
   addAssign = false;
   theCourse;
@@ -21,6 +22,7 @@ export class InstructorComponent implements OnInit {
   ngOnInit(): void {
     this.userData = JSON.parse(atob(sessionStorage.getItem('user_info')));
     console.log(this.userData);
+    this.name = this.userData.first_name;
     this.courseSvc.getCoursesByUser(this.userData._id).subscribe(resp => {
       if (resp && resp.status === 'S') {
         console.log(resp);

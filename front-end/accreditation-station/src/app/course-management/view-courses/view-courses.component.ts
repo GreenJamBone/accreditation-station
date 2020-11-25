@@ -12,7 +12,7 @@ import { RequirementsService } from '../../services/requirements.service';
   styleUrls: ['./view-courses.component.css']
 })
 export class ViewCoursesComponent implements OnInit {
-
+  loading = false;
   dialogRef;
   areYouSureDialogRef;
   messages = {
@@ -32,8 +32,10 @@ export class ViewCoursesComponent implements OnInit {
   }
 
   getCourses() {
+    this.loading = true;
     this.courseSvc.getAllCourses().subscribe((resp) => {
       if (resp) {
+        this.loading = false;
         if (resp.status === "S") {
           this.courses = resp.courses;
           this.userSvc.getAllUsers().subscribe(resp => {

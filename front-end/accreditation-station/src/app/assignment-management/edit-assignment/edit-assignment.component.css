@@ -47,3 +47,9 @@ form label .doc span {
 form label select.requirements {
     height: 300px;
 }
+
+.close-link {
+    color:#0000EE;;
+    text-decoration: underline;
+    cursor: pointer;
+}

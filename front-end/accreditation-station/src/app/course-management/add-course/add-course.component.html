@@ -19,7 +19,7 @@
 
     <label>
         <span>Department:</span>
-        <input type="text" formControlName="department">
+        <input oninput="this.value = this.value.toUpperCase()" type="text" formControlName="department">
     </label>
     <span *ngIf="addCourseForm.controls.department.invalid && (addCourseForm.controls.department.dirty || addCourseForm.controls.department.touched)"
         class="alert text-danger">

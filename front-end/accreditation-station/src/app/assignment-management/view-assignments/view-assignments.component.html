@@ -5,7 +5,7 @@
     <div *ngFor="let assignment of assignments">
         <div class="row">
             <div class="col col-1-4">
-                <div class="name">
+                <div class="label marginb">
                     {{assignment.title}} ({{assignment.category}})
                 </div>
                 <div class="info"><span class="label">Description: </span> {{assignment.description}}</div>
@@ -17,12 +17,17 @@
                 </div>
             </div>
             <div class="col col-1-4">
-                <div class="label">Assignment Document:</div>
-                <div><span (click)="showFile(assignment.assignment_document)" class="doc-link">{{assignment.assignment_document.name}}</span></div>
-                <div class="label">Student Documents:</div>
+                <div class="marginb">
+                    <div class="label">Assignment Document:</div>
+                    <div><span (click)="showFile(assignment.assignment_document)" class="doc-link">{{assignment.assignment_document.name}}</span></div>
+                </div>
+                <div class="marginb">
+                    <div class="label">Student Documents:</div>
+                    <div *ngFor="let stdoc of assignment.student_documents"><span (click)="showFile(stdoc)" class="doc-link">{{stdoc.name}}</span></div>
+                </div>
             </div>
             <div class="col col-1-4">
-                <span class="edit-btn" [routerLink]="['/edit-assignment', assignment._id]"><button>Edit</button></span>
+                <span class="edit-btn" (click)="editAssignment(assignment._id)"><button>Edit</button></span>
                 <span (click)="removeAssignment(assignment)" class="delete-btn"><button>Remove Assignment</button></span>
             </div>
         </div>

@@ -49,6 +49,7 @@
     <div class="message text-danger">
         <span *ngIf="!isPdf">{{messages.pdf}}</span>
     </div>
+    <div class="doc-header">Asignment Document:</div>
     <label>
         <span>Assignment Document Name:</span>
         <input type="text" formControlName="assignment_document_title">
@@ -64,35 +65,35 @@
         <div *ngIf="addAssignmentForm.controls.assignment_document.errors.required">Assignment Document is required.</div>
     </div>
     <div>
-        <span>Student Documents:</span><br>
+        <div class="doc-header">Student Documents:</div>
         
         <div class="doc">
             <label>
-                <span>Above Average Student Document Title:</span>
+                <span class="">Student Document Title (Above Average):</span>
                 <input type="text" formControlName="student_document_title1">
             </label>
             <label>
-                <span>Above Average</span> 
+                <span class="">File (Above Average)</span> 
                 <input id="student_document1" type="file" accept="application/pdf" (change)="onFileChange($event, 's1')"/>
             </label>
         </div>
         <div class="doc">
             <label>
-                <span>Average Student Document Title:</span>
+                <span class="">Student Document Title (Average):</span>
                 <input type="text" formControlName="student_document_title2">
             </label>
             <label>
-                <span>Average</span>
+                <span class="">File (Average)</span>
                 <input id="student_document2" type="file" accept="application/pdf" (change)="onFileChange($event, 's2')"/>
             </label>
         </div>
         <div class="doc">
             <label>
-                <span>Below Average Student Document Title:</span>
+                <span class="">Student Document Title (Below Average):</span>
                 <input type="text" formControlName="student_document_title3">
             </label>
             <label>
-                <span>Below Average</span>
+                <span class="">File (Below Average)</span>
                 <input id="student_document3" type="file" accept="application/pdf" (change)="onFileChange($event, 's3')"/>
             </label>
         </div>        
