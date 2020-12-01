@@ -30,3 +30,8 @@ form .taller-field {
     margin-bottom: 16px;
     color: red;
 }
+.link-styles {
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+}

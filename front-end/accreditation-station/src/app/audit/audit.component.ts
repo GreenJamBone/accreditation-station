@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-audit',
@@ -10,7 +11,7 @@ export class AuditComponent implements OnInit {
   viewSelfStudy = false;
   viewCourses = false;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -19,10 +20,12 @@ export class AuditComponent implements OnInit {
     this.clearBtn();
     switch (btn) {
       case 'view-self-study':
-        this.viewSelfStudy = true;
+        // this.viewSelfStudy = true;
+        this.router.navigate(['audit/documents']);
         break;
       case 'view-courses':
-        this.viewCourses = true;
+        // this.viewCourses = true;
+        this.router.navigate(['audit/courses']);
         break;
       // case 'add-semester':
       //   this.addSemester = true;

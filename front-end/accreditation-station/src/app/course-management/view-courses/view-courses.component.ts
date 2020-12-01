@@ -5,6 +5,7 @@ import { EditCourseComponent } from '../edit-course/edit-course.component';
 import { AreYouSureModalComponent } from '../../are-you-sure-modal/are-you-sure-modal.component';
 import { UserService } from '../../services/user.service';
 import { RequirementsService } from '../../services/requirements.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-courses',
@@ -13,6 +14,7 @@ import { RequirementsService } from '../../services/requirements.service';
 })
 export class ViewCoursesComponent implements OnInit {
   loading = false;
+  userRole = '';
   dialogRef;
   areYouSureDialogRef;
   messages = {
@@ -23,7 +25,7 @@ export class ViewCoursesComponent implements OnInit {
   showMessage = false;
   displayMessage = "";
   courses = [];
-  constructor(private courseSvc: CourseService, private reqSvc: RequirementsService, private userSvc: UserService, private dialog: MatDialog) { }
+  constructor(private courseSvc: CourseService, private router: Router, private reqSvc: RequirementsService, private userSvc: UserService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.showMessage = false;
@@ -33,6 +35,7 @@ export class ViewCoursesComponent implements OnInit {
 
   getCourses() {
     this.loading = true;
+    this.userRole = sessionStorage.getItem('user_role');
     this.courseSvc.getAllCourses().subscribe((resp) => {
       if (resp) {
         this.loading = false;
@@ -74,6 +77,11 @@ export class ViewCoursesComponent implements OnInit {
       }
     }
     console.log(this.courses);
+  }
+
+  viewAssignments(courseId) {
+    console.log(courseId);
+    this.router.navigate(['view-assignments', courseId]);
   }
 
   matchReqs(reqs) {

@@ -1,3 +1,7 @@
+<div class="breadcrumb">
+    <div class="close-link" *ngIf="userRole === 'instructor'" (click)="routeTo('instructor')">Return to My Courses</div>
+</div>
+<div><h3>Add Assignment</h3></div>
 <div class="message text-danger">
     <span *ngIf="showMessage">{{theMessage}}</span>
 </div>
@@ -45,7 +49,7 @@
         </select>
     </label>
     <h3>Document Upload</h3>
-    <h5>(Only PDFs are allow, and all fields are required)</h5>
+    <h4>(Only PDFs are allow, and all fields are required)</h4>
     <div class="message text-danger">
         <span *ngIf="!isPdf">{{messages.pdf}}</span>
     </div>

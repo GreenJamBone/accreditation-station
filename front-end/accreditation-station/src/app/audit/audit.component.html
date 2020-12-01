@@ -3,12 +3,5 @@
         <button class="block-btn" (click)="buttonFn('view-self-study')">View Self Study Documents</button>
         <button class="block-btn" (click)="buttonFn('view-courses')">View Courses</button>
     </div>
-    <div *ngIf="viewCourses">
-        <h3>Courses:</h3>
-        <app-view-courses></app-view-courses>
-    </div>
-    <div *ngIf="viewSelfStudy">
-        <h3>Self-Study Documents</h3>
-        <app-view-documents></app-view-documents>
-    </div>
+    <router-outlet></router-outlet>
 </div>

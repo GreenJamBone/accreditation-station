@@ -43,6 +43,7 @@ import { AssignmentService } from './services/assignment.service';
 import { EditDocumentComponent } from './document-management/edit-document/edit-document.component';
 import { CommonPdfGeneratorComponent } from './common-pdf-generator/common-pdf-generator.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { InstructorCoursesComponent } from './instructor/instructor-courses/instructor-courses.component';
 
 const appRoutes: Routes = [
   {
@@ -59,11 +60,35 @@ const appRoutes: Routes = [
   },
   {
     path: 'instructor',
-    component: InstructorComponent
+    component: InstructorComponent,
+    children: [
+      {
+        path: '',
+        component: InstructorCoursesComponent
+      },
+      {
+        path: 'add-assignment/:course',
+        component: AddAssignmentComponent
+      },
+      {
+        path: 'manage-assignments/:courseId',
+        component: ViewAssignmentsComponent
+      }
+    ]
   },
   {
     path: 'audit',
-    component: AuditComponent
+    component: AuditComponent,
+    children: [
+      {
+        path: 'documents',
+        component: ViewDocumentsComponent
+      },
+      {
+        path: 'courses',
+        component: ViewCoursesComponent
+      }
+    ]
   },
   {
     path: 'page-not-found',
@@ -92,6 +117,10 @@ const appRoutes: Routes = [
   {
     path: 'edit-assignment/:theAssignment',
     component: EditAssignmentComponent
+  }, 
+  {
+    path: 'view-assignments/:courseId',
+    component: ViewAssignmentsComponent
   }
   //{ path: '**', component: PageNotFoundComponent }
 ];
@@ -125,6 +154,7 @@ const appRoutes: Routes = [
     AssignmentManagementComponent,
     EditDocumentComponent,
     CommonPdfGeneratorComponent,
+    InstructorCoursesComponent,
   ],
   imports: [
     BrowserModule,

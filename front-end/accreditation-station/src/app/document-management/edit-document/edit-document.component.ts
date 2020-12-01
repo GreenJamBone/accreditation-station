@@ -458,6 +458,10 @@ export class EditDocumentComponent implements OnInit {
     }
   }
 
+  cancel() {
+    this.dialogRef.close({data: "cancelled"});
+  }
+
   get editDocumentFormControl() {
     return this.editDocumentForm.controls;
   }

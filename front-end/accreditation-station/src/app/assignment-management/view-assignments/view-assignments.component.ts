@@ -6,6 +6,7 @@ import { DocumentService } from '../../services/document.service';
 import { AreYouSureModalComponent } from '../../are-you-sure-modal/are-you-sure-modal.component';
 import { CommonPdfGeneratorComponent } from 'src/app/common-pdf-generator/common-pdf-generator.component';
 import { EditAssignmentComponent } from '../edit-assignment/edit-assignment.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-assignments',
@@ -15,6 +16,7 @@ import { EditAssignmentComponent } from '../edit-assignment/edit-assignment.comp
 export class ViewAssignmentsComponent implements OnInit {
   @Input() courseId = '';
   loading = true;
+  userRole = '';
   dialogRef;
   areYouSureDialogRef;
   messages = {
@@ -29,10 +31,20 @@ export class ViewAssignmentsComponent implements OnInit {
   assignments = [];
   lastCourse;
 
-  constructor(private assignmentSvc: AssignmentService, private reqSvc: RequirementsService, private documentSvc: DocumentService, private dialog: MatDialog) { }
+  constructor(private assignmentSvc: AssignmentService, private router: Router, private reqSvc: RequirementsService, private route: ActivatedRoute, private documentSvc: DocumentService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.showMessage = false;
+    if (sessionStorage.getItem('user_role')) {
+      this.userRole = sessionStorage.getItem('user_role');
+    } else {
+      this.router.navigate(['login']);
+    }
+    
+    if (this.courseId.length === 0) {      
+      this.courseId = this.route.snapshot.paramMap.get('courseId');
+      console.log(this.courseId)
+    }
     this.getAssignments();
     
   }
@@ -47,6 +59,7 @@ export class ViewAssignmentsComponent implements OnInit {
     this.loading = true;
     this.assignments = [];
     this.showMessage = false;
+    
     if (this.courseId) {
       this.assignmentSvc.getAssignmentsByCourse(this.courseId).subscribe(resp => {
         if (resp) {
@@ -150,6 +163,10 @@ export class ViewAssignmentsComponent implements OnInit {
         console.log('Not Removing Course');
       }
     });
+  }
+
+  routeTo(theRoute) {
+    this.router.navigate([theRoute]);
   }
 
 }

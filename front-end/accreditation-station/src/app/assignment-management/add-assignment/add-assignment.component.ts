@@ -4,6 +4,7 @@ import { DocumentService } from '../../services/document.service';
 import { AssignmentService } from '../../services/assignment.service';
 import { RequirementsService } from '../../services/requirements.service';
 import { CourseService } from '../../services/course.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-assignment',
@@ -14,7 +15,8 @@ export class AddAssignmentComponent implements OnInit {
   @Input() courseInfo: any;
   @Input() theAssignmentID: any = "";
   prefillAssignment;
-
+  userRole = '';
+  courseId = '';
   addAssignmentForm: FormGroup;
   submitted = false;
   showMessage = false;
@@ -33,9 +35,13 @@ export class AddAssignmentComponent implements OnInit {
   filePreview;
   private file: File | null = null;
 
-  constructor(private assignmentSvc: AssignmentService, private courseSvc: CourseService, private reqSvc: RequirementsService, private docSvc: DocumentService, private fb: FormBuilder, private cd: ChangeDetectorRef) { }
+  constructor(private assignmentSvc: AssignmentService, private router: Router, private route: ActivatedRoute, private courseSvc: CourseService, private reqSvc: RequirementsService, private docSvc: DocumentService, private fb: FormBuilder, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
+    if (sessionStorage.getItem('user_role') && sessionStorage.getItem('user_role') === 'instructor') {
+      this.userRole = sessionStorage.getItem('user_role');
+      this.courseInfo = JSON.parse(atob(this.route.snapshot.paramMap.get('course')));
+    }
     
     this.addAssignmentForm = this.fb.group({
       title: ['', [Validators.required]],
@@ -243,6 +249,10 @@ export class AddAssignmentComponent implements OnInit {
 
 
     }
+  }
+
+  routeTo(theRoute) {
+    this.router.navigate([theRoute]);
   }
 
   get addAssignmentFormControl() {

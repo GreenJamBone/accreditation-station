@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { CourseService } from '../services/course.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-instructor',
@@ -11,35 +12,19 @@ import { CourseService } from '../services/course.service';
 export class InstructorComponent implements OnInit {
   userData;
   name;
-  viewAssignments = false;
-  addAssign = false;
   theCourse;
   courseId;
   courses = [];
   
-  constructor(private courseSvc: CourseService) { }
+  constructor(private courseSvc: CourseService, private router: Router) { }
 
   ngOnInit(): void {
-    this.userData = JSON.parse(atob(sessionStorage.getItem('user_info')));
-    console.log(this.userData);
-    this.name = this.userData.first_name;
-    this.courseSvc.getCoursesByUser(this.userData._id).subscribe(resp => {
-      if (resp && resp.status === 'S') {
-        console.log(resp);
-        this.courses = resp.courses;
-      }
-    });
+    if (sessionStorage.getItem('user_info')) {
+      this.userData = JSON.parse(atob(sessionStorage.getItem('user_info')));
+    } else {
+      this.router.navigate(['login']);
+    }
+    
   }
 
-  showAssignments(theId) {
-    this.viewAssignments = true;
-    this.addAssign = false;
-    this.courseId = theId;
-  }
-
-  addAssignment(course) {
-    this.viewAssignments = false;
-    this.addAssign = true;
-    this.theCourse = course;
-  }
 }

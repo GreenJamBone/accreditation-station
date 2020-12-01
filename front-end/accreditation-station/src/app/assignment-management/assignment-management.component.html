@@ -7,8 +7,6 @@
         <button class="block-btn" (click)="buttonFn('add-assignment')">Add Assignment</button>
         <button class="block-btn" (click)="buttonFn('view-assignments')">View Assignments</button>
     </div>
-    <div *ngIf="addAssignment"><h3>Add Assignment</h3></div>
-    <div *ngIf="viewAssignments"><h3>View Assignments</h3></div>
     <div class="document-content">
         
         <app-add-assignment *ngIf="addAssignment"></app-add-assignment>

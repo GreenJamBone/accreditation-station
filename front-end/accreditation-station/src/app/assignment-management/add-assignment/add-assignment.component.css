@@ -55,3 +55,8 @@ form label select.requirements {
 .bold {
     font-weight: bold;
 }
+.close-link {
+    color:#0000EE;;
+    text-decoration: underline;
+    cursor: pointer;
+}
