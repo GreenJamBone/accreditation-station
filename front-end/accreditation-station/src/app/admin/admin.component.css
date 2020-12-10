@@ -9,7 +9,7 @@
     cursor: pointer;
 }
 .card:hover {
-    background-color: #bfedff;
+    background-color: #f3f3f7;
     box-shadow: none;
 }
 
