@@ -5,6 +5,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { Router } from '@angular/router'
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
     "first_name": "John",
     "last_name": "Doe",
     "title": "instructors",
-    "roles": ["admin"],
+    "roles": ["audit"],
     "email": "test@gmail.com"
 }
   constructor(private formBuilder: FormBuilder, private router: Router) { 
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(loginData){
+  onSubmit(loginData) {
     //make call
     sessionStorage.setItem('user_info', btoa(JSON.stringify(this.userInfo)));
     this.loginForm.reset();
