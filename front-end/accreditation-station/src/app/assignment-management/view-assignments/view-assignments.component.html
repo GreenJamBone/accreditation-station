@@ -16,16 +16,16 @@
             </div>
             <div class="col col-1-4">
                 <div class="assignment-info">
-                    <div class="info label"> Fulfilled Requirements: </div>
+                    <div class="info label marginb"> Fulfilled Requirements: </div>
                     <div class="req" *ngFor="let req of assignment.fulfilled_requirements">{{req.name}}</div>        
                 </div>
             </div>
             <div class="col col-1-4">
                 <div class="marginb">
-                    <div class="label">Assignment Document:</div>
+                    <div class="label marginb">Assignment Document:</div>
                     <div><span (click)="showFile(assignment.assignment_document)" class="doc-link">{{assignment.assignment_document.name}}</span></div>
                 </div>
-                <div class="marginb">
+                <div class="marginb marginb">
                     <div class="label">Student Documents:</div>
                     <div *ngFor="let stdoc of assignment.student_documents"><span (click)="showFile(stdoc)" class="doc-link">{{stdoc.name}}</span></div>
                 </div>

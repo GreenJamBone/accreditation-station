@@ -21,7 +21,7 @@
                         <span class="label">Roles:</span>
                     
                         <div class="role" *ngFor="let role of user.roles">
-                            {{role}}
+                            {{role | titlecase}}
                         </div>
                     </div>
                     
