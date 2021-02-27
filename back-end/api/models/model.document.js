@@ -1,6 +1,6 @@
 class DocumentModel
 {
-    constructor(name, type, creation_date, modified_date, filepath, filename, year, department, chapter_section, file, filesize)
+    constructor(name, type, creation_date, modified_date, filepath, filename, year, department, program, chapter_section, file, filesize)
     {
         this.name = name;
         this.type = type;
@@ -12,6 +12,7 @@ class DocumentModel
         this.filesize = filesize;
         this.year = year;
         this.department = department;
+        this.program = program;
         this.chapter_section = chapter_section;
     }
 }

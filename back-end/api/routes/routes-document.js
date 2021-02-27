@@ -197,7 +197,7 @@ router.post('/create', async (req, res, next) => {
         
         singleDoc.filepath = saveDir + singleDoc.year + '/';
 
-        let document = new DocumentModel(singleDoc.name, singleDoc.type, singleDoc.creation_date, singleDoc.modified_date, singleDoc.filepath, singleDoc.filename, singleDoc.year, singleDoc.department, singleDoc.chapter_section, singleDoc.file, singleDoc.filesize);
+        let document = new DocumentModel(singleDoc.name, singleDoc.type, singleDoc.creation_date, singleDoc.modified_date, singleDoc.filepath, singleDoc.filename, singleDoc.year, singleDoc.department, singleDoc.program, singleDoc.chapter_section, singleDoc.file, singleDoc.filesize);
  
         payload.push(document);
         console.log(payload);
@@ -262,7 +262,7 @@ router.post('/update', async (req, res, next) => {
     
     data.filepath = saveDir + data.year + '/';
 
-    let document = new DocumentModel(data.name, data.type, data.creation_date, data.modified_date, data.filepath, data.filename, data.year, data.department, data.chapter_section, data.file, data.filesize);
+    let document = new DocumentModel(data.name, data.type, data.creation_date, data.modified_date, data.filepath, data.filename, data.year, data.department, singleDoc.program, data.chapter_section, data.file, data.filesize);
 
 
     const savedata = { fieldname: 'file',

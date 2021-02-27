@@ -22,6 +22,7 @@
                 </div>
                 
                 <div><span class="label bold">Department:</span>{{document.department}}<br></div>
+                <div *ngIf="document.program" ><span class="label bold">Program:</span>{{document.program.abbr}} - {{document.program.name}}<br></div>
                 <div><span class="label bold">Year:</span>{{document.year}}</div>
                 
             </div>

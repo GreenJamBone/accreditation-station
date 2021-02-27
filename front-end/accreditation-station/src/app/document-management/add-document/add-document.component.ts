@@ -23,6 +23,16 @@ export class AddDocumentComponent implements OnInit {
   isPdf = true;
   semesters = ["SP","SU","FA"];
   years = [];
+  programs = [
+    {
+      abbr: "BSCS",
+      name: "Bachelor of Science in Computer Science"
+    },
+    {
+      abbr: "BSSE",
+      name: "Bachelor of Science in Software Engineering"
+    }
+  ];
 
   chapters = [
     {
@@ -375,6 +385,7 @@ export class AddDocumentComponent implements OnInit {
       chapter_section: ['', Validators.required],
       year: [''],
       department: [''],
+      program: [''],
       file: [null, Validators.required],
       filename: [''],
       type: [''],
@@ -386,7 +397,7 @@ export class AddDocumentComponent implements OnInit {
   getYears() {
     const thisDate = new Date();
     let year = thisDate.getFullYear();
-    for (let i = -4; i < 2; i++) {
+    for (let i = -4; i < 6; i++) {
       this.years.push((year + i).toString())
     }
   }

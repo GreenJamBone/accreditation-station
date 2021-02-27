@@ -39,6 +39,14 @@
         <input oninput="this.value = this.value.toUpperCase()" type="text" formControlName="department">
     </label>
     <label>
+        <span>Program:</span>
+        <select formControlName="program">
+            <option *ngFor="let prog of programs" [ngValue]="prog">
+                {{prog.abbr}} - {{prog.name}}
+            </option>
+        </select>
+    </label>
+    <label>
         <span>File:</span>
         <input #fileEl id="file" type="file" accept="application/pdf" (change)="onFileChange($event)"/>
     </label>
