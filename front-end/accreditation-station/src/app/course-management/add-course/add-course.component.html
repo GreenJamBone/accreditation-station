@@ -138,7 +138,7 @@
     </label>
 
     <label>
-        <span>Audit Requirements Fulfilled:</span>
+        <span>Learning Outcomes Fulfilled:</span>
         <select formControlName="audit_requirements" multiple>
              <option *ngFor="let r of requirements" [value]="r._id">
                  {{r.name}}
@@ -148,10 +148,10 @@
      <span *ngIf="addCourseForm.controls.audit_requirements.invalid && (addCourseForm.controls.audit_requirements.dirty || addCourseForm.controls.audit_requirements.touched)"
         class="alert text-danger">
         <span *ngIf="addCourseForm.controls.audit_requirements.errors.required">
-            Audit requirements are required.
+            Learning outcomes are required.
         </span>
         <span *ngIf="addCourseForm.controls.audit_requirements.errors.minlength">
-            Audit requirements must be at least 4 characters long.
+            Learning outcomes must be at least 4 characters long.
         </span>
     </span>
 

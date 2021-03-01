@@ -21,7 +21,7 @@
                 <div class="info">{{course.description}}</div>
             </div>
             <div class="course-info col col-1-4">
-                <div class="label marginb">Fulfilled Requirements:</div>
+                <div class="label marginb">Learning Outcomes:</div>
                 <div class="audit" *ngFor="let req of course.req_names">{{req}}</div>                
             </div>
             <div *ngIf="userRole !== 'audit'" class="col col-1-4">

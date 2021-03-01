@@ -6,7 +6,14 @@
     <span *ngIf="!isPdf">{{messages.pdf}}</span>
 </div>
 <form [formGroup]="editDocumentForm" (ngSubmit)="onSubmit()">
-  
+    <label>
+        <span>Program:</span>
+        <select formControlName="program" id="program" name="program" [compareWith]="compareFnPrograms">
+            <option *ngFor="let prog of programs" [ngValue]="prog">
+                {{prog.abbr}} -- {{prog.name}}
+            </option>
+        </select>
+    </label>
     <label>
         <span>Document Name:</span>
         <input id="name" type="text" formControlName="name">
@@ -37,14 +44,6 @@
     <label>
         <span>Department:</span>
         <input oninput="this.value = this.value.toUpperCase()" type="text" formControlName="department">
-    </label>
-    <label>
-        <span>Program:</span>
-        <select formControlName="program">
-            <option *ngFor="let prog of programs" [ngValue]="prog">
-                {{prog.abbr}} - {{prog.name}}
-            </option>
-        </select>
     </label>
     <label>
         <span>File:</span>

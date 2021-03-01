@@ -3,16 +3,16 @@
 </div>
 <form [formGroup]="addRequirementForm" (ngSubmit)="onSubmit()">
     <label>
-        <span>Requirement name:</span>
+        <span>Learning outcome name:</span>
         <input id="name" type="text" formControlName="name">
     </label>
     <span *ngIf="addRequirementForm.controls.name.invalid && (addRequirementForm.controls.name.dirty || addRequirementForm.controls.name.touched)"
         class="alert text-danger">
         <span *ngIf="addRequirementForm.controls.name.errors.required">
-            Requirement name is required.
+            Learning outcome name is required.
         </span>
         <span *ngIf="addRequirementForm.controls.name.errors.minlength">
-            Requirement name must be at least 4 characters long.
+            Learning outcome name must be at least 4 characters long.
         </span>
     </span>
     <label>

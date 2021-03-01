@@ -15,6 +15,7 @@
             <div class="col col-3-10">
                 <div><span class="label-sm">Chapter:</span>{{document.chapter_section.chapter}}</div>
                 <div><span class="label-sm">Section:</span>{{document.chapter_section.section}}</div>
+                <div *ngIf="document.program" ><span class="label-sm bold">Program:</span>{{document.program.abbr}} - {{document.program.name}}<br></div>
             </div>
             <div class="col col-4-10">
                 <div class="name">
@@ -22,7 +23,6 @@
                 </div>
                 
                 <div><span class="label bold">Department:</span>{{document.department}}<br></div>
-                <div *ngIf="document.program" ><span class="label bold">Program:</span>{{document.program.abbr}} - {{document.program.name}}<br></div>
                 <div><span class="label bold">Year:</span>{{document.year}}</div>
                 
             </div>

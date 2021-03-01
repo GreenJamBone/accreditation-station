@@ -41,7 +41,7 @@
         </select>
     </label>
     <label>
-        <span>Fulfilled Requirements (hold ctrl to select multiple):</span>
+        <span>Fulfilled Learning Outcomes (hold ctrl to select multiple):</span>
         <select class="requirements" formControlName="fulfilled_requirements" multiple>
             <option *ngFor="let r of theReqs" [value]="{id:r._id, name:r.name}">
                 {{r.name}}

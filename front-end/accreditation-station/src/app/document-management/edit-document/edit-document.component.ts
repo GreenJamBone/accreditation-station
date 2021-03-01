@@ -406,6 +406,10 @@ export class EditDocumentComponent implements OnInit {
     return r1 && r2 ? (r1.value_c === r2.value_c && r1.value_s === r2.value_s) : r1 === r2; 
   }
 
+  compareFnPrograms(r1: any, r2:any) {
+    return r1 && r2 ? (r1.abbr === r2.abbr && r1.name === r2.name) : r1 === r2;
+  }
+
   onFileChange(event) {
     this.isPdf = true;
     const reader = new FileReader();
@@ -435,6 +439,7 @@ export class EditDocumentComponent implements OnInit {
     if (this.editDocumentForm && this.docData.name) {
       this.editDocumentForm.patchValue({
         _id: this.docData._id,
+        program: this.docData.program,
         name: this.docData.name,
         chapter_section: this.docData.chapter_section,
         year: this.docData.year,
@@ -442,7 +447,7 @@ export class EditDocumentComponent implements OnInit {
         file: this.docData.file,
         filename: this.docData.filename,
         type: this.docData.type,
-        filesize: this.docData.filesize
+        filesize: this.docData.filesize,
       });
     }
   }
