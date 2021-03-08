@@ -23,7 +23,12 @@ export class EditCourseComponent implements OnInit {
     preceded_by: "",
     succeeded_by: "",
     audit_requirements: [],
-    id: ""
+    id: "",
+    file: "",
+    filename: "",
+    type: "",
+    filesize : "",
+    creation_date: ""
   };
  
   requirements = [];
@@ -35,6 +40,10 @@ export class EditCourseComponent implements OnInit {
 
   editCourseForm: FormGroup;
   submitted = false;
+
+  isPdf = true;
+  filePreview;
+  private file: File | null = null;
 
   constructor(public userSvc: UserService, private requirementsSvc: RequirementsService, public dialogRef: MatDialogRef<EditCourseComponent>, @Inject(MAT_DIALOG_DATA) public data, private fb: FormBuilder, private courseSvc: CourseService) { }
 
@@ -54,6 +63,12 @@ export class EditCourseComponent implements OnInit {
     this.courseData.succeeded_by = this.data.succeeded_by;
     this.courseData.audit_requirements = this.data.audit_requirements;
     this.courseData.id = this.data._id;
+    this.courseData.file = this.data.file;
+    this.courseData.filename = this.data.filename;
+    this.courseData.filesize = this.data.filesize;
+    this.courseData.type = this.data.type;
+    this.courseData.creation_date = this.data.creation_date;
+  
 
     this.editCourseForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
@@ -67,6 +82,10 @@ export class EditCourseComponent implements OnInit {
       preceded_by: [''],
       succeeded_by: [''],
       audit_requirements: ['', [Validators.required]],
+      filename: [''],
+      file: [''],
+      type: [''],
+      filesize: ['']
     });
     this.fillInForm();
   }
@@ -74,7 +93,7 @@ export class EditCourseComponent implements OnInit {
   getYears() {
     const thisDate = new Date();
     let year = thisDate.getFullYear();
-    for (let i = -4; i < 2; i++) {
+    for (let i = -4; i < 6; i++) {
       this.years.push((year + i).toString())
     }
   }
@@ -111,8 +130,33 @@ export class EditCourseComponent implements OnInit {
       }
     });
   }
-
+  onFileChange(event) {
+    this.isPdf = true;
+    const reader = new FileReader();
+     if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      const nameSegments = file.name.split('.');
+        if (nameSegments[(nameSegments.length - 1)].indexOf('pdf') !== -1) {
+          reader.readAsDataURL(file)
+          reader.onload = () => {
+            this.editCourseForm.patchValue({
+              file: reader.result
+            });
+          }
+          this.editCourseForm.patchValue({
+            filename: file.name,
+            type: file.type,
+            filesize: file.size
+          });
+        } else {
+          console.log("NOT A PDF");
+          event.target.value = '';
+          this.isPdf = false;
+        }
+     }
+  }
   fillInForm(){
+    console.log(this.courseData);
     if (this.editCourseForm && this.courseData.name) {
       this.editCourseForm.patchValue({
         name: this.courseData.name,
@@ -126,6 +170,10 @@ export class EditCourseComponent implements OnInit {
         preceded_by: this.courseData.preceded_by,
         succeeded_by: this.courseData.succeeded_by,
         audit_requirements: this.courseData.audit_requirements,
+        file: this.courseData.file,
+        filename: this.courseData.filename,
+        type: this.courseData.type,
+        filesize: this.courseData.filesize
       });
     }
   }
@@ -146,7 +194,12 @@ export class EditCourseComponent implements OnInit {
         instructor: this.editCourseForm.value.instructor,
         preceded_by: this.editCourseForm.value.preceded_by,
         succeeded_by: this.editCourseForm.value.succeeded_by,
-        audit_requirements: this.editCourseForm.value.audit_requirements
+        audit_requirements: this.editCourseForm.value.audit_requirements,
+        file: this.editCourseForm.value.file,
+        filename: this.editCourseForm.value.filename,
+        type: this.editCourseForm.value.type,
+        filesize: this.editCourseForm.value.filesize,
+        creation_date: this.courseData.creation_date
       }
 
       this.courseSvc.updateCourse(courseObj).subscribe(resp => {

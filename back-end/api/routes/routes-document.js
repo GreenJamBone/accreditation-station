@@ -30,7 +30,6 @@ const documentVSchema = {
     creation_date: { type: "string" },
     modified_date: { type: "string" },
     rating: { type: "string" },
-    filepath: { type: "string"},
     filename: { type: "string" }
 };
 
@@ -193,25 +192,25 @@ router.post('/create', async (req, res, next) => {
         singleDoc.creation_date = (new Date()).toDateString();
         singleDoc.modified_date = singleDoc.creation_date;
 
-        let saveDir = 'self-study/';
+        // let saveDir = 'self-study/';
         
-        singleDoc.filepath = saveDir + singleDoc.year + '/';
+        // singleDoc.filepath = saveDir + singleDoc.year + '/';
 
-        let document = new DocumentModel(singleDoc.name, singleDoc.type, singleDoc.creation_date, singleDoc.modified_date, singleDoc.filepath, singleDoc.filename, singleDoc.year, singleDoc.department, singleDoc.program, singleDoc.chapter_section, singleDoc.file, singleDoc.filesize);
+        let document = new DocumentModel(singleDoc.name, singleDoc.type, singleDoc.creation_date, singleDoc.modified_date, singleDoc.filename, singleDoc.year, singleDoc.department, singleDoc.program, singleDoc.chapter_section, singleDoc.file, singleDoc.filesize);
  
         payload.push(document);
         console.log(payload);
-        const savedata = { fieldname: 'file',
-            originalname: singleDoc.filename,
-            encoding: 'base64',
-            mimetype: singleDoc.type,
-            buffer: singleDoc.file,
-            size: singleDoc.filesize 
-        };
+        // const savedata = { fieldname: 'file',
+        //     originalname: singleDoc.filename,
+        //     encoding: 'base64',
+        //     mimetype: singleDoc.type,
+        //     buffer: singleDoc.file,
+        //     size: singleDoc.filesize 
+        // };
 
-        process.chdir(rootDir);
-        createDirectoryAndSave(singleDoc, savedata);
-        process.chdir(rootDir);
+        // process.chdir(rootDir);
+        // createDirectoryAndSave(singleDoc, savedata);
+        // process.chdir(rootDir);
     }
     
     mongo.connect(constants.constants.db_url, {
@@ -254,28 +253,24 @@ router.post('/update', async (req, res, next) => {
     let data = req.body;
     const documentId = data._id;
 
-    
-    data.creation_date = (new Date()).toDateString();
-    data.modified_date = data.creation_date;
+    data.modified_date = (new Date()).toDateString();
 
-    let saveDir = 'self-study/';
-    
-    data.filepath = saveDir + data.year + '/';
+    // let saveDir = 'self-study/';
 
-    let document = new DocumentModel(data.name, data.type, data.creation_date, data.modified_date, data.filepath, data.filename, data.year, data.department, singleDoc.program, data.chapter_section, data.file, data.filesize);
+    let document = new DocumentModel(data.name, data.type, data.creation_date, data.modified_date, data.filename, data.year, data.department, data.program, data.chapter_section, data.file, data.filesize);
 
 
-    const savedata = { fieldname: 'file',
-        originalname: data.filename,
-        encoding: 'base64',
-        mimetype: data.type,
-        buffer: data.file,
-        size: data.filesize 
-    };
+    // const savedata = { fieldname: 'file',
+    //     originalname: data.filename,
+    //     encoding: 'base64',
+    //     mimetype: data.type,
+    //     buffer: data.file,
+    //     size: data.filesize 
+    // };
 
-    process.chdir(rootDir);
-    createDirectoryAndSave(data, savedata);
-    process.chdir(rootDir);
+    // process.chdir(rootDir);
+    // createDirectoryAndSave(data, savedata);
+    // process.chdir(rootDir);
     
     
     mongo.connect(constants.constants.db_url, {

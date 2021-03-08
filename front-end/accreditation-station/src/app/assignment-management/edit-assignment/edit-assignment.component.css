@@ -52,4 +52,5 @@ form label select.requirements {
     color:#0000EE;;
     text-decoration: underline;
     cursor: pointer;
+    text-align: right;
 }

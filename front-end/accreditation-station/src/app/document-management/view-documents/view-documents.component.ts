@@ -52,6 +52,7 @@ export class ViewDocumentsComponent implements OnInit {
             this.allDocs = JSON.parse(JSON.stringify(this.documents));;
             this.theYears = this.getDropdownYears(this.documents);
             this.theYears.unshift('All');
+            this.theYears.sort();
         } else {
           this.displayMessage = this.messages.errMsg;
           this.showMessage = true;

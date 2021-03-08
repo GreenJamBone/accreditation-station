@@ -388,7 +388,8 @@ export class EditDocumentComponent implements OnInit {
       file: [null],
       filename: [''],
       type: [''],
-      filesize: [Number]
+      filesize: [Number],
+      creation_date: ['']
     });
     this.getYears();
     this.fillInForm();
@@ -448,6 +449,7 @@ export class EditDocumentComponent implements OnInit {
         filename: this.docData.filename,
         type: this.docData.type,
         filesize: this.docData.filesize,
+        creation_date: this.docData.creation_date
       });
     }
   }

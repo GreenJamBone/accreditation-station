@@ -29,4 +29,5 @@ form select {
     color: blue;
     cursor: pointer;
     text-decoration: underline;
+    text-align: right;
 }

@@ -37,4 +37,5 @@ form button {
     color: blue;
     cursor: pointer;
     text-decoration: underline;
+    text-align: right;
 }

@@ -156,6 +156,12 @@
             Learning outcomes must be at least 4 characters long.
         </span>
     </span>
-
+    <label>
+        <span>Syllabus:</span>
+        <input id="file" type="file" accept="application/pdf" (change)="onFileChange($event)"/>
+    </label>
+    <div *ngIf="editCourseForm.controls.file.touched && editCourseForm.controls.file.invalid" class="alert alert-danger">
+        <div *ngIf="editCourseForm.controls.file.errors.required">File is required.</div>
+    </div>
     <button type="submit" [disabled]="!editCourseForm.valid">Submit</button>
   </form>

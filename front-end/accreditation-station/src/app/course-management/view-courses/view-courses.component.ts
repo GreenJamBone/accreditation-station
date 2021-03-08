@@ -6,6 +6,7 @@ import { AreYouSureModalComponent } from '../../are-you-sure-modal/are-you-sure-
 import { UserService } from '../../services/user.service';
 import { RequirementsService } from '../../services/requirements.service';
 import { Router } from '@angular/router';
+import { CommonPdfGeneratorComponent } from 'src/app/common-pdf-generator/common-pdf-generator.component';
 
 @Component({
   selector: 'app-view-courses',
@@ -104,6 +105,18 @@ export class ViewCoursesComponent implements OnInit {
 
       this.courses[i].req_names = tempArray;
     }
+  }
+
+  showFile(fileData){    
+    const commonPdfDialogReg = this.dialog.open(CommonPdfGeneratorComponent, {
+      height: 'auto',
+      width: '150%',
+      data: fileData
+    });
+    commonPdfDialogReg.afterClosed().subscribe(result => {
+      console.log(result);
+    })
+
   }
   
   editCourseModal(course) {

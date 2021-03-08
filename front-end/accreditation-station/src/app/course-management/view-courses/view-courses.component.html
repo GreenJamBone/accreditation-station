@@ -5,7 +5,7 @@
 <div *ngIf="!loading" class="view-courses-container ">
     <div *ngFor="let course of courses">
         <div class="row">
-            <div class="col col-1-4">
+            <div class="col col-1-5">
                 <div class="name marginb">
                     {{course.name}} ({{course.department}}{{course.course_number}}-{{course.section}})
                 </div>
@@ -16,19 +16,22 @@
                 </div>
                 
             </div>
-            <div class="col col-1-4">
+            <div class="col col-1-5">
                 <div class="label marginb">Description:</div>
                 <div class="info">{{course.description}}</div>
             </div>
-            <div class="course-info col col-1-4">
+            <div class="course-info col col-1-5">
                 <div class="label marginb">Learning Outcomes:</div>
                 <div class="audit" *ngFor="let req of course.req_names">{{req}}</div>                
             </div>
-            <div *ngIf="userRole !== 'audit'" class="col col-1-4">
+            <div class="col col-1-5">
+                <div><span (click)="showFile(course)" class="doc-link">View Syllabus</span></div>
+            </div>
+            <div *ngIf="userRole !== 'audit'" class="col col-1-5">
                 <span (click)="editCourseModal(course)" class="edit-btn"><button>Edit</button></span>
                 <span (click)="removeCourse(course)" class="delete-btn"><button>Remove Course</button></span>
             </div>
-            <div *ngIf="userRole === 'audit'" class="col col-1-4">
+            <div *ngIf="userRole === 'audit'" class="col col-1-5">
                 <span (click)="viewAssignments(course._id)" class="edit-btn"><button>View Assignments</button></span>
             </div>
         </div>

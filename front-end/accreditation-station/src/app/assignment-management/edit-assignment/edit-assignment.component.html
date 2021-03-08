@@ -3,6 +3,7 @@
         <div class="close-link" *ngIf="userRole === 'admin'" (click)="closeButton()">Return to Assignment Management</div>
         <div class="close-link" *ngIf="userRole === 'instructor'" (click)="closeButton()">Return to My Courses</div>
     </div>
+    <h2>Edit Assignment</h2>
     <div class="message text-danger">
         <span *ngIf="showMessage">{{theMessage}}</span>
     </div>

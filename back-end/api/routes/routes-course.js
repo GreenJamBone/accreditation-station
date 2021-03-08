@@ -25,7 +25,7 @@ const courseVSchema = {
     year: { type: "string", min: 1, max: 5},
     description: { type: "string", min: 1, max: 500},
     instructor: { type: "string"},
-	audit_requirements: { type: "array"} 
+	audit_requirements: { type: "array"}
 };
 
 /* GET course listing. */
@@ -123,7 +123,10 @@ router.get('/byUser/:id', async function(req, res, next) {
 
 /* adds a new course to the list */
 router.post('/create', async (req, res, next) => {
-	const data = req.body;
+    const data = req.body;
+    
+    data.creation_date = (new Date()).toDateString();
+    data.modified_date = data.creation_date;
 
     var vres = courseValidator.validate(data, courseVSchema);
     /* validation failed */
@@ -141,7 +144,7 @@ router.post('/create', async (req, res, next) => {
             message: errors
         };
     }
-    let course = new CourseModel(data.name, data.department, data.course_number, data.section, data.semester, data.year, data.description, data.instructor, data.preceded_by, data.succeeded_by, data.audit_requirements);
+    let course = new CourseModel(data.name, data.department, data.course_number, data.section, data.semester, data.year, data.description, data.instructor, data.preceded_by, data.succeeded_by, data.audit_requirements, data.creation_date, data.modified_date, data.filename, data.file, data.filesize, data.type);
     
     mongo.connect(constants.constants.db_url, {
         useNewUrlParser: true,
@@ -182,6 +185,9 @@ router.post('/update', async (req, res, next) =>
 	const data = req.body;
     const courseId = req.body._id;
     var vres = courseValidator.validate(data, courseVSchema);
+
+    data.modified_date = (new Date()).toDateString();
+
     /* validation failed */
     if(!(vres === true))
     {
@@ -197,7 +203,7 @@ router.post('/update', async (req, res, next) =>
             message: errors
         };
     }
-    let course = new CourseModel(data.name, data.department, data.course_number, data.section, data.semester, data.year, data.description, data.instructor, data.preceded_by, data.succeeded_by, data.audit_requirements);
+    let course = new CourseModel(data.name, data.department, data.course_number, data.section, data.semester, data.year, data.description, data.instructor, data.preceded_by, data.succeeded_by, data.audit_requirements, data.creation_date, data.modified_date, data.filename, data.file, data.filesize, data.type);
 
     mongo.connect(constants.constants.db_url, {
         useNewUrlParser: true,
