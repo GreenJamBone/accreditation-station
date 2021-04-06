@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     "first_name": "John",
     "last_name": "Doe",
     "title": "instructors",
-    "roles": ["admin"],
+    "roles": ["audit"], //audit, instructor, admin
     "email": "test@gmail.com"
 }
   constructor(private formBuilder: FormBuilder, private router: Router) { 
