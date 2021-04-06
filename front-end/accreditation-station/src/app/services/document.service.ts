@@ -14,25 +14,25 @@ export class DocumentService {
  
     // Uses http.get() to load data from a single API endpoint
     addDocument(payload): Observable<any> {
-        return this.http.post(environment.createDocument, payload);
+        return this.http.post(environment.root_path + environment.createDocument, payload);
     }
 
     getAllDocuments(): Observable<any> {
-        return this.http.get(environment.allDocuments);
+        return this.http.get(environment.root_path + environment.allDocuments);
     }
 
     updateDocument(payload): Observable<any> {
-        return this.http.post(environment.updateDocument, payload);
+        return this.http.post(environment.root_path + environment.updateDocument, payload);
     } 
 
     removeDocument(payload): Observable<any> {
-        return this.http.post(environment.removeDocument, payload);
+        return this.http.post(environment.root_path + environment.removeDocument, payload);
     }
 
     getDocument(payload): Observable<any> {
-        return this.http.get(environment.getSingleDoc + '/' + payload);
+        return this.http.get(environment.root_path + environment.getSingleDoc + '/' + payload);
     }
     getMultipleDocsById(payload): Observable<any> {
-        return this.http.post(environment.getMultipleDocs, payload);
+        return this.http.post(environment.root_path + environment.getMultipleDocs, payload);
     }
 }

@@ -15,18 +15,18 @@ export class RequirementsService {
  
   // Uses http.get() to load data from a single API endpoint
   addRequirement(payload): Observable<any> {
-      return this.http.post(environment.createRequirement, payload);
+      return this.http.post(environment.root_path + environment.createRequirement, payload);
   }
 
   getAllRequirements(): Observable<any> {
-      return this.http.get(environment.allRequirements);
+      return this.http.get(environment.root_path + environment.allRequirements);
   }
 
   updateRequirement(payload): Observable<any> {
-      return this.http.post(environment.updateRequirement, payload);
+      return this.http.post(environment.root_path + environment.updateRequirement, payload);
   } 
 
   removeRequirement(payload): Observable<any> {
-      return this.http.post(environment.removeRequirement, payload);
+      return this.http.post(environment.root_path + environment.removeRequirement, payload);
   }
 }

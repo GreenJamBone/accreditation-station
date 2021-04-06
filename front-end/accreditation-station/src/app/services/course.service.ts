@@ -14,22 +14,22 @@ export class CourseService {
  
     // Uses http.get() to load data from a single API endpoint
     addCourse(payload): Observable<any> {
-        return this.http.post(environment.createCourse, payload);
+        return this.http.post(environment.root_path + environment.createCourse, payload);
     }
 
     getAllCourses(): Observable<any> {
-        return this.http.get(environment.allCourses);
+        return this.http.get(environment.root_path + environment.allCourses);
     }
 
     updateCourse(payload): Observable<any> {
-        return this.http.post(environment.updateCourse, payload);
+        return this.http.post(environment.root_path + environment.updateCourse, payload);
     } 
 
     removeCourse(payload): Observable<any> {
-        return this.http.post(environment.removeCourse, payload);
+        return this.http.post(environment.root_path + environment.removeCourse, payload);
     }
 
     getCoursesByUser(user_id): Observable<any> {
-        return this.http.get(environment.coursesByUser + '/' + user_id);
+        return this.http.get(environment.root_path + environment.coursesByUser + '/' + user_id);
     }
 }

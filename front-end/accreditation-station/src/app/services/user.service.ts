@@ -14,22 +14,22 @@ export class UserService {
  
     // Uses http.get() to load data from a single API endpoint
     addUser(payload): Observable<any> {
-        return this.http.post(environment.createUser, payload);
+        return this.http.post(environment.root_path + environment.createUser, payload);
     }
 
     getAllUsers(): Observable<any> {
-        return this.http.get(environment.allUsers);
+        return this.http.get(environment.root_path + environment.allUsers);
     }
 
     getUser(payload): Observable<any> {
-        return this.http.get(environment.getUser + '/' + payload);
+        return this.http.get(environment.root_path + environment.getUser + '/' + payload);
     }
 
     updateUser(payload): Observable<any> {
-        return this.http.post(environment.updateUser, payload);
+        return this.http.post(environment.root_path + environment.updateUser, payload);
     } 
 
     removeUser(payload): Observable<any> {
-        return this.http.post(environment.removeUser, payload);
+        return this.http.post(environment.root_path + environment.removeUser, payload);
     }
 }
