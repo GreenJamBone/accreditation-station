@@ -1,0 +1,23 @@
+.main {
+    width: 80%;
+    margin: auto;
+}
+
+.header-section {
+    padding: 40px;
+    border-bottom: 1px solid #1d1d1d;
+    margin-bottom: 40px;
+}
+.header-section div {
+    display: inline-block;
+}
+
+.title {
+    float: right;
+    vertical-align: 22px;
+    font-size: 30px;
+    font-family: 'Playfair Display';
+}
+.logo {
+    width: 250px;
+}

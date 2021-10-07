@@ -1,0 +1,33 @@
+form {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+form label span {
+    display: inline-block;
+    width: 300px;
+}
+form button {
+    width: 200px;
+    height: 26px;
+    margin: 20px;
+}
+form select {
+    width: 166px;
+    height: 22px;
+}
+.text-danger {
+    display: inline-block;
+    margin-bottom: 16px;
+    color: red;
+}
+.link-styles {
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+    text-align: right;
+}

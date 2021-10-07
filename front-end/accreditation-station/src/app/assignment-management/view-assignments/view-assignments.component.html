@@ -1,0 +1,45 @@
+<div class="doc-link" (click)="routeTo('audit/courses')" *ngIf="userRole === 'audit'">Back to Courses</div>
+<div class="doc-link" (click)="routeTo('instructor')" *ngIf="userRole === 'instructor'">Back to Courses</div>
+<div><h3>Assignments</h3></div>
+<div class="message text-danger">
+    <span *ngIf="showMessage">{{displayMessage}}</span>
+</div>
+
+<div *ngIf="!loading" class="view-assignments-container ">
+    <div *ngFor="let assignment of assignments">
+        <div class="row">
+            <div class="col col-1-4">
+                <div class="label marginb">
+                    {{assignment.title}} ({{assignment.category}})
+                </div>
+                <div class="info"><span class="label">Description: </span> {{assignment.description}}</div>
+            </div>
+            <div class="col col-1-4">
+                <div class="assignment-info">
+                    <div class="info label marginb"> Fulfilled Learning Outcomes: </div>
+                    <div class="req" *ngFor="let req of assignment.fulfilled_requirements">{{req.name}}</div>        
+                </div>
+            </div>
+            <div class="col col-1-4">
+                <div class="marginb">
+                    <div class="label marginb">Assignment Document:</div>
+                    <div><span (click)="showFile(assignment.assignment_document)" class="doc-link">{{assignment.assignment_document.name}}</span></div>
+                </div>
+                <div class="marginb marginb">
+                    <div class="label">Student Documents:</div>
+                    <div *ngFor="let stdoc of assignment.student_documents"><span (click)="showFile(stdoc)" class="doc-link">{{stdoc.name}}</span></div>
+                </div>
+            </div>
+            <div *ngIf="userRole !== 'audit'" class="col col-1-4">
+                <span class="edit-btn" (click)="editAssignment(assignment._id)"><button>Edit</button></span>
+                <span (click)="removeAssignment(assignment)" class="delete-btn"><button>Remove Assignment</button></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="loading" class="loader">
+    <img src="/assets/images/icons/loader.png">
+</div>
+<div id="fileViewer">
+    
+</div>

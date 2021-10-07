@@ -1,0 +1,16 @@
+.text {
+    font-weight: bold;
+    text-align: center;;
+}
+.button-cont {
+    text-align: center;
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.button-cont button {
+    width: 40px;
+}

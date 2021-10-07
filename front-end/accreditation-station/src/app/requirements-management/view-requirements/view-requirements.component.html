@@ -1,0 +1,20 @@
+<div class="view-requirements-container ">
+    <div class="message text-danger">
+        <span *ngIf="showMessage">{{theMessage}}</span>
+    </div>
+    <div *ngFor="let requirement of requirements">
+        <div class="row">
+            <div class="col col-1-4">
+                <div class="marginb"><span class="name">{{requirement.name}} </span></div>
+                <div><span class="name">Type:</span> {{requirement.type | titlecase}}</div>
+                <!-- <span class="edit-btn"><button>Edit</button></span> -->
+            </div>
+            <div class="col col-2-4">
+                <span class="name">Description: </span> {{requirement.description}}
+            </div>
+            <div class="col col-1-4">
+                <span class="delete-btn"><button (click)="removeRequirement(requirement)">Remove Requirement</button></span>
+            </div>
+        </div>
+    </div>
+</div>
