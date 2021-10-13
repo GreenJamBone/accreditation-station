@@ -27,8 +27,15 @@ router.post('/', async (req, res) => {
         return res.status(400).send('Incorrect email or password.');
     }
     const token = jwt.sign({ _id: user._id }, config.get('PrivateKey'));
+    let options = {
+        path:"/",
+        sameSite:true,
+        maxAge: 1000 * 60 * 60 * 24, // would expire after 24 hours
+        httpOnly: true, // The cookie only accessible by the web server
+    }
+
+    res.cookie('x-access-token',token, options);
     res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']));
-    res.send(token);
 });
 
 function validate(req) {

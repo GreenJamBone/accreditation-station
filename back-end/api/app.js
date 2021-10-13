@@ -23,10 +23,6 @@ if (!config.get('PrivateKey')) {
     process.exit(1);
 }
 
-mongoose.connect(constants.constants.db_url)
-    .then(() => console.log('Now connected to MongoDB!'))
-    .catch(err => console.error('Something went wrong', err));
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());

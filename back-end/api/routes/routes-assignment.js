@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const fs = require('fs');
 const process = require('process'); 
+const auth = require('../middleware/auth');
 
 const constants = require('../constants');
 const AssignmentModel = require("../models/model.assignment");
@@ -30,7 +31,7 @@ const assignmentVSchema = {
 
 
 /* GET assignment listing. */
-router.get('/allAssignments', async function(req, res, next) {
+router.get('/allAssignments', auth, async function(req, res, next) {
 	mongo.connect(constants.constants.db_url, {
         useNewUrlParser: true,
         useUnifiedTopology: true

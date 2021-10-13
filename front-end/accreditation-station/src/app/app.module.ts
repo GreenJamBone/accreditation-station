@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, RouterOutlet } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -44,6 +44,7 @@ import { EditDocumentComponent } from './document-management/edit-document/edit-
 import { CommonPdfGeneratorComponent } from './common-pdf-generator/common-pdf-generator.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { InstructorCoursesComponent } from './instructor/instructor-courses/instructor-courses.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 const appRoutes: Routes = [
   {
@@ -174,7 +175,19 @@ const appRoutes: Routes = [
     ),
     // BrowserAnimationsModule
   ],
-  providers: [UserService, MatDialog, CourseService, RequirementsService, DocumentService, AssignmentService],
+  providers: [
+    UserService, 
+    MatDialog, 
+    CourseService, 
+    RequirementsService, 
+    DocumentService, 
+    AssignmentService, 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+      }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
