@@ -31,7 +31,7 @@ const assignmentVSchema = {
 
 
 /* GET assignment listing. */
-router.get('/allAssignments', async function(req, res, next) {
+router.get('/allAssignments', auth, async function(req, res, next) {
 	mongo.connect(constants.constants.db_url, {
         useNewUrlParser: true,
         useUnifiedTopology: true

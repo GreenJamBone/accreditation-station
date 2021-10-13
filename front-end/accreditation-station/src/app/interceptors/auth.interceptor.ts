@@ -9,12 +9,13 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private router: Router) {}
   
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+      
     if (this.router.url !== '/register' && this.router.url !== '/login') {
         if (sessionStorage.getItem('token')) {
             this.token = sessionStorage.getItem('token');
         } else {
             console.log("NO AUTH");
-            // this.router.navigate(['/login']);
+            this.router.navigate(['login']);
         }
         request = request.clone({
             headers: new HttpHeaders({
