@@ -6,6 +6,8 @@ const UserModel = require("../models/model.user");
 const mongodb = require('mongodb');
 const mongo = require('mongodb').MongoClient;
 
+const auth = require('../middleware/auth');
+
 ObjectId = mongodb.ObjectID, 
 require('dotenv/config');
 
@@ -25,7 +27,7 @@ const userVSchema = {
 };
 
 /* GET user listing. */
-router.get('/allUsers', async function(req, res, next) {
+router.get('/allUsers', auth, async function(req, res, next) {
 	mongo.connect(constants.constants.db_url, {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -45,7 +47,7 @@ router.get('/allUsers', async function(req, res, next) {
                 client.close();
                 return res.status(400).json({ error: err});
             } else {
-                console.log(result);
+                
                 let resultObj;
                 if (result.length > 0) {
                     resultObj = {
@@ -70,7 +72,7 @@ router.get('/allUsers', async function(req, res, next) {
     });    	
 });
 
-router.get('/getUser/:id', async function(req, res, next) {
+router.get('/getUser/:id', auth, async function(req, res, next) {
     const data = ObjectId(req.params.id);
 	mongo.connect(constants.constants.db_url, {
         useNewUrlParser: true,
@@ -119,7 +121,7 @@ router.get('/getUser/:id', async function(req, res, next) {
 
 
 /* adds a new user to the list */
-router.post('/create', async (req, res, next) => {
+router.post('/create', auth, async (req, res, next) => {
 	const data = req.body;
 
     var vres = userValidator.validate(data, userVSchema);
@@ -174,7 +176,7 @@ router.post('/create', async (req, res, next) => {
 });
     
 /* updates the user by uid */
-router.post('/update', async (req, res, next) =>
+router.post('/update', auth, async (req, res, next) =>
 {
 	const data = req.body;
     const userId = req.body._id;
@@ -233,7 +235,7 @@ router.post('/update', async (req, res, next) =>
 });
 
 /* removes the user from the user list by uid */
-router.post('/remove', async (req, res, next) =>
+router.post('/remove', auth, async (req, res, next) =>
 {
     const data = req.body;
     const userId = req.body._id;

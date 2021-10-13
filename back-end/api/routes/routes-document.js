@@ -8,6 +8,8 @@ const DocumentModel = require("../models/model.document");
 const mongodb = require('mongodb');
 const mongo = require('mongodb').MongoClient;
 
+const auth = require('../middleware/auth');
+
 ObjectId = mongodb.ObjectID, 
 require('dotenv/config');
 
@@ -34,7 +36,7 @@ const documentVSchema = {
 };
 
 /* GET document listing. */
-router.get('/allDocuments', async function(req, res, next) {
+router.get('/allDocuments', auth, async function(req, res, next) {
 	mongo.connect(constants.constants.db_url, {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -54,7 +56,6 @@ router.get('/allDocuments', async function(req, res, next) {
                 client.close();
                 return res.status(400).json({ error: err});
             } else {
-                console.log(result);
                 let resultObj;
                 if (result.length > 0) {
                     resultObj = {
@@ -79,7 +80,7 @@ router.get('/allDocuments', async function(req, res, next) {
     });    	
 });
 
-router.get('/getDocument/:id', async function(req, res, next) {
+router.get('/getDocument/:id', auth, async function(req, res, next) {
     const data = ObjectId(req.params.id);
 	mongo.connect(constants.constants.db_url, {
         useNewUrlParser: true,
@@ -126,7 +127,7 @@ router.get('/getDocument/:id', async function(req, res, next) {
     });    	
 });
 
-router.post('/getMultipleDocs/', async function(req, res, next) {
+router.post('/getMultipleDocs/', auth, async function(req, res, next) {
     let theReq = req.body;
     let theDocs = theReq.theDocs;
     let docsArray = [];
@@ -180,7 +181,7 @@ router.post('/getMultipleDocs/', async function(req, res, next) {
 
 
 /* adds a new document to the list */
-router.post('/create', async (req, res, next) => {
+router.post('/create', auth, async (req, res, next) => {
     let rootDir = 'C:/MonmouthUniversity/thesis';
     let payload = [];
     let theReq = req.body;
@@ -247,7 +248,7 @@ router.post('/create', async (req, res, next) => {
 });
 
 /* udpates a new document to the list */
-router.post('/update', async (req, res, next) => {
+router.post('/update', auth, async (req, res, next) => {
     let rootDir = 'C:/MonmouthUniversity/thesis';
 
     let data = req.body;
@@ -313,7 +314,7 @@ router.post('/update', async (req, res, next) => {
 
 
 /* removes the document from the document list by uid */
-router.post('/remove', async (req, res, next) =>
+router.post('/remove', auth, async (req, res, next) =>
 {
     const data = req.body;
     const documentId = req.body._id;

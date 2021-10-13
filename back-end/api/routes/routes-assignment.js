@@ -51,7 +51,7 @@ router.get('/allAssignments', auth, async function(req, res, next) {
                 client.close();
                 return res.status(400).json({ error: err});
             } else {
-                console.log(result);
+                
                 let resultObj;
                 if (result.length > 0) {
                     resultObj = {
@@ -76,7 +76,7 @@ router.get('/allAssignments', auth, async function(req, res, next) {
     });    	
 });
 
-router.get('/getAssignmentsByCourse/:id', async function(req, res, next) {
+router.get('/getAssignmentsByCourse/:id', auth, async function(req, res, next) {
     const data = req.params.id;
     console.log(data);
 	mongo.connect(constants.constants.db_url, {
@@ -126,7 +126,7 @@ router.get('/getAssignmentsByCourse/:id', async function(req, res, next) {
 });
 
 /* adds a new assignment to the list */
-router.post('/create', async (req, res, next) => {
+router.post('/create', auth, async (req, res, next) => {
     
 	let data = req.body;
     let docdata = [];
@@ -213,7 +213,7 @@ router.post('/create', async (req, res, next) => {
 });
 
 /* updates the assignment by uid */
-router.post('/update', async (req, res, next) =>
+router.post('/update', auth, async (req, res, next) =>
 {   
     let rootDir = 'C:/MonmouthUniversity/thesis';
 	const data = req.body;
@@ -308,7 +308,7 @@ router.post('/update', async (req, res, next) =>
 });
     
 /* removes the assignment from the assignment list by uid */
-router.post('/remove', async (req, res, next) =>
+router.post('/remove', auth, async (req, res, next) =>
 {
     const data = req.body;
     const assignmentId = req.body._id;
@@ -348,7 +348,7 @@ router.post('/remove', async (req, res, next) =>
 
 });   
 
-router.get('/getAssignment/:id', async function(req, res, next) {
+router.get('/getAssignment/:id', auth, async function(req, res, next) {
     const data = ObjectId(req.params.id);
 	mongo.connect(constants.constants.db_url, {
         useNewUrlParser: true,
