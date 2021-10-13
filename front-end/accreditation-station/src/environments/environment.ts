@@ -31,7 +31,8 @@ export const environment = {
   removeAssignment: "/api/assignment/remove",
   getAssignment: "/api/assignment/getAssignment",
   getAssignmentsByCourse: "/api/assignment/getAssignmentsByCourse",
-  loginUser: "/api/auth"
+  loginUser: "/api/auth",
+  registerUser: "/api/user-reg"
 };
 
 /*

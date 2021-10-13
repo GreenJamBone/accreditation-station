@@ -46,6 +46,7 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { InstructorCoursesComponent } from './instructor/instructor-courses/instructor-courses.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { LoginService } from './services/login.service';
+import { RegisterComponent } from './register/register.component';
 
 const appRoutes: Routes = [
   {
@@ -55,6 +56,10 @@ const appRoutes: Routes = [
   { 
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   },
   {
     path: 'admin',
@@ -157,6 +162,7 @@ const appRoutes: Routes = [
     EditDocumentComponent,
     CommonPdfGeneratorComponent,
     InstructorCoursesComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

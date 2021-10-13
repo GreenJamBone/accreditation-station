@@ -14,6 +14,8 @@ import { LoginService } from '../services/login.service';
 })
 export class LoginComponent implements OnInit {
   loginForm;
+  isError = false;
+  errorTxt = '';
   userInfo = {
     "_id": "",
     "first_name": "",
@@ -35,9 +37,10 @@ export class LoginComponent implements OnInit {
   onSubmit(loginData) {
     console.log(loginData);
 
-    this.loginSvc.loginUser(loginData).subscribe( resp => {
+    this.loginSvc.loginUser(loginData).subscribe( (resp) => {
       if (resp) {
         console.log(resp);
+        this.isError = false;
         this.userInfo = resp;
         sessionStorage.setItem('user_info', btoa(JSON.stringify(resp)));
        
@@ -58,6 +61,11 @@ export class LoginComponent implements OnInit {
           console.log("NO ACCESS TO THIS APPLICATION - CONTACT THE ADMINISTRATOR FOR ACCESS");
         }
       }
+    },
+    (error) => {
+      console.log(error.error);
+      this.isError = true;
+      this.errorTxt = error.error;
     })
   }
 

@@ -13,6 +13,7 @@
             </mat-label>
             <input matInput id="password" type="password" formControlName="password" >
         </mat-form-field>
+        <div *ngIf="isError" class="error">{{errorTxt}}</div>
         <button mat-raised-button color="primary" class="button" type="submit">Login</button>
     </form>
 </div>
