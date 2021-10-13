@@ -45,6 +45,7 @@ import { CommonPdfGeneratorComponent } from './common-pdf-generator/common-pdf-g
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { InstructorCoursesComponent } from './instructor/instructor-courses/instructor-courses.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { LoginService } from './services/login.service';
 
 const appRoutes: Routes = [
   {
@@ -182,11 +183,12 @@ const appRoutes: Routes = [
     RequirementsService, 
     DocumentService, 
     AssignmentService, 
+    LoginService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
-      }
+    }
   ],
   bootstrap: [AppComponent]
 })

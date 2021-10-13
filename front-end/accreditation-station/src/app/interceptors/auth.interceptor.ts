@@ -13,7 +13,7 @@ export class AuthInterceptor implements HttpInterceptor {
         this.token = sessionStorage.getItem('token');
     } else {
         console.log("NO AUTH");
-        this.router.navigate(['/login']);
+        // this.router.navigate(['/login']);
     }
     request = request.clone({
         headers: new HttpHeaders({

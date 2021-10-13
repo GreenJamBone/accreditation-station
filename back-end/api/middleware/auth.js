@@ -16,7 +16,7 @@ const auth = async(req, res, next)=>{
          return res.redirect('/login');
       }
    }
-   finally {
+    catch {
        console.log('FAILURE IN AUTH MIDDLEWARE');
    }
 }

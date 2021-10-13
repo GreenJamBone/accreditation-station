@@ -6,6 +6,8 @@ const _ = require('lodash');
 const { User } = require('../models/model.user-reg');
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
+const constants = require('../constants');
 
 router.post('/', async (req, res) => {
     // First Validate The HTTP Request
@@ -15,6 +17,7 @@ router.post('/', async (req, res) => {
     }
 
     //  Now find the user by their email address
+    mongoose.connect(constants.constants.db_url + '/' + constants.constants.db_name);
     let user = await User.findOne({ email: req.body.email });
     if (!user) {
         return res.status(400).send('Incorrect email or password.');
@@ -33,9 +36,8 @@ router.post('/', async (req, res) => {
         maxAge: 1000 * 60 * 60 * 24, // would expire after 24 hours
         httpOnly: true, // The cookie only accessible by the web server
     }
-
     res.cookie('x-access-token',token, options);
-    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']));
+    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'first_name', 'last_name', 'title', 'roles', 'email']));
 });
 
 function validate(req) {

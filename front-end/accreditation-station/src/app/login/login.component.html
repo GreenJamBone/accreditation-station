@@ -2,10 +2,10 @@
     <h1>Log In</h1>
     <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
         <mat-form-field appearance="standard">
-            <mat-label for="username">
-            User Name
+            <mat-label for="email">
+            Email
             </mat-label>
-            <input matInput id="username" type="text" formControlName="username" >
+            <input matInput id="email" type="text" formControlName="email" >
         </mat-form-field>
         <mat-form-field appearance="standard">
             <mat-label for="password">
