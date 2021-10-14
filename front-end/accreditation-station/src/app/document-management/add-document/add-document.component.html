@@ -8,9 +8,17 @@
 <form [formGroup]="addDocumentForm" (ngSubmit)="onSubmit()">
     <label>
         <span>Program:</span>
-        <select formControlName="program">
+        <select formControlName="program" (change)="onProgChange($event)">
             <option *ngFor="let prog of programs" [ngValue]="prog">
                 {{prog.abbr}} - {{prog.name}}
+            </option>
+        </select>
+    </label>
+    <label>
+        <span>Chapter / Section:</span>
+        <select formControlName="chapter_section">
+            <option *ngFor="let ch of displayChapters" [ngValue]="ch">
+                {{ch.chapter}} -- {{ch.section}}
             </option>
         </select>
     </label>
@@ -27,14 +35,6 @@
             Name must be at least 4 characters long.
         </span>
     </span>
-    <label>
-        <span>Chapter / Section:</span>
-        <select formControlName="chapter_section">
-            <option *ngFor="let ch of chapters" [ngValue]="ch">
-                {{ch.chapter}} -- {{ch.section}}
-            </option>
-        </select>
-    </label>
     <label>
         <span>Year:</span>
         <select formControlName="year">

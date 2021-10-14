@@ -34,338 +34,679 @@ export class AddDocumentComponent implements OnInit {
     }
   ];
 
-  chapters = [
-    {
-      chapter: "Background Information",
-      section: "Contact Information",
-      value_c: "1",
-      value_s: "A"
-    },
-    {
-      chapter: "Background Information",
-      section: "Program History",
-      value_c: "1",
-      value_s: "B"
-    },
-    {
-      chapter: "Background Information",
-      section: "Options",
-      value_c: "1",
-      value_s: "C"
-    },
-    {
-      chapter: "Background Information",
-      section: "Program Delivery Modes",
-      value_c: "1",
-      value_s: "D"
-    },
-    {
-      chapter: "Background Information",
-      section: "Program Locations",
-      value_c: "1",
-      value_s: "E"
-    },
-    {
-      chapter: "Background Information",
-      section: "Public Disclosure",
-      value_c: "1",
-      value_s: "F"
-    },
-    {
-      chapter: "Background Information",
-      section: "Deficiencies, Weaknesses or Concerns from Previous Evaluation and the Actions taken to Address Them",
-      value_c: "1",
-      value_s: "G"
-    },
-    {
-      chapter: "Criterion 1. Students",
-      section: "Student Admissions",
-      value_c: "2",
-      value_s: "A"
-    },
-    {
-      chapter: "Criterion 1. Students",
-      section: "Evaluating Student Performance",
-      value_c: "2",
-      value_s: "B"
-    },
-    {
-      chapter: "Criterion 1. Students",
-      section: "Transfer Students and Transfer Courses",
-      value_c: "2",
-      value_s: "C"
-    },
-    {
-      chapter: "Criterion 1. Students",
-      section: "Advising and Career Guidance",
-      value_c: "2",
-      value_s: "D"
-    },
-    {
-      chapter: "Criterion 1. Students",
-      section: "Work in Lieu of Courses",
-      value_c: "2",
-      value_s: "E"
-    },
-    {
-      chapter: "Criterion 1. Students",
-      section: "Graduation Requirements",
-      value_c: "2",
-      value_s: "F"
-    },
-    {
-      chapter: "Criterion 1. Students",
-      section: "Transcripts of Recent Graduates",
-      value_c: "2",
-      value_s: "G"
-    },
-    {
-      chapter: "Criterion 2. Program Educational Objectives",
-      section: "Mission Statement",
-      value_c: "3",
-      value_s: "A"
-    },
-    {
-      chapter: "Criterion 2. Program Educational Objectives",
-      section: "Program Educational Objectives",
-      value_c: "3",
-      value_s: "B"
-    },
-    {
-      chapter: "Criterion 2. Program Educational Objectives",
-      section: "Consistency of the Program Educational Objectives with the Mission of the Institution",
-      value_c: "3",
-      value_s: "C"
-    },
-    {
-      chapter: "Criterion 2. Program Educational Objectives",
-      section: "Program Constituencies",
-      value_c: "3",
-      value_s: "D"
-    },
-    {
-      chapter: "Criterion 2. Program Educational Objectives",
-      section: "Process for Review of Educational Objectives",
-      value_c: "3",
-      value_s: "E"
-    },
-    {
-      chapter: "Criterion 3. Student Outcomes",
-      section: "Student Outcomes",
-      value_c: "4",
-      value_s: "A"
-    },
-    {
-      chapter: "Criterion 3. Student Outcomes",
-      section: "Relationship of Student Outcomes to Educational Objectives",
-      value_c: "4",
-      value_s: "B"
-    },
-    {
-      chapter: "Criterion 3. Student Outcomes",
-      section: "Process for the Establishment and Revision of Student Outcomes",
-      value_c: "4",
-      value_s: "C"
-    },
-    {
-      chapter: "Criterion 3. Student Outcomes",
-      section: "Enabled Student Characteristics",
-      value_c: "4",
-      value_s: "D"
-    },
-    {
-      chapter: "Criterion 4. Continuous Improvement",
-      section: "Student Outcomes",
-      value_c: "5",
-      value_s: "A"
-    },
-    {
-      chapter: "Criterion 4. Continuous Improvement",
-      section: "Continuous Improvement",
-      value_c: "5",
-      value_s: "B"
-    },
-    {
-      chapter: "Criterion 4. Continuous Improvement",
-      section: "Additional Information",
-      value_c: "5",
-      value_s: "C"
-    },
-    {
-      chapter: "Criterion 5. Curriculum",
-      section: "Program Curriculum",
-      value_c: "6",
-      value_s: "A"
-    },
-    {
-      chapter: "Criterion 5. Curriculum",
-      section: "Course Syllabi",
-      value_c: "6",
-      value_s: "B"
-    },
-    {
-      chapter: "Criterion 5. Curriculum",
-      section: "Table 5-1 Curriculum",
-      value_c: "6",
-      value_s: "C"
-    },
-    {
-      chapter: "Criterion 6. Faculty",
-      section: "Faculty Qualifications",
-      value_c: "7",
-      value_s: "A"
-    },
-    {
-      chapter: "Criterion 6. Faculty",
-      section: "Faculty Workload",
-      value_c: "7",
-      value_s: "B"
-    },
-    {
-      chapter: "Criterion 6. Faculty",
-      section: "Faculty Size",
-      value_c: "7",
-      value_s: "C"
-    },
-    {
-      chapter: "Criterion 6. Faculty",
-      section: "Professional Development",
-      value_c: "7",
-      value_s: "D"
-    },
-    {
-      chapter: "Criterion 6. Faculty",
-      section: "Authority and Responsibility of Faculty",
-      value_c: "7",
-      value_s: "E"
-    },
-    {
-      chapter: "Criterion 6. Faculty",
-      section: "Table 6-1 Faculty Qualifications",
-      value_c: "7",
-      value_s: "F"
-    },
-    {
-      chapter: "Criterion 6. Faculty",
-      section: "Table 6-2 Faculty Workload Summary",
-      value_c: "7",
-      value_s: "G"
-    },
-    {
-      chapter: "Criterion 7. Facilities",
-      section: "Space",
-      value_c: "8",
-      value_s: "A"
-    },
-    {
-      chapter: "Criterion 7. Facilities",
-      section: "Computing Resources",
-      value_c: "8",
-      value_s: "B"
-    },
-    {
-      chapter: "Criterion 7. Facilities",
-      section: "Guidance",
-      value_c: "8",
-      value_s: "C"
-    },
-    {
-      chapter: "Criterion 7. Facilities",
-      section: "Maintenance and Upgrading of Facilities",
-      value_c: "8",
-      value_s: "D"
-    },
-    {
-      chapter: "Criterion 7. Facilities",
-      section: "Library Services",
-      value_c: "8",
-      value_s: "E"
-    },
-    {
-      chapter: "Criterion 7. Facilities",
-      section: "Overall Comments of Facilities",
-      value_c: "8",
-      value_s: "F"
-    },
-    {
-      chapter: "Criterion 8. Institutional Support",
-      section: "Leadership",
-      value_c: "9",
-      value_s: "A"
-    },
-    {
-      chapter: "Criterion 8. Institutional Support",
-      section: "Program Budget and Financial Support",
-      value_c: "9",
-      value_s: "B"
-    },
-    {
-      chapter: "Criterion 8. Institutional Support",
-      section: "Staffing",
-      value_c: "9",
-      value_s: "C"
-    },
-    {
-      chapter: "Criterion 8. Institutional Support",
-      section: "Faculty Hiring and Retention",
-      value_c: "9",
-      value_s: "D"
-    },
-    {
-      chapter: "Criterion 8. Institutional Support",
-      section: "Support of Faculty Professional Development",
-      value_c: "9",
-      value_s: "E"
-    },
-    {
-      chapter: "Program Criteria",
-      section: "Appendix A - Course Syllabi",
-      value_c: "10",
-      value_s: "A"
-    },
-    {
-      chapter: "Program Criteria",
-      section: "Appendix B - Faculty Vitae",
-      value_c: "10",
-      value_s: "B"
-    },
-    {
-      chapter: "Program Criteria",
-      section: "Appendix C - Equipment",
-      value_c: "10",
-      value_s: "C"
-    },
-    {
-      chapter: "Program Criteria",
-      section: "Appendix D - Institutional Summary",
-      value_c: "10",
-      value_s: "D"
-    },
-    {
-      chapter: "Program Criteria",
-      section: "Appendix E - Cooperative Education Forms",
-      value_c: "10",
-      value_s: "E"
-    },
-    {
-      chapter: "Program Criteria",
-      section: "Appendix F - Senior Interview Questions",
-      value_c: "10",
-      value_s: "F"
-    },
-    {
-      chapter: "Program Criteria",
-      section: "Signature Attesting to Compliance",
-      value_c: "10",
-      value_s: "G"
-    },
-    {
-      chapter: "Miscellaneous Documents",
-      section: "",
-      value_c: "11",
-      value_s: "A"
-    }
-  ];
+  displayChapters = [];
+  chapters = {
+    se: [
+      {
+        chapter: "Background Information",
+        section: "Contact Information",
+        value_c: "1",
+        value_s: "A"
+      },
+      {
+        chapter: "Background Information",
+        section: "Program History",
+        value_c: "1",
+        value_s: "B"
+      },
+      {
+        chapter: "Background Information",
+        section: "Options",
+        value_c: "1",
+        value_s: "C"
+      },
+      {
+        chapter: "Background Information",
+        section: "Program Delivery Modes",
+        value_c: "1",
+        value_s: "D"
+      },
+      {
+        chapter: "Background Information",
+        section: "Program Locations",
+        value_c: "1",
+        value_s: "E"
+      },
+      {
+        chapter: "Background Information",
+        section: "Public Disclosure",
+        value_c: "1",
+        value_s: "F"
+      },
+      {
+        chapter: "Background Information",
+        section: "Deficiencies, Weaknesses or Concerns from Previous Evaluation and the Actions taken to Address Them",
+        value_c: "1",
+        value_s: "G"
+      },
+      {
+        chapter: "Criterion 1. Students",
+        section: "Student Admissions",
+        value_c: "2",
+        value_s: "A"
+      },
+      {
+        chapter: "Criterion 1. Students",
+        section: "Evaluating Student Performance",
+        value_c: "2",
+        value_s: "B"
+      },
+      {
+        chapter: "Criterion 1. Students",
+        section: "Transfer Students and Transfer Courses",
+        value_c: "2",
+        value_s: "C"
+      },
+      {
+        chapter: "Criterion 1. Students",
+        section: "Advising and Career Guidance",
+        value_c: "2",
+        value_s: "D"
+      },
+      {
+        chapter: "Criterion 1. Students",
+        section: "Work in Lieu of Courses",
+        value_c: "2",
+        value_s: "E"
+      },
+      {
+        chapter: "Criterion 1. Students",
+        section: "Graduation Requirements",
+        value_c: "2",
+        value_s: "F"
+      },
+      {
+        chapter: "Criterion 1. Students",
+        section: "Transcripts of Recent Graduates",
+        value_c: "2",
+        value_s: "G"
+      },
+      {
+        chapter: "Criterion 2. Program Educational Objectives",
+        section: "Mission Statement",
+        value_c: "3",
+        value_s: "A"
+      },
+      {
+        chapter: "Criterion 2. Program Educational Objectives",
+        section: "Program Educational Objectives",
+        value_c: "3",
+        value_s: "B"
+      },
+      {
+        chapter: "Criterion 2. Program Educational Objectives",
+        section: "Consistency of the Program Educational Objectives with the Mission of the Institution",
+        value_c: "3",
+        value_s: "C"
+      },
+      {
+        chapter: "Criterion 2. Program Educational Objectives",
+        section: "Program Constituencies",
+        value_c: "3",
+        value_s: "D"
+      },
+      {
+        chapter: "Criterion 2. Program Educational Objectives",
+        section: "Process for Review of Educational Objectives",
+        value_c: "3",
+        value_s: "E"
+      },
+      {
+        chapter: "Criterion 3. Student Outcomes",
+        section: "Student Outcomes",
+        value_c: "4",
+        value_s: "A"
+      },
+      {
+        chapter: "Criterion 3. Student Outcomes",
+        section: "Relationship of Student Outcomes to Educational Objectives",
+        value_c: "4",
+        value_s: "B"
+      },
+      {
+        chapter: "Criterion 3. Student Outcomes",
+        section: "Process for the Establishment and Revision of Student Outcomes",
+        value_c: "4",
+        value_s: "C"
+      },
+      {
+        chapter: "Criterion 3. Student Outcomes",
+        section: "Enabled Student Characteristics",
+        value_c: "4",
+        value_s: "D"
+      },
+      {
+        chapter: "Criterion 4. Continuous Improvement",
+        section: "Student Outcomes",
+        value_c: "5",
+        value_s: "A"
+      },
+      {
+        chapter: "Criterion 4. Continuous Improvement",
+        section: "Continuous Improvement",
+        value_c: "5",
+        value_s: "B"
+      },
+      {
+        chapter: "Criterion 4. Continuous Improvement",
+        section: "Additional Information",
+        value_c: "5",
+        value_s: "C"
+      },
+      {
+        chapter: "Criterion 5. Curriculum",
+        section: "Program Curriculum",
+        value_c: "6",
+        value_s: "A"
+      },
+      {
+        chapter: "Criterion 5. Curriculum",
+        section: "Course Syllabi",
+        value_c: "6",
+        value_s: "B"
+      },
+      {
+        chapter: "Criterion 5. Curriculum",
+        section: "Table 5-1 Curriculum",
+        value_c: "6",
+        value_s: "C"
+      },
+      {
+        chapter: "Criterion 6. Faculty",
+        section: "Faculty Qualifications",
+        value_c: "7",
+        value_s: "A"
+      },
+      {
+        chapter: "Criterion 6. Faculty",
+        section: "Faculty Workload",
+        value_c: "7",
+        value_s: "B"
+      },
+      {
+        chapter: "Criterion 6. Faculty",
+        section: "Faculty Size",
+        value_c: "7",
+        value_s: "C"
+      },
+      {
+        chapter: "Criterion 6. Faculty",
+        section: "Professional Development",
+        value_c: "7",
+        value_s: "D"
+      },
+      {
+        chapter: "Criterion 6. Faculty",
+        section: "Authority and Responsibility of Faculty",
+        value_c: "7",
+        value_s: "E"
+      },
+      {
+        chapter: "Criterion 6. Faculty",
+        section: "Table 6-1 Faculty Qualifications",
+        value_c: "7",
+        value_s: "F"
+      },
+      {
+        chapter: "Criterion 6. Faculty",
+        section: "Table 6-2 Faculty Workload Summary",
+        value_c: "7",
+        value_s: "G"
+      },
+      {
+        chapter: "Criterion 7. Facilities",
+        section: "Space",
+        value_c: "8",
+        value_s: "A"
+      },
+      {
+        chapter: "Criterion 7. Facilities",
+        section: "Computing Resources",
+        value_c: "8",
+        value_s: "B"
+      },
+      {
+        chapter: "Criterion 7. Facilities",
+        section: "Guidance",
+        value_c: "8",
+        value_s: "C"
+      },
+      {
+        chapter: "Criterion 7. Facilities",
+        section: "Maintenance and Upgrading of Facilities",
+        value_c: "8",
+        value_s: "D"
+      },
+      {
+        chapter: "Criterion 7. Facilities",
+        section: "Library Services",
+        value_c: "8",
+        value_s: "E"
+      },
+      {
+        chapter: "Criterion 7. Facilities",
+        section: "Overall Comments of Facilities",
+        value_c: "8",
+        value_s: "F"
+      },
+      {
+        chapter: "Criterion 8. Institutional Support",
+        section: "Leadership",
+        value_c: "9",
+        value_s: "A"
+      },
+      {
+        chapter: "Criterion 8. Institutional Support",
+        section: "Program Budget and Financial Support",
+        value_c: "9",
+        value_s: "B"
+      },
+      {
+        chapter: "Criterion 8. Institutional Support",
+        section: "Staffing",
+        value_c: "9",
+        value_s: "C"
+      },
+      {
+        chapter: "Criterion 8. Institutional Support",
+        section: "Faculty Hiring and Retention",
+        value_c: "9",
+        value_s: "D"
+      },
+      {
+        chapter: "Criterion 8. Institutional Support",
+        section: "Support of Faculty Professional Development",
+        value_c: "9",
+        value_s: "E"
+      },
+      {
+        chapter: "Program Criteria",
+        section: "Appendix A - Course Syllabi",
+        value_c: "10",
+        value_s: "A"
+      },
+      {
+        chapter: "Program Criteria",
+        section: "Appendix B - Faculty Vitae",
+        value_c: "10",
+        value_s: "B"
+      },
+      {
+        chapter: "Program Criteria",
+        section: "Appendix C - Equipment",
+        value_c: "10",
+        value_s: "C"
+      },
+      {
+        chapter: "Program Criteria",
+        section: "Appendix D - Institutional Summary",
+        value_c: "10",
+        value_s: "D"
+      },
+      {
+        chapter: "Program Criteria",
+        section: "Appendix E - Instructions for Creating Portfolio",
+        value_c: "10",
+        value_s: "E"
+      },
+      {
+        chapter: "Program Criteria",
+        section: "Appendix F - Portfolio Scoring Rubric",
+        value_c: "10",
+        value_s: "F"
+      },
+      {
+        chapter: "Program Criteria",
+        section: "Appendix F - Senior Interview",
+        value_c: "10",
+        value_s: "G"
+      },
+      {
+        chapter: "Program Criteria",
+        section: "Signature Attesting to Compliance",
+        value_c: "10",
+        value_s: "H"
+      },
+      {
+        chapter: "Miscellaneous Documents",
+        section: "",
+        value_c: "11",
+        value_s: "A"
+      }
+    ],
+    cs: [
+      {
+        chapter: "Background Information",
+        section: "Contact Information",
+        value_c: "1",
+        value_s: "A"
+      },
+      {
+        chapter: "Background Information",
+        section: "Program History",
+        value_c: "1",
+        value_s: "B"
+      },
+      {
+        chapter: "Background Information",
+        section: "Options",
+        value_c: "1",
+        value_s: "C"
+      },
+      {
+        chapter: "Background Information",
+        section: "Program Delivery Modes",
+        value_c: "1",
+        value_s: "D"
+      },
+      {
+        chapter: "Background Information",
+        section: "Program Locations",
+        value_c: "1",
+        value_s: "E"
+      },
+      {
+        chapter: "Background Information",
+        section: "Public Disclosure",
+        value_c: "1",
+        value_s: "F"
+      },
+      {
+        chapter: "Background Information",
+        section: "Deficiencies, Weaknesses or Concerns from Previous Evaluation and the Actions taken to Address Them",
+        value_c: "1",
+        value_s: "G"
+      },
+      {
+        chapter: "Criterion 1. Students",
+        section: "Student Admissions",
+        value_c: "2",
+        value_s: "A"
+      },
+      {
+        chapter: "Criterion 1. Students",
+        section: "Evaluating Student Performance",
+        value_c: "2",
+        value_s: "B"
+      },
+      {
+        chapter: "Criterion 1. Students",
+        section: "Transfer Students and Transfer Courses",
+        value_c: "2",
+        value_s: "C"
+      },
+      {
+        chapter: "Criterion 1. Students",
+        section: "Advising and Career Guidance",
+        value_c: "2",
+        value_s: "D"
+      },
+      {
+        chapter: "Criterion 1. Students",
+        section: "Work in Lieu of Courses",
+        value_c: "2",
+        value_s: "E"
+      },
+      {
+        chapter: "Criterion 1. Students",
+        section: "Graduation Requirements",
+        value_c: "2",
+        value_s: "F"
+      },
+      {
+        chapter: "Criterion 1. Students",
+        section: "Transcripts of Recent Graduates",
+        value_c: "2",
+        value_s: "G"
+      },
+      {
+        chapter: "Criterion 2. Program Educational Objectives",
+        section: "Mission Statement",
+        value_c: "3",
+        value_s: "A"
+      },
+      {
+        chapter: "Criterion 2. Program Educational Objectives",
+        section: "Program Educational Objectives",
+        value_c: "3",
+        value_s: "B"
+      },
+      {
+        chapter: "Criterion 2. Program Educational Objectives",
+        section: "Consistency of the Program Educational Objectives with the Mission of the Institution",
+        value_c: "3",
+        value_s: "C"
+      },
+      {
+        chapter: "Criterion 2. Program Educational Objectives",
+        section: "Program Constituencies",
+        value_c: "3",
+        value_s: "D"
+      },
+      {
+        chapter: "Criterion 2. Program Educational Objectives",
+        section: "Process for Review of Educational Objectives",
+        value_c: "3",
+        value_s: "E"
+      },
+      {
+        chapter: "Criterion 3. Student Outcomes",
+        section: "Student Outcomes",
+        value_c: "4",
+        value_s: "A"
+      },
+      {
+        chapter: "Criterion 3. Student Outcomes",
+        section: "Relationship of Student Outcomes to Educational Objectives",
+        value_c: "4",
+        value_s: "B"
+      },
+      {
+        chapter: "Criterion 3. Student Outcomes",
+        section: "Process for the Establishment and Revision of Student Outcomes",
+        value_c: "4",
+        value_s: "C"
+      },
+      {
+        chapter: "Criterion 3. Student Outcomes",
+        section: "Enabled Student Characteristics",
+        value_c: "4",
+        value_s: "D"
+      },
+      {
+        chapter: "Criterion 4. Continuous Improvement",
+        section: "Student Outcomes",
+        value_c: "5",
+        value_s: "A"
+      },
+      {
+        chapter: "Criterion 4. Continuous Improvement",
+        section: "Continuous Improvement",
+        value_c: "5",
+        value_s: "B"
+      },
+      {
+        chapter: "Criterion 4. Continuous Improvement",
+        section: "Additional Information",
+        value_c: "5",
+        value_s: "C"
+      },
+      {
+        chapter: "Criterion 5. Curriculum",
+        section: "Program Curriculum",
+        value_c: "6",
+        value_s: "A"
+      },
+      {
+        chapter: "Criterion 5. Curriculum",
+        section: "Course Syllabi",
+        value_c: "6",
+        value_s: "B"
+      },
+      {
+        chapter: "Criterion 5. Curriculum",
+        section: "Table 5-1 Curriculum",
+        value_c: "6",
+        value_s: "C"
+      },
+      {
+        chapter: "Criterion 6. Faculty",
+        section: "Faculty Qualifications",
+        value_c: "7",
+        value_s: "A"
+      },
+      {
+        chapter: "Criterion 6. Faculty",
+        section: "Faculty Workload",
+        value_c: "7",
+        value_s: "B"
+      },
+      {
+        chapter: "Criterion 6. Faculty",
+        section: "Faculty Size",
+        value_c: "7",
+        value_s: "C"
+      },
+      {
+        chapter: "Criterion 6. Faculty",
+        section: "Professional Development",
+        value_c: "7",
+        value_s: "D"
+      },
+      {
+        chapter: "Criterion 6. Faculty",
+        section: "Authority and Responsibility of Faculty",
+        value_c: "7",
+        value_s: "E"
+      },
+      {
+        chapter: "Criterion 6. Faculty",
+        section: "Table 6-1 Faculty Qualifications",
+        value_c: "7",
+        value_s: "F"
+      },
+      {
+        chapter: "Criterion 6. Faculty",
+        section: "Table 6-2 Faculty Workload Summary",
+        value_c: "7",
+        value_s: "G"
+      },
+      {
+        chapter: "Criterion 7. Facilities",
+        section: "Space",
+        value_c: "8",
+        value_s: "A"
+      },
+      {
+        chapter: "Criterion 7. Facilities",
+        section: "Computing Resources",
+        value_c: "8",
+        value_s: "B"
+      },
+      {
+        chapter: "Criterion 7. Facilities",
+        section: "Guidance",
+        value_c: "8",
+        value_s: "C"
+      },
+      {
+        chapter: "Criterion 7. Facilities",
+        section: "Maintenance and Upgrading of Facilities",
+        value_c: "8",
+        value_s: "D"
+      },
+      {
+        chapter: "Criterion 7. Facilities",
+        section: "Library Services",
+        value_c: "8",
+        value_s: "E"
+      },
+      {
+        chapter: "Criterion 7. Facilities",
+        section: "Overall Comments of Facilities",
+        value_c: "8",
+        value_s: "F"
+      },
+      {
+        chapter: "Criterion 8. Institutional Support",
+        section: "Leadership",
+        value_c: "9",
+        value_s: "A"
+      },
+      {
+        chapter: "Criterion 8. Institutional Support",
+        section: "Program Budget and Financial Support",
+        value_c: "9",
+        value_s: "B"
+      },
+      {
+        chapter: "Criterion 8. Institutional Support",
+        section: "Staffing",
+        value_c: "9",
+        value_s: "C"
+      },
+      {
+        chapter: "Criterion 8. Institutional Support",
+        section: "Faculty Hiring and Retention",
+        value_c: "9",
+        value_s: "D"
+      },
+      {
+        chapter: "Criterion 8. Institutional Support",
+        section: "Support of Faculty Professional Development",
+        value_c: "9",
+        value_s: "E"
+      },
+      {
+        chapter: "Program Criteria",
+        section: "Appendix A - Course Syllabi",
+        value_c: "10",
+        value_s: "A"
+      },
+      {
+        chapter: "Program Criteria",
+        section: "Appendix B - Faculty Vitae",
+        value_c: "10",
+        value_s: "B"
+      },
+      {
+        chapter: "Program Criteria",
+        section: "Appendix C - Equipment",
+        value_c: "10",
+        value_s: "C"
+      },
+      {
+        chapter: "Program Criteria",
+        section: "Appendix D - Institutional Summary",
+        value_c: "10",
+        value_s: "D"
+      },
+      {
+        chapter: "Program Criteria",
+        section: "Appendix E - Cooperative Education Forms",
+        value_c: "10",
+        value_s: "E"
+      },
+      {
+        chapter: "Program Criteria",
+        section: "Appendix F - Senior Interview Questions",
+        value_c: "10",
+        value_s: "F"
+      },
+      {
+        chapter: "Program Criteria",
+        section: "Signature Attesting to Compliance",
+        value_c: "10",
+        value_s: "G"
+      },
+      {
+        chapter: "Miscellaneous Documents",
+        section: "",
+        value_c: "11",
+        value_s: "A"
+      }
+    ]
+  };
 
   filePreview;
   private file: File | null = null;
@@ -399,6 +740,18 @@ export class AddDocumentComponent implements OnInit {
     let year = thisDate.getFullYear();
     for (let i = -4; i < 6; i++) {
       this.years.push((year + i).toString())
+    }
+  }
+
+  onProgChange(event) {
+    let theProg = this.addDocumentForm.controls['program'].value;
+    console.log(theProg);
+    if (theProg.abbr === 'BSSE') {
+      this.displayChapters = this.chapters.se;
+    }
+
+    if (theProg.abbr === 'BSCS') {
+      this.displayChapters = this.chapters.cs;
     }
   }
 
