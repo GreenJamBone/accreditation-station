@@ -10,8 +10,7 @@ const auth = async(req, res, next)=>{
     try {
       let token = req.headers['x-access-token'];
       if (token) {
-        console.log(token);
-        const decode = jwt.verify(token, config.get('PrivateKey'))
+        const decode = jwt.verify(token, config.get('PrivateKey'));
 
         req.token = token        
         next()
@@ -22,8 +21,9 @@ const auth = async(req, res, next)=>{
       
         }
     }
-    catch {
+    catch(err) {
        console.log('FAILURE IN AUTH MIDDLEWARE');
+       console.log(err);
        return res.status(400).json({ error: "Error in auth middleware try", redirect: consts.constants.ui_domain + '/login'});
    }
 }

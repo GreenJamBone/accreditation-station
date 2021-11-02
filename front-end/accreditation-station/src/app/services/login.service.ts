@@ -11,7 +11,7 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   loginUser(payload): Observable<any> {
-    return this.http.post(environment.root_path + environment.loginUser, payload);
+    return this.http.post(environment.root_path + environment.loginUser, payload, {observe: 'response'});
   }
 
 }

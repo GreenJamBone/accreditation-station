@@ -10,7 +10,7 @@ export class AuthInterceptor implements HttpInterceptor {
   
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       
-    if (this.router.url !== '/register' && this.router.url !== '/login') {
+    if (!this.router.url.includes('/register') && !this.router.url.includes('/login')) {
         if (sessionStorage.getItem('token')) {
             this.token = sessionStorage.getItem('token');
         } else {

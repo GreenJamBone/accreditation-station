@@ -6,6 +6,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -37,13 +38,14 @@ export class LoginComponent implements OnInit {
   onSubmit(loginData) {
     console.log(loginData);
 
-    this.loginSvc.loginUser(loginData).subscribe( (resp) => {
+    this.loginSvc.loginUser(loginData).subscribe( (resp:HttpResponse<any>) => {
       if (resp) {
-        console.log(resp);
+        console.log(resp.body);
+        console.log(resp.headers);
         this.isError = false;
-        this.userInfo = resp;
+        this.userInfo = resp.body;
         sessionStorage.setItem('user_info', btoa(JSON.stringify(resp)));
-       
+        sessionStorage.setItem('token', resp.headers.get('x-auth-token'));
         this.loginForm.reset();
         
         if (this.isAdmin(this.userInfo.roles)) {
