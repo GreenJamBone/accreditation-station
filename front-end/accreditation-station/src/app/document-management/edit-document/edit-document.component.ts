@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, HostListener, Inject } from '@ang
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DocumentService } from 'src/app/services/document.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-document',
@@ -375,7 +376,7 @@ export class EditDocumentComponent implements OnInit {
   //   }
   // }
 
-  constructor(private docSvc: DocumentService, private fb: FormBuilder, private cd: ChangeDetectorRef, public dialogRef: MatDialogRef<EditDocumentComponent>, @Inject(MAT_DIALOG_DATA) public docData) { }
+  constructor(private docSvc: DocumentService, private fb: FormBuilder, private cd: ChangeDetectorRef, public dialogRef: MatDialogRef<EditDocumentComponent>, @Inject(MAT_DIALOG_DATA) public docData, private router: Router) { }
 
   ngOnInit() {
     this.editDocumentForm = this.fb.group({
@@ -470,6 +471,11 @@ export class EditDocumentComponent implements OnInit {
             this.theMessage = this.messages.error;
             this.showMessage = true;
           }
+        }
+      }, (err) => {
+        console.log(err);
+        if (err.status === 400) {
+          this.router.navigate(['/login'],{ queryParams: { error: 'true' } });
         }
       });
     }

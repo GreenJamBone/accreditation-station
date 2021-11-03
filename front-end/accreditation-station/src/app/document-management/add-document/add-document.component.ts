@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DocumentService } from 'src/app/services/document.service';
 
 @Component({
@@ -718,7 +719,7 @@ export class AddDocumentComponent implements OnInit {
   //   }
   // }
 
-  constructor(private docSvc: DocumentService, private fb: FormBuilder, private cd: ChangeDetectorRef) { }
+  constructor(private docSvc: DocumentService, private fb: FormBuilder, private cd: ChangeDetectorRef, private router: Router) { }
 
   ngOnInit() {
     this.addDocumentForm = this.fb.group({
@@ -799,6 +800,11 @@ export class AddDocumentComponent implements OnInit {
             this.theMessage = this.messages.error;
             this.showMessage = true;
           }
+        }
+      }, (err) => {
+        console.log(err);
+        if (err.status === 400) {
+          this.router.navigate(['/login'],{ queryParams: { error: 'true' } });
         }
       });
     }

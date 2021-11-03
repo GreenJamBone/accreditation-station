@@ -27,6 +27,11 @@ export class InstructorCoursesComponent implements OnInit {
           console.log(resp);
           this.courses = resp.courses;
         }
+      }, (err) => {
+        console.log(err);
+        if (err.status === 400) {
+          this.router.navigate(['/login'],{ queryParams: { error: 'true' } });
+        }
       });
     } else {
       this.router.navigate(['login']);

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { RequirementsService } from '../../services/requirements.service';
 
 @Component({
@@ -24,7 +25,7 @@ export class ViewRequirementsComponent implements OnInit {
     
   ];
 
-  constructor(private requirementsSvc: RequirementsService) { }
+  constructor(private requirementsSvc: RequirementsService, private router: Router) { }
 
   ngOnInit(): void {
     this.getRequirements();
@@ -53,6 +54,11 @@ export class ViewRequirementsComponent implements OnInit {
           this.showMessage = true;
           this.theMessage = this.messages.error;
         }
+      }
+    }, (err) => {
+      console.log(err);
+      if (err.status === 400) {
+        this.router.navigate(['/login'],{ queryParams: { error: 'true' } });
       }
     });
   }
