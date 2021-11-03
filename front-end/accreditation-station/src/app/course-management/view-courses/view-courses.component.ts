@@ -36,7 +36,7 @@ export class ViewCoursesComponent implements OnInit {
 
   getCourses() {
     this.loading = true;
-    this.userRole = sessionStorage.getItem('user_role');
+    this.userRole = atob(sessionStorage.getItem('user_role'));
     this.courseSvc.getAllCourses().subscribe((resp) => {
       if (resp) {
         this.loading = false;

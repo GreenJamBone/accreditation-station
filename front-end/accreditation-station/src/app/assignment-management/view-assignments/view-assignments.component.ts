@@ -36,7 +36,7 @@ export class ViewAssignmentsComponent implements OnInit {
   ngOnInit(): void {
     this.showMessage = false;
     if (sessionStorage.getItem('user_role')) {
-      this.userRole = sessionStorage.getItem('user_role');
+      this.userRole = atob(sessionStorage.getItem('user_role'));
     } else {
       this.router.navigate(['login']);
     }

@@ -31,7 +31,7 @@ export class ViewDocumentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.showMessage = false;
-    this.userRole = sessionStorage.getItem('user_role');
+    this.userRole = atob(sessionStorage.getItem('user_role'));
     console.log(this.userRole);
     this.getDocuments();
   }

@@ -49,15 +49,16 @@ export class LoginComponent implements OnInit {
         this.loginForm.reset();
         
         if (this.isAdmin(this.userInfo.roles)) {
-          sessionStorage.setItem('user_role', 'admin');
+          sessionStorage.setItem('user_role', btoa('admin'));
           this.router.navigate(['admin']);
         } else if (this.isInstructor(this.userInfo.roles)) {
-          sessionStorage.setItem('user_role', 'instructor');
+          sessionStorage.setItem('user_role', btoa('instructor'));
           this.router.navigate(['instructor']);
         } else if (this.isAudit(this.userInfo.roles)) {
-          sessionStorage.setItem('user_role', 'audit');
+          sessionStorage.setItem('user_role', btoa('audit'));
           this.router.navigate(['audit']);
         } else if (this.isNew(this.userInfo.roles)) {
+          sessionStorage.setItem('user_role', btoa('new'));
           alert('You Must Be Assigned A Role To Use This Application! Please Speak With Your Administrator');
         } else {
           console.log("NO ACCESS TO THIS APPLICATION - CONTACT THE ADMINISTRATOR FOR ACCESS");

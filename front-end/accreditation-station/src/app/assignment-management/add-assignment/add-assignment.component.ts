@@ -38,8 +38,8 @@ export class AddAssignmentComponent implements OnInit {
   constructor(private assignmentSvc: AssignmentService, private router: Router, private route: ActivatedRoute, private courseSvc: CourseService, private reqSvc: RequirementsService, private docSvc: DocumentService, private fb: FormBuilder, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
-    if (sessionStorage.getItem('user_role') && sessionStorage.getItem('user_role') === 'instructor') {
-      this.userRole = sessionStorage.getItem('user_role');
+    if (sessionStorage.getItem('user_role') && atob(sessionStorage.getItem('user_role')) === 'instructor') {
+      this.userRole = atob(sessionStorage.getItem('user_role'));
       this.courseInfo = JSON.parse(atob(this.route.snapshot.paramMap.get('course')));
     }
     
