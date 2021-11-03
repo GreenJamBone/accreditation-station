@@ -12,11 +12,22 @@
     display: inline-block;
 }
 
-.title {
+.right {
     float: right;
     vertical-align: 22px;
+}
+.title {
+    width: 100%;
+    text-align: right;
     font-size: 30px;
     font-family: 'Playfair Display';
+}
+.logout {
+    width: 100%;
+    clear: both;
+    text-align: right;
+
+    margin-top: 20px;
 }
 .logo {
     width: 250px;

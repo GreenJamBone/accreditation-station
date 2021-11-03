@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LogoutService } from './services/logout.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'accreditation-station';
+
+  constructor(private logoutSvc: LogoutService) {
+
+  }
+  
+  logout() {
+    this.logoutSvc.logout();
+  }
 }
