@@ -32,7 +32,9 @@ export const environment = {
   getAssignment: "/api/assignment/getAssignment",
   getAssignmentsByCourse: "/api/assignment/getAssignmentsByCourse",
   loginUser: "/api/auth",
-  registerUser: "/api/user-reg"
+  registerUser: "/api/user-reg",
+  forgotPass: "/api/forgot-password/forgot",
+  changePass: "/api/change-password",
 };
 
 /*

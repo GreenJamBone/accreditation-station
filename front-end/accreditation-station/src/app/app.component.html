@@ -5,7 +5,8 @@
     </div>
     <div class="right">
       <div class="title">Accreditation Station</div>
-      <div (click)="logout()" class="logout"><a href="#">Logout</a></div>
+      <div *ngIf="isLoggedIn" [ngClass]="onChangePassword ? 'hideThis' : ''" (click)="changePassword()" class="change-pass link">Change Password</div>
+      <div *ngIf="isLoggedIn" (click)="logout()" class="logout link"><a href="#">Logout</a></div> 
     </div>
     
   </div>

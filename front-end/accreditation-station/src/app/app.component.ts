@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Event as NavigationEvent, Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { LogoutService } from './services/logout.service';
 
 @Component({
@@ -9,13 +9,40 @@ import { LogoutService } from './services/logout.service';
 })
 export class AppComponent {
   title = 'accreditation-station';
-
-  constructor(private logoutSvc: LogoutService, private router: Router) {
-
+  isLoggedIn = false;
+  onChangePassword = false;
+  constructor(private logoutSvc: LogoutService, private router: Router, private activatedRoute: ActivatedRoute) {
+    
   }
   
+  ngOnInit(): void {
+
+    this.router.events.subscribe(
+      (event: NavigationEvent) => {
+        if(event instanceof NavigationEnd) {
+          if (event.url) {
+            let theUrl = event.url;
+            if (theUrl.indexOf('login') === -1 && theUrl.indexOf('register') === -1 && theUrl.indexOf('forgot-password') === -1) {
+              this.isLoggedIn = true;
+            } else {
+              this.isLoggedIn = false;
+            }
+            if (theUrl.indexOf('change-password') !== -1) {
+              this.onChangePassword = true;
+            } else {
+              this.onChangePassword = false;
+            }
+          }
+        }
+      });
+  }
+
   logout() {
     this.logoutSvc.logout();
+  }
+
+  changePassword() {
+    this.router.navigate(['/change-password']);
   }
 
   navigateHome() {

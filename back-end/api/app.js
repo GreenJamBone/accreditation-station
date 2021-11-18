@@ -15,6 +15,8 @@ var courses = require('./routes/routes-course');
 var documents = require('./routes/routes-document');
 var assignments = require('./routes/routes-assignment');
 var userReg = require('./routes/routes-user-reg');
+var forgotPass = require('./routes/routes-forgot-pass');
+var changePass = require('./routes/routes-change-pass');
 var auth = require('./routes/routes-auth');
 
 var app = express();
@@ -45,6 +47,8 @@ app.use('/api/course', courses);
 app.use('/api/document', documents);
 app.use('/api/assignment', assignments);
 app.use('/api/user-reg', userReg);
+app.use('/api/forgot-password', forgotPass);
+app.use('/api/change-password', changePass);
 app.use('/api/auth', auth);
 
 module.exports = app;

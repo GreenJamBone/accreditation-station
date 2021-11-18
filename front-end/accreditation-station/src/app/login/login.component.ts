@@ -7,6 +7,7 @@ import {MatCardModule} from '@angular/material/card';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
 import { HttpResponse } from '@angular/common/http';
+import { ForgotPasswordService } from '../services/forgot-password.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit {
     "roles": [""], //audit, instructor, admin
     "email": ""
 }
-  constructor(private formBuilder: FormBuilder, private router: Router, private loginSvc: LoginService) { 
+  constructor(private formBuilder: FormBuilder, private router: Router, private loginSvc: LoginService, private forgotSvc: ForgotPasswordService) { 
     this.loginForm = this.formBuilder.group({
       email: '',
       password: ''
@@ -83,5 +84,22 @@ export class LoginComponent implements OnInit {
   }
   isNew(roles) {
     return roles.some(s => s.toLowerCase().includes('new'));
+  }
+  forgotPassEmail() {
+    this.isError = false;
+    this.errorTxt = '';
+    if (this.loginForm.controls['email'].value) {
+      let theEmail = this.loginForm.controls['email'].value;
+      console.log(theEmail);
+      this.forgotSvc.forgotPassword(theEmail).subscribe( resp => {
+        if (resp) {
+          console.log(resp);
+          alert("You should receive an email at the address above with a link to reset your password. This link expires in 15 minutes.");
+        }        
+      });
+    } else {
+      this.errorTxt = "Please Enter Your Email Address Before Clicking on Forgot Password";
+      this.isError = true;
+    }
   }
 }

@@ -20,6 +20,7 @@
     "lodash": "^4.17.21",
     "mongodb": "^3.5.6",
     "mongoose": "^6.0.10",
+    "nodemailer": "^6.7.1",
     "uid-safe": "^2.1.5"
   }
 }

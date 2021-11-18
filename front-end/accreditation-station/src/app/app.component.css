@@ -23,7 +23,14 @@
     font-family: 'Playfair Display';
 }
 .logout {
-    width: 100%;
+    width: 30%;
+    clear: both;
+    text-align: right;
+
+    margin-top: 20px;
+}
+.change-pass {
+    width: 70%;
     clear: both;
     text-align: right;
 
@@ -31,4 +38,15 @@
 }
 .logo {
     width: 250px;
+    cursor: pointer;
+}
+
+.link {
+    color: darkblue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.hideThis {
+    visibility: hidden;
 }

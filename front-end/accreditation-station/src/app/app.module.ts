@@ -47,11 +47,14 @@ import { InstructorCoursesComponent } from './instructor/instructor-courses/inst
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { LoginService } from './services/login.service';
 import { RegisterComponent } from './register/register.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const appRoutes: Routes = [
   {
     path: '',
-    component: LoginComponent
+    pathMatch: 'full',
+    redirectTo: 'login'
   },
   { 
     path: 'login',
@@ -60,6 +63,14 @@ const appRoutes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'forgot-password/:theCode',
+    component: ForgotPasswordComponent
+  },
+  {
+    path: 'change-password',
+    component: ChangePasswordComponent
   },
   {
     path: 'admin',
@@ -163,6 +174,8 @@ const appRoutes: Routes = [
     CommonPdfGeneratorComponent,
     InstructorCoursesComponent,
     RegisterComponent,
+    ForgotPasswordComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,
