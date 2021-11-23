@@ -191,7 +191,7 @@ const appRoutes: Routes = [
     NgxExtendedPdfViewerModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      { useHash: true } // <-- debugging purposes only
     ),
     // BrowserAnimationsModule
   ],

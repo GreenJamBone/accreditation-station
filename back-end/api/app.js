@@ -31,11 +31,14 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '25mb' }));
 app.use(cookieParser());
 
 app.use(cors());
+cors({credentials: true, origin: true})
 
 app.use(function (req, res, next) {
+    
+    // res.setHeader('Access-Control-Allow-Origin', 'http://csse-abet-docs.monmouth.edu/'); 
     res.setHeader('Access-Control-Allow-Origin', '*'); 
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,x-access-token,content-type, Accept');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin,X-Requested-With,x-access-token,content-type, Accept');
     res.setHeader('Access-Control-Expose-Headers', 'x-auth-token');
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();

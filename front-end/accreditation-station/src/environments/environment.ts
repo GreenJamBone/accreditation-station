@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 const localhost = "http://localhost:3000";
 export const environment = {
-  root_path: "http://localhost:3000",
+  root_path: "http://csse-abet-docs.monmouth.edu:3000",
   production: false,
   createUser: "/api/user/create",
   allUsers: "/api/user/allUsers",
