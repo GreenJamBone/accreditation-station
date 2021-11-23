@@ -1,6 +1,6 @@
 export const environment = {
-  root_path: "http://csse-abet-docs.monmouth.edu:3000",
   production: true,
+  root_path: "http://csse-abet-docs.monmouth.edu:3000",
   createUser: "/api/user/create",
   allUsers: "/api/user/allUsers",
   updateUser: "/api/user/update",
