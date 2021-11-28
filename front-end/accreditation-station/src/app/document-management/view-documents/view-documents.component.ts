@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditDocumentComponent } from '../edit-document/edit-document.component';
 import { CommonPdfGeneratorComponent } from 'src/app/common-pdf-generator/common-pdf-generator.component';
 import * as _ from 'lodash';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-documents',
@@ -26,11 +27,11 @@ export class ViewDocumentsComponent implements OnInit {
   allDocs = [];
   theYears = [];
   userRole;
-  constructor(private docSvc: DocumentService, private dialog: MatDialog) { }
+  constructor(private docSvc: DocumentService, private dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
     this.showMessage = false;
-    this.userRole = sessionStorage.getItem('user_role');
+    this.userRole = atob(sessionStorage.getItem('user_role'));
     console.log(this.userRole);
     this.getDocuments();
   }
@@ -57,6 +58,11 @@ export class ViewDocumentsComponent implements OnInit {
           this.displayMessage = this.messages.errMsg;
           this.showMessage = true;
         }
+      }
+    }, (err) => {
+      console.log(err);
+      if (err.status === 400) {
+        this.router.navigate(['/login'],{ queryParams: { error: 'true' } });
       }
     });
   }

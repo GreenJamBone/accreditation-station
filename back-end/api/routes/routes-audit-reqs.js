@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const auth = require('../middleware/auth');
 
 const constants = require('../constants');
 const RequirementModel = require("../models/model.requirement");
@@ -23,7 +24,7 @@ const requirementVSchema = {
 };
 
 /* GET requirement listing. */
-router.get('/allRequirements', async function(req, res, next) {
+router.get('/allRequirements', auth, async function(req, res, next) {
 	mongo.connect(constants.constants.db_url, {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -43,7 +44,7 @@ router.get('/allRequirements', async function(req, res, next) {
                 client.close();
                 return res.status(400).json({ error: err});
             } else {
-                console.log(result);
+               
                 let resultObj;
                 if (result.length > 0) {
                     resultObj = {
@@ -69,7 +70,7 @@ router.get('/allRequirements', async function(req, res, next) {
 });
 
 /* adds a new requirement to the list */
-router.post('/create', async (req, res, next) => {
+router.post('/create', auth, async (req, res, next) => {
 	const data = req.body;
 
     var vres = requirementValidator.validate(data, requirementVSchema);
@@ -140,7 +141,7 @@ router.post('/create', async (req, res, next) => {
 // });
 
 /* updates the user by uid */
-router.post('/update', async (req, res, next) =>
+router.post('/update', auth, async (req, res, next) =>
 {
 	const data = req.body;
     const requirementId = req.body._id;
@@ -199,7 +200,7 @@ router.post('/update', async (req, res, next) =>
 });
 
 /* removes the requirement from the requirement list by uid */
-router.post('/remove', async (req, res, next) =>
+router.post('/remove', auth, async (req, res, next) =>
 {
     const data = req.body;
     const requirementId = req.body._id;

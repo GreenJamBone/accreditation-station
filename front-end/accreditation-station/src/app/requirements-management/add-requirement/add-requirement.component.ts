@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { RequirementsService } from '../../services/requirements.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class AddRequirementComponent implements OnInit {
     error: "There was an error adding this requirement. Please try again later."
   }
 
-  constructor(private fb: FormBuilder, private requirementsSvc: RequirementsService) { }
+  constructor(private fb: FormBuilder, private requirementsSvc: RequirementsService, private router: Router) { }
 
   ngOnInit() {
     this.addRequirementForm = this.fb.group({
@@ -55,6 +56,11 @@ export class AddRequirementComponent implements OnInit {
             this.showMessage = true;
           }
           
+        }
+      }, (err) => {
+        console.log(err);
+        if (err.status === 400) {
+          this.router.navigate(['/login'],{ queryParams: { error: 'true' } });
         }
       });
     }

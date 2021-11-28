@@ -86,7 +86,7 @@ export class EditAssignmentComponent implements OnInit {
       })
     }
 
-    this.userRole = sessionStorage.getItem('user_role');
+    this.userRole = atob(sessionStorage.getItem('user_role'));
   }
 
   getReqs() {

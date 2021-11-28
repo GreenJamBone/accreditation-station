@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-user',
@@ -25,7 +26,7 @@ export class EditUserComponent implements OnInit {
   editUserForm: FormGroup;
   submitted = false;
 
-  constructor(public dialogRef: MatDialogRef<EditUserComponent>, @Inject(MAT_DIALOG_DATA) public data, private fb: FormBuilder, private userSvc: UserService) { }
+  constructor(public router: Router, public dialogRef: MatDialogRef<EditUserComponent>, @Inject(MAT_DIALOG_DATA) public data, private fb: FormBuilder, private userSvc: UserService) { }
 
   ngOnInit(): void {
     this.userData.fname = this.data.first_name;
@@ -74,6 +75,11 @@ export class EditUserComponent implements OnInit {
         if (resp) {
           console.log(resp);
           this.dialogRef.close({data: "submitted"});
+        }
+      }, (err) => {
+        console.log(err);
+        if (err.status === 400) {
+          this.router.navigate(['/login'],{ queryParams: { error: 'true' } });
         }
       });
     }

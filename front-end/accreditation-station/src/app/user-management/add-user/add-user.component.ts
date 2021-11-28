@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -22,7 +23,7 @@ export class AddUserComponent implements OnInit {
     {name: "Admin", id:"admin"},
     {name: "Instructor", id:"instructor"}
   ]
-  constructor(private fb: FormBuilder, private userSvc: UserService) { }
+  constructor(private fb: FormBuilder, private userSvc: UserService, private router: Router) { }
 
   ngOnInit() {
     this.addUserForm = this.fb.group({
@@ -60,6 +61,11 @@ export class AddUserComponent implements OnInit {
             this.showMessage = true;
           }
           
+        }
+      }, (err) => {
+        console.log(err);
+        if (err.status === 400) {
+          this.router.navigate(['/login'],{ queryParams: { error: 'true' } });
         }
       });
     }

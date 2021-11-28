@@ -3,6 +3,7 @@ import { UserService } from '../../services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { AreYouSureModalComponent } from 'src/app/are-you-sure-modal/are-you-sure-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-users',
@@ -29,7 +30,7 @@ export class ViewUsersComponent implements OnInit {
       email_address: "john@doe.com" //from AD
     }
   ];
-  constructor(private userSvc: UserService, private dialog: MatDialog) { }
+  constructor(private userSvc: UserService, private dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
     this.showMessage = false;
@@ -48,6 +49,11 @@ export class ViewUsersComponent implements OnInit {
           this.displayMessage = this.messages.errMsg;
           this.showMessage = true;
         }
+      }
+    }, (err) => {
+      console.log(err);
+      if (err.status === 400) {
+        this.router.navigate(['/login'],{ queryParams: { error: 'true' } });
       }
     });
   }
@@ -73,6 +79,11 @@ export class ViewUsersComponent implements OnInit {
               this.displayMessage = this.messages.errMsg;
               this.showMessage = true;
             }
+          }
+        }, (err) => {
+          console.log(err);
+          if (err.status === 400) {
+            this.router.navigate(['/login'],{ queryParams: { error: 'true' } });
           }
         });
       }
@@ -101,6 +112,11 @@ export class ViewUsersComponent implements OnInit {
               this.showMessage = true;
               this.displayMessage = this.messages.errMsg;
             }
+          }
+        }, (err) => {
+          console.log(err);
+          if (err.status === 400) {
+            this.router.navigate(['/login'],{ queryParams: { error: 'true' } });
           }
         });
       } else {

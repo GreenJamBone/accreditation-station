@@ -10,6 +10,7 @@ const mongoose = require('mongoose');
 const constants = require('../constants');
 
 router.post('/', async (req, res) => {
+    
     // First Validate The HTTP Request
     const { error } = validate(req.body);
     if (error) {
@@ -20,20 +21,20 @@ router.post('/', async (req, res) => {
     mongoose.connect(constants.constants.db_url + '/' + constants.constants.db_name);
     let user = await User.findOne({ email: req.body.email });
     if (!user) {
-        return res.status(400).send('Incorrect email or password.');
+        return res.status(400).send('Incorrect email.');
     }
 
     // Then validate the Credentials in MongoDB match
     // those provided in the request
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) {
-        return res.status(400).send('Incorrect email or password.');
+        return res.status(400).send('Incorrect password.');
     }
     const token = jwt.sign({ _id: user._id }, config.get('PrivateKey'));
     let options = {
         path:"/",
         sameSite:true,
-        maxAge: 1000 * 60 * 60 * 24, // would expire after 24 hours
+        maxAge: 1000 * 60 * 60 * 1, // would expire after 1 hours
         httpOnly: true, // The cookie only accessible by the web server
     }
     

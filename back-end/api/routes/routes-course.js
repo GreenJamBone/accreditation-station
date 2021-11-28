@@ -5,6 +5,7 @@ const constants = require('../constants');
 const CourseModel = require("../models/model.course");
 const mongodb = require('mongodb');
 const mongo = require('mongodb').MongoClient;
+const auth = require('../middleware/auth');
 
 ObjectId = mongodb.ObjectID, 
 require('dotenv/config');
@@ -29,7 +30,7 @@ const courseVSchema = {
 };
 
 /* GET course listing. */
-router.get('/allCourses', async function(req, res, next) {
+router.get('/allCourses', auth, async function(req, res, next) {
 	mongo.connect(constants.constants.db_url, {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -49,7 +50,7 @@ router.get('/allCourses', async function(req, res, next) {
                 client.close();
                 return res.status(400).json({ error: err});
             } else {
-                console.log(result);
+                
                 let resultObj;
                 if (result.length > 0) {
                     resultObj = {
@@ -74,7 +75,7 @@ router.get('/allCourses', async function(req, res, next) {
     });    	
 });
 
-router.get('/byUser/:id', async function(req, res, next) {
+router.get('/byUser/:id', auth, async function(req, res, next) {
     const data = req.params.id;
 	mongo.connect(constants.constants.db_url, {
         useNewUrlParser: true,
@@ -122,7 +123,7 @@ router.get('/byUser/:id', async function(req, res, next) {
 });
 
 /* adds a new course to the list */
-router.post('/create', async (req, res, next) => {
+router.post('/create', auth, async (req, res, next) => {
     const data = req.body;
     
     data.creation_date = (new Date()).toDateString();
@@ -180,7 +181,7 @@ router.post('/create', async (req, res, next) => {
 });
     
 /* updates the course by uid */
-router.post('/update', async (req, res, next) =>
+router.post('/update', auth, async (req, res, next) =>
 {
 	const data = req.body;
     const courseId = req.body._id;
@@ -242,7 +243,7 @@ router.post('/update', async (req, res, next) =>
 });
 
 /* removes the course from the course list by uid */
-router.post('/remove', async (req, res, next) =>
+router.post('/remove', auth, async (req, res, next) =>
 {
     const data = req.body;
     const courseId = req.body._id;

@@ -21,6 +21,8 @@ export class RegisterComponent implements OnInit {
   submitted = false;
   registered = false;
   isError = false;
+  showErrMsg = false;
+  errMsg = "There has been an error adding you as a user. Please contact your administrator."
   constructor(private formBuilder: FormBuilder, private router: Router, private registerSvc: RegisterService) { 
     this.registerForm = this.formBuilder.group({
       first_name: ['', [Validators.required, Validators.minLength(2)]],
@@ -48,9 +50,15 @@ export class RegisterComponent implements OnInit {
     }
 
     this.registerSvc.registerUser(this.userObj).subscribe( (resp) => {
+      this.showErrMsg = false;
       if (resp) {
-        console.log(resp);
-        this.registered = true;
+        if (resp.status === "E") {
+          this.showErrMsg = true;
+        } else {
+          console.log(resp);
+          this.registered = true;
+        }
+        
       }
     },
     (error) => {
