@@ -21,8 +21,8 @@ export class InstructorCoursesComponent implements OnInit {
   ngOnInit(): void {
     if (sessionStorage.getItem('user_info')) {
       this.userData = JSON.parse(atob(sessionStorage.getItem('user_info')));
-      this.name = this.userData.first_name;
-      this.courseSvc.getCoursesByUser(this.userData._id).subscribe(resp => {
+      this.name = this.userData.body.first_name;
+      this.courseSvc.getCoursesByUser(this.userData.body._id).subscribe(resp => {
         if (resp && resp.status === 'S') {
           console.log(resp);
           this.courses = resp.courses;
