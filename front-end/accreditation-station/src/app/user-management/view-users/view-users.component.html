@@ -2,7 +2,7 @@
     <span *ngIf="showMessage">{{displayMessage}}</span>
 </div>
 <div class="filters">
-    <div class="bold filter-heading">Filter:</div>
+    <div class="bold filter-heading">Filters</div>
     <label for="role-dd">Role</label>
     <select (change)="filterUserByRole($event)" id="role-dd" name="role-dd">
         <option *ngFor="let role of userRoles" [value]="role">{{role | titlecase}}</option>

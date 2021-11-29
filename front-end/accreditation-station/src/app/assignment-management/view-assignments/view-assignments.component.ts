@@ -7,6 +7,7 @@ import { AreYouSureModalComponent } from '../../are-you-sure-modal/are-you-sure-
 import { CommonPdfGeneratorComponent } from 'src/app/common-pdf-generator/common-pdf-generator.component';
 import { EditAssignmentComponent } from '../edit-assignment/edit-assignment.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-view-assignments',
@@ -30,6 +31,8 @@ export class ViewAssignmentsComponent implements OnInit {
   requirements = [];
   assignments = [];
   lastCourse;
+  fullAssignmentList: any;
+  theCourses = [{_id: "All", department: "All"}];
 
   constructor(private assignmentSvc: AssignmentService, private router: Router, private reqSvc: RequirementsService, private route: ActivatedRoute, private documentSvc: DocumentService, private dialog: MatDialog) { }
 
@@ -55,6 +58,25 @@ export class ViewAssignmentsComponent implements OnInit {
     }
   }
 
+  filterAssignmentsByCourse(event) {
+    let tempAssignments = this.fullAssignmentList;
+      let val = event.target.value;
+      if (val === 'All') {
+        this.assignments = this.fullAssignmentList;
+      } else {
+        console.log(val);
+        this.assignments = _.map(tempAssignments, function(o) {
+          let course = o.course;
+          console.log(course._id);
+          if (course._id === val) {
+            return o;
+          }
+        });
+        this.assignments = _.without(this.assignments, undefined);
+        // this.users = _.filter(tempUsers, { 'roles': val});
+      }
+  }
+
   getAssignments() {
     this.loading = true;
     this.assignments = [];
@@ -65,6 +87,7 @@ export class ViewAssignmentsComponent implements OnInit {
         if (resp) {
           if (resp.status === "S") {
             this.assignments = resp.assignments;
+            this.fullAssignmentList = resp.assignments;
             this.loading = false;
           } else if (resp.status === "I") {
             this.displayMessage = resp.statusMessage;
@@ -83,6 +106,8 @@ export class ViewAssignmentsComponent implements OnInit {
         if (resp) {
           if (resp.status === "S") {
             this.assignments = resp.assignments;
+            this.fullAssignmentList = resp.assignments;
+            this.getCourses();
             this.loading = false;
           } else {
             this.displayMessage = this.messages.errMsg;
@@ -91,6 +116,16 @@ export class ViewAssignmentsComponent implements OnInit {
           }
         }
       });
+    }
+  }
+
+  getCourses() {
+    for (let i = 0; i < this.assignments.length; i++) {
+      let theCourse = this.assignments[i].course;
+      console.log(this.theCourses);
+      if (!this.theCourses.includes(theCourse)) {
+        this.theCourses.push(theCourse);
+      }
     }
   }
 

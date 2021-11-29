@@ -4,7 +4,13 @@
 <div class="message text-danger">
     <span *ngIf="showMessage">{{displayMessage}}</span>
 </div>
-
+<div *ngIf="!courseId" class="filters">
+    <div class="bold filter-heading">Filters</div>
+    <label for="course-dd">Course</label>
+    <select (change)="filterAssignmentsByCourse($event)" id="course-dd" name="course-dd">
+        <option *ngFor="let course of theCourses" [value]="course._id">{{course.department}} {{course.course_number}} {{course.section}}</option>
+    </select>
+</div>
 <div *ngIf="!loading" class="view-assignments-container ">
     <div *ngFor="let assignment of assignments">
         <div class="row">
