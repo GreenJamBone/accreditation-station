@@ -117,9 +117,10 @@ export class EditCourseComponent implements OnInit {
             let theRoles = theUser.roles;
             for (let j = 0; j < theRoles.length; j++) {
               let theRole = theRoles[j];
-              if (theRole === 'instructor') {
+              if (theRole === 'instructor' || theRole === 'admin') {
                 this.instructors.push(this.users[i]);
                 console.log(this.instructors);
+                break;
               }
             }
           }

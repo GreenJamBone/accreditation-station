@@ -41,3 +41,14 @@
 .col-2-4 {
     width: 50%;
 }
+
+.filters {
+    margin-bottom: 20px;
+}
+.filter-heading {
+    margin-bottom: 4px;
+}
+.filters label {
+    width: 56px;
+    display: inline-block;
+}
