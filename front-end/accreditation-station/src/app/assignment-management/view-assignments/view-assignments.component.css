@@ -65,3 +65,8 @@
     margin-right: 12px;
     display: inline-block;
 }
+
+.doc-strength {
+    display: inline-block;
+    width: 100px;
+}
