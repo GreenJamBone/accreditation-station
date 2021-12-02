@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { AreYouSureModalComponent } from 'src/app/are-you-sure-modal/are-you-sure-modal.component';
 import { Router } from '@angular/router';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-view-users',
@@ -21,6 +22,8 @@ export class ViewUsersComponent implements OnInit {
   }
   showMessage = false;
   displayMessage = "";
+  fullUserList: any;
+  userRoles = ["all"];
   users = [
     {
       first_name: "John",
@@ -37,6 +40,20 @@ export class ViewUsersComponent implements OnInit {
     this.getUsers();
   }
 
+  filterUserByRole(event) {
+    let tempUsers = this.fullUserList;
+    let val = event.target.value;
+    if (val === 'All') {
+      this.users = tempUsers;
+    } else {
+      this.users = _.map(tempUsers, function(o) {
+        if (o.roles.includes(val)) return o;
+      });
+      this.users = _.without(this.users, undefined);
+      // this.users = _.filter(tempUsers, { 'roles': val});
+    }
+  }
+
   getUsers() {
     this.loading = true;
     this.userSvc.getAllUsers().subscribe((resp) => {
@@ -45,6 +62,17 @@ export class ViewUsersComponent implements OnInit {
         if (resp.status === "S") {
           console.log(resp.statusMessage);
           this.users = resp.users;
+          this.fullUserList = resp.users;
+          for (let i = 0; i < this.fullUserList.length; i++) {
+            let user = this.fullUserList[i];
+            for (let j = 0; j < user.roles.length; j++) {
+              let role = user.roles[j];
+              console.log(role);
+              if (!this.userRoles.includes(role)) {
+                this.userRoles.push(role);
+              }
+            }
+          }
         } else {
           this.displayMessage = this.messages.errMsg;
           this.showMessage = true;

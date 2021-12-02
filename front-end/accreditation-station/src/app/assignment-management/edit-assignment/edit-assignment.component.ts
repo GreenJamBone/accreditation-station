@@ -33,7 +33,7 @@ export class EditAssignmentComponent implements OnInit {
   }
   isPdf = true;
   semesters = ["SP","SU","FA"];
-  categories = ["Paper", "Group Project", "Quiz", "Test", "Midterm Exam", "Final Exam"];
+  categories = ["Homework", "Paper", "Group Project", "Quiz", "Test", "Midterm Exam", "Final Exam"];
   years = [];
   filePreview;
   private file: File | null = null;

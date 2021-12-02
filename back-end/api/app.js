@@ -35,7 +35,7 @@ cors({credentials: true, origin: true})
 
 app.use(function (req, res, next) {
     
-    res.setHeader('Access-Control-Allow-Origin', 'http://csse-abet-docs.monmouth.edu'); 
+    res.setHeader('Access-Control-Allow-Origin', '*'); 
     // res.setHeader('Access-Control-Allow-Origin', '*'); 
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Origin,X-Requested-With,x-access-token,content-type, Accept');

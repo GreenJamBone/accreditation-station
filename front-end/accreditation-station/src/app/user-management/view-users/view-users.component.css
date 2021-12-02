@@ -41,3 +41,16 @@
 .col-2-4 {
     width: 50%;
 }
+
+.filters {
+    margin-bottom: 20px;
+}
+.filter-heading {
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+.filters label {
+    width: 56px;
+    margin-right: 12px;
+    display: inline-block;
+}

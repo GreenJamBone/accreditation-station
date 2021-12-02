@@ -3,7 +3,7 @@
     <span *ngIf="showMessage">{{displayMessage}}</span>
 </div>
 <div class="filters">
-    <div class="bold filter-heading">Filter:</div>
+    <div class="bold filter-heading">Filters</div>
     <label for="year-dd">Year</label>
     <select (change)="filterYears($event)" id="year-dd" name="year-dd">
         <option *ngFor="let year of theYears" [value]="year">{{year}}</option>
