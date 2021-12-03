@@ -4,12 +4,22 @@
 </div>
 <div class="filters">
     <div class="bold filter-heading">Filters</div>
-    <label for="year-dd">Year</label>
-    <select (change)="filterYears($event)" id="year-dd" name="year-dd">
-        <option *ngFor="let year of theYears" [value]="year">{{year}}</option>
-    </select>
+    <div class="filter">
+        <label for="year-dd">Year</label>
+        <select (change)="filterFields()" id="year-dd" name="year-dd">
+            <option *ngFor="let year of theYears" [value]="year">{{year}}</option>
+        </select>
+    </div>
+
+    <div class="filter">
+        <label for="year-dd">Program</label>
+        <select (change)="filterFields()" id="program-dd" name="year-dd">
+            <option *ngFor="let program of thePrograms" [value]="program.abbr">{{program.abbr}}</option>
+        </select>
+    </div>
+    
 </div>
-<div class="view-documents-container ">
+<div *ngIf="documents.length > 0" class="view-documents-container">
     <div *ngFor="let document of documents">
         <div class="row">
             <div class="col col-3-10">
@@ -42,6 +52,11 @@
         </div>
     </div>
 </div>
+
+<div *ngIf="documents.length === 0" class="view-documents-container">
+    <div class="noDocs">There are no documents that match your filter</div>
+</div>
+
 <div *ngIf="loading" class="loader">
     <img src="/assets/images/icons/loader.png">
 </div>

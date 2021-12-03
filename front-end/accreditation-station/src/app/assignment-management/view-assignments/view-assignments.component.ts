@@ -122,8 +122,8 @@ export class ViewAssignmentsComponent implements OnInit {
   getCourses() {
     for (let i = 0; i < this.assignments.length; i++) {
       let theCourse = this.assignments[i].course;
-      console.log(this.theCourses);
-      if (!this.theCourses.includes(theCourse)) {
+      if (this.theCourses.filter(e => e._id === theCourse._id).length > 0) {}
+      else {
         this.theCourses.push(theCourse);
       }
     }

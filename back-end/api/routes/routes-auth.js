@@ -26,7 +26,10 @@ router.post('/', async (req, res) => {
 
     // Then validate the Credentials in MongoDB match
     // those provided in the request
-    const validPassword = await bcrypt.compare(req.body.password, user.password);
+    const validPassword = await bcrypt.compare(req.body.password, user.password)
+    .catch(err => {
+        res.status(500).send('Internal server error');
+    });
     if (!validPassword) {
         return res.status(400).send('Incorrect password.');
     }

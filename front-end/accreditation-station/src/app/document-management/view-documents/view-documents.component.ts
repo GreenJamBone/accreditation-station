@@ -26,6 +26,7 @@ export class ViewDocumentsComponent implements OnInit {
   documents = [];
   allDocs = [];
   theYears = [];
+  thePrograms: any;
   userRole;
   constructor(private docSvc: DocumentService, private dialog: MatDialog, private router: Router) { }
 
@@ -50,10 +51,12 @@ export class ViewDocumentsComponent implements OnInit {
                }
                return a.chapter_section.value_c > b.chapter_section.value_c ? 1 : -1;
             });
-            this.allDocs = JSON.parse(JSON.stringify(this.documents));;
-            this.theYears = this.getDropdownYears(this.documents);
-            this.theYears.unshift('All');
-            this.theYears.sort();
+          this.allDocs = JSON.parse(JSON.stringify(this.documents));;
+          this.theYears = this.getDropdownYears(this.documents);
+          this.theYears.unshift('All');
+          this.theYears.sort();
+          this.getDropdownPrograms(this.documents);
+          
         } else {
           this.displayMessage = this.messages.errMsg;
           this.showMessage = true;
@@ -72,17 +75,67 @@ export class ViewDocumentsComponent implements OnInit {
     return unique;
   }
 
-  filterYears(event) {
+  getDropdownPrograms(docs) {
+    let unique: any = [...new Set(docs.map(item => item.program))]
+    unique = unique.filter(function( element ) {
+      return element !== undefined;
+    });
+    unique = _.uniqBy(unique, function (e) {
+      return e.abbr;
+    });
+    this.thePrograms = ([{abbr: "All", name: "All"}]).concat(unique);
+    console.log(this.thePrograms);
+  }
+
+  filterFields() {
     let tempDocs = JSON.parse(JSON.stringify(this.allDocs));
-    let val = event.target.value;
-    console.log(tempDocs);
-    console.log(val);
-    if (val === 'All') {
+    
+    let yearVal = (<HTMLInputElement>document.getElementById('year-dd')).value; 
+    // let yearVal = yearDD.getAttribute('value');
+    let progVal = (<HTMLInputElement>document.getElementById('program-dd')).value;
+    // let progVal = progDD.getAttribute('value');
+
+    console.log(progVal);
+    console.log(yearVal);
+    
+    if (yearVal === "All" && progVal === "All") {
+
       this.documents = tempDocs;
+
+    } else if (yearVal !== "All" && progVal === "All") {
+
+      this.documents = _.filter(tempDocs, { 'year': yearVal});
+
+    } else if (progVal !== "All" && yearVal === "All") {
+
+      this.documents = _.map(tempDocs, function(o) {
+        if (o.program) {
+          let program = o.program;
+          console.log(program.abbr);
+          if (program.abbr === progVal) {
+            return o;
+          }
+        }
+      });
+      this.documents = _.without(this.documents, undefined);
+
     } else {
-      this. documents = _.filter(tempDocs, { 'year': val});
+      let yearSortDocs = _.filter(tempDocs, { 'year': yearVal});
+
+      this.documents = _.map(yearSortDocs, function(o) {
+        if (o.program) {
+          let program = o.program;
+          console.log(program.abbr);
+          if (program.abbr === progVal) {
+            return o;
+          }
+        }
+      });
+
+      this.documents = _.without(this.documents, undefined);
+
     }
-    console.log(this.documents);
+
   }
 
   showFile(fileData){    
