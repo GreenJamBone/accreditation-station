@@ -1,6 +1,5 @@
 .row {
     padding: 10px;
-    border-bottom: 1px solid darkgray;
 }
 
 .row span {
@@ -88,4 +87,10 @@
 }
 .noDocs {
     text-align: center;
+}
+.chapter-top {
+    padding-top: 10px;
+    border-top: 1px solid darkgray;
+
+    font-weight: bold;
 }

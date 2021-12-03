@@ -28,6 +28,7 @@ export class ViewDocumentsComponent implements OnInit {
   theYears = [];
   thePrograms: any;
   userRole;
+  theChapters: any;
   constructor(private docSvc: DocumentService, private dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
@@ -53,8 +54,9 @@ export class ViewDocumentsComponent implements OnInit {
             });
           this.allDocs = JSON.parse(JSON.stringify(this.documents));;
           this.theYears = this.getDropdownYears(this.documents);
-          this.theYears.unshift('All');
           this.theYears.sort();
+          this.theYears.unshift('All');
+          
           this.getDropdownPrograms(this.documents);
           
         } else {
@@ -84,16 +86,13 @@ export class ViewDocumentsComponent implements OnInit {
       return e.abbr;
     });
     this.thePrograms = ([{abbr: "All", name: "All"}]).concat(unique);
-    console.log(this.thePrograms);
   }
 
   filterFields() {
     let tempDocs = JSON.parse(JSON.stringify(this.allDocs));
     
     let yearVal = (<HTMLInputElement>document.getElementById('year-dd')).value; 
-    // let yearVal = yearDD.getAttribute('value');
     let progVal = (<HTMLInputElement>document.getElementById('program-dd')).value;
-    // let progVal = progDD.getAttribute('value');
 
     console.log(progVal);
     console.log(yearVal);
