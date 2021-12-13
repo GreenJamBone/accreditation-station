@@ -25,7 +25,7 @@
         <div *ngIf="docIndex === 0 || document.chapter_section.chapter !== documents[docIndex-1].chapter_section.chapter" class="chapter-top">{{document.chapter_section.chapter}}</div>
         
         <div class="row">
-            <div><span (click)="showFile(document)" class="doc-link">{{document.chapter_section.section}}</span></div>
+            <div><span (click)="showFile(document)" class="doc-link">{{document.chapter_section.section}}</span><button *ngIf="userRole === 'admin'" (click)="editDocument(document)">Edit </button><button *ngIf="userRole === 'admin'" (click)="removeDocument(document)">Remove</button></div>
         </div>
         
         <!-- <div class="row">
