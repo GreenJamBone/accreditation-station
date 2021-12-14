@@ -46,7 +46,7 @@
         <button mat-raised-button color="primary" class="button" type="submit" [disabled]="!registerForm.valid">Register</button>
     </form>
     <div *ngIf="registered" class="reg-message">
-        Hi, {{userObj.first_name}}.You have successfully registered to use the Accreditation Station. When an Administrator gives you the appropriate roles, you will be able to access the site via <a href="/login">this link</a>.
+        Hi, {{userObj.first_name}}. You have successfully registered to use the Accreditation Station. When an Administrator gives you the appropriate roles, you will be able to access the site via <a href="http://csse-abet-docs.monmouth.edu/">this link</a>.
     </div>
     <div *ngIf="showErrMsg" class="error">
         {{errMsg}}

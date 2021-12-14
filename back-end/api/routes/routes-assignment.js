@@ -174,9 +174,9 @@ router.post('/create', auth, async (req, res, next) => {
             size: singleDoc.filesize 
         };
 
-        process.chdir(rootDir);
-        createDirectoryAndSave(singleDoc, savedata);
-        process.chdir(rootDir);
+        // process.chdir(rootDir);
+        // createDirectoryAndSave(singleDoc, savedata);
+        // process.chdir(rootDir);
     }
 
     mongo.connect(constants.constants.db_url, {
@@ -265,9 +265,9 @@ router.post('/update', auth, async (req, res, next) =>
             size: singleDoc.filesize 
         };
 
-        process.chdir(rootDir);
-        createDirectoryAndSave(singleDoc, savedata);
-        process.chdir(rootDir);
+        // process.chdir(rootDir);
+        // createDirectoryAndSave(singleDoc, savedata);
+        // process.chdir(rootDir);
     }
     
 

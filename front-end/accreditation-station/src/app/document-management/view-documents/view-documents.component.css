@@ -1,6 +1,5 @@
 .row {
     padding: 10px;
-    border-bottom: 1px solid darkgray;
 }
 
 .row span {
@@ -74,12 +73,28 @@
 .filters {
     margin-bottom: 20px;
 }
+.filter {
+    display: inline-block;
+    margin-right: 20px;
+}
 .filter-heading {
     margin-bottom: 12px;
     font-weight: bold;
 }
 .filters label {
-    width: 56px;
     margin-right: 12px;
     display: inline-block;
+}
+.noDocs {
+    text-align: center;
+}
+.chapter-top {
+    padding-top: 10px;
+    border-top: 1px solid darkgray;
+
+    font-weight: bold;
+}
+
+button {
+    margin-left: 20px;
 }

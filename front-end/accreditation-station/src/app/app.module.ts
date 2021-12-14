@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, RouterOutlet } from '@angular/router';
+import { RouterModule, Routes, RouterOutlet, CanActivate } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -49,6 +49,7 @@ import { LoginService } from './services/login.service';
 import { RegisterComponent } from './register/register.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { AuthGuardService } from './guards/auth.guard';
 
 const appRoutes: Routes = [
   {
@@ -74,11 +75,13 @@ const appRoutes: Routes = [
   },
   {
     path: 'admin',
-    component: AdminComponent
+    component: AdminComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'instructor',
     component: InstructorComponent,
+    canActivate: [AuthGuardService],
     children: [
       {
         path: '',
@@ -97,6 +100,7 @@ const appRoutes: Routes = [
   {
     path: 'audit',
     component: AuditComponent,
+    canActivate: [AuthGuardService],
     children: [
       {
         path: 'documents',
@@ -114,31 +118,38 @@ const appRoutes: Routes = [
   },
   {
     path: 'requirements-management',
-    component: RequirementsManagementComponent
+    component: RequirementsManagementComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'user-management',
-    component: UserManagementComponent
+    component: UserManagementComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'course-management',
-    component: CourseManagementComponent
+    component: CourseManagementComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'document-management',
-    component: DocumentManagementComponent
+    component: DocumentManagementComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'assignment-management',
-    component: AssignmentManagementComponent
+    component: AssignmentManagementComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'edit-assignment/:theAssignment',
-    component: EditAssignmentComponent
+    component: EditAssignmentComponent,
+    canActivate: [AuthGuardService]
   }, 
   {
     path: 'view-assignments/:courseId',
-    component: ViewAssignmentsComponent
+    component: ViewAssignmentsComponent,
+    canActivate: [AuthGuardService]
   }
   //{ path: '**', component: PageNotFoundComponent }
 ];
@@ -203,6 +214,7 @@ const appRoutes: Routes = [
     DocumentService, 
     AssignmentService, 
     LoginService,
+    AuthGuardService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
