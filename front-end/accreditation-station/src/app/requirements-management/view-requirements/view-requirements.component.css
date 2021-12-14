@@ -1,0 +1,58 @@
+.row {
+    padding: 10px;
+    border-bottom: 1px solid darkgray;
+}
+
+.row span {
+    display: inline-block;
+}
+
+.name {
+    font-weight: bold;
+}
+
+.info, .edit-btn {
+    margin-right: 20px;
+}
+
+.role {
+    display: block;
+}
+.text-danger {
+    display: inline-block;
+    margin-bottom: 16px;
+    color: red;
+}
+.marginb {
+    margin-bottom: 10px;
+}
+.label {
+    font-weight: bold;
+}
+.col {
+    display: inline-block;
+    vertical-align: top;
+    padding-right: 1%;
+}
+.col-1-4 {
+    width: 24%;
+}
+.col-2-4 {
+    width: 49%;
+}
+.doc-link {
+    cursor: pointer;
+    text-decoration: underline;
+}
+.edit-btn {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.loader img {
+    animation: spin .5s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}

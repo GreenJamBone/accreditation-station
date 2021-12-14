@@ -1,0 +1,17 @@
+<div class="requirement-management-container">
+    <div class="title">
+        <h2>Learning Outcome Management</h2>
+    </div>
+    <div class="breadcrumb"><a routerLink="/admin">Return to Admin Panel</a></div>
+    <div class="requirement-btn">
+        <button class="block-btn" (click)="buttonFn('add-requirement')">Add Learning Outcome</button>
+        <button class="block-btn" (click)="buttonFn('view-requirements')">View Learning Outcomes</button>
+    </div>
+    <div *ngIf="addRequirement"><h3>Add Learning Outcome</h3></div>
+    <div *ngIf="viewRequirements"><h3>View Learning Outcomes</h3></div>
+    <div class="requirement-content">
+        <app-add-requirement *ngIf="addRequirement"></app-add-requirement>
+        <app-view-requirements *ngIf="viewRequirements"></app-view-requirements>
+    </div>
+</div>
+ 

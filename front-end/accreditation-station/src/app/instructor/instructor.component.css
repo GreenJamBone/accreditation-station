@@ -1,0 +1,31 @@
+.row {
+    padding: 10px;
+    border-bottom: 1px solid darkgray;
+}
+
+.row span {
+    display: inline-block;
+}
+
+.name {
+    margin-bottom: 6px;
+}
+.info {
+    width: 400px;
+}
+.info, .edit-btn, .documents-btn {
+    margin-right: 20px;
+}
+
+.audit {
+    display: block;
+}
+.bold {
+    font-weight: bold;
+}
+.label {
+    width: 100px;
+}
+.greeting {
+    font-weight: bold;
+}

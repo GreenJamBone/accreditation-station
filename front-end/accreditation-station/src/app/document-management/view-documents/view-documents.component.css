@@ -1,0 +1,100 @@
+.row {
+    padding: 10px;
+}
+
+.row span {
+    display: inline-block;
+}
+
+.edit-btn {
+    margin-right: 20px;
+}
+
+.audit {
+    display: block;
+}
+.text-danger {
+    display: inline-block;
+    margin-bottom: 16px;
+    color: red;
+}
+.label {
+    font-weight: bold;
+    width: 164px;
+}
+.label-sm {
+    font-weight: bold;
+    width: 80px;
+}
+.col {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.col div {
+    margin-bottom: 10px;
+}
+.col-1-10 {
+    width: 10%;
+}
+.col-2-10 {
+    width: 20%;
+}
+.col-3-10 {
+    width: 30%;
+}
+.col-4-10 {
+    width: 40%;
+}
+
+.doc-link {
+    cursor: pointer;
+    text-decoration: underline;
+}
+.edit-btn {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.bold {
+    font-weight: bold;
+}
+.chapsec {
+    display: block;
+}
+.loader img {
+    animation: spin .5s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.filters {
+    margin-bottom: 20px;
+}
+.filter {
+    display: inline-block;
+    margin-right: 20px;
+}
+.filter-heading {
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+.filters label {
+    margin-right: 12px;
+    display: inline-block;
+}
+.noDocs {
+    text-align: center;
+}
+.chapter-top {
+    padding-top: 10px;
+    border-top: 1px solid darkgray;
+
+    font-weight: bold;
+}
+
+button {
+    margin-left: 20px;
+}

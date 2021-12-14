@@ -1,0 +1,166 @@
+<div class="message text-danger">
+    <span *ngIf="showMessage">{{theMessage}}</span>
+</div>
+<form [formGroup]="addCourseForm" (ngSubmit)="onSubmit()">
+  
+    <label>
+        <span>Course Name:</span>
+        <input id="name" type="text" formControlName="name">
+    </label>
+    <span *ngIf="addCourseForm.controls.name.invalid && (addCourseForm.controls.name.dirty || addCourseForm.controls.name.touched)"
+        class="alert text-danger">
+        <span *ngIf="addCourseForm.controls.name.errors.required">
+            Name is required.
+        </span>
+        <span *ngIf="addCourseForm.controls.name.errors.minlength">
+            Name must be at least 4 characters long.
+        </span>
+    </span>
+
+    <label>
+        <span>Department:</span>
+        <input oninput="this.value = this.value.toUpperCase()" type="text" formControlName="department">
+    </label>
+    <span *ngIf="addCourseForm.controls.department.invalid && (addCourseForm.controls.department.dirty || addCourseForm.controls.department.touched)"
+        class="alert text-danger">
+        <span *ngIf="addCourseForm.controls.department.errors.required">
+            Department is required.
+        </span>
+        <span *ngIf="addCourseForm.controls.department.errors.minlength">
+            Department must be at least 4 characters long.
+        </span>
+    </span>
+
+    <label>
+        <span>Course Number:</span>
+        <input type="text" formControlName="course_number">
+    </label>
+    <span *ngIf="addCourseForm.controls.course_number.invalid && (addCourseForm.controls.course_number.dirty || addCourseForm.controls.course_number.touched)"
+        class="alert text-danger">
+        <span *ngIf="addCourseForm.controls.course_number.errors.required">
+            Course number is required.
+        </span>
+        <span *ngIf="addCourseForm.controls.course_number.errors.minlength">
+            Course number must be at least 4 characters long.
+        </span>
+    </span>
+
+    <label>
+        <span>Section:</span>
+        <input type="text" formControlName="section">
+    </label>
+    <span *ngIf="addCourseForm.controls.section.invalid && (addCourseForm.controls.section.dirty || addCourseForm.controls.section.touched)"
+        class="alert text-danger">
+        <span *ngIf="addCourseForm.controls.section.errors.required">
+            Section is required.
+        </span>
+        <span *ngIf="addCourseForm.controls.section.errors.minlength">
+            Section must be at least 4 characters long.
+        </span>
+    </span>
+
+
+    <label>
+       <span>Semester:</span>
+       <select formControlName="semester">
+            <option *ngFor="let s of semesters" [value]="s">
+                {{s}}
+            </option>
+        </select>
+    </label>
+    <span *ngIf="addCourseForm.controls.semester.invalid && (addCourseForm.controls.semester.dirty || addCourseForm.controls.semester.touched)"
+        class="alert text-danger">
+        <span *ngIf="addCourseForm.controls.semester.errors.required">
+            Semester is required.
+        </span>
+        <span *ngIf="addCourseForm.controls.semester.errors.minlength">
+            Semester must be at least 4 characters long.
+        </span>
+    </span>
+
+    <label>
+        <span>Year:</span>
+        <select formControlName="year">
+            <option *ngFor="let y of years" [value]="y">{{y}}</option>
+        </select>
+    </label>
+    <span *ngIf="addCourseForm.controls.year.invalid && (addCourseForm.controls.year.dirty || addCourseForm.controls.year.touched)"
+        class="alert text-danger">
+        <span *ngIf="addCourseForm.controls.year.errors.required">
+            Year is required.
+        </span>
+        <span *ngIf="addCourseForm.controls.year.errors.minlength">
+            Year must be at least 4 characters long.
+        </span>
+    </span>
+
+    <label>
+        <span>Description:</span>
+        <input type="text" formControlName="description">
+    </label>
+    <span *ngIf="addCourseForm.controls.section.invalid && (addCourseForm.controls.section.dirty || addCourseForm.controls.section.touched)"
+        class="alert text-danger">
+        <span *ngIf="addCourseForm.controls.section.errors.required">
+            Section is required.
+        </span>
+        <span *ngIf="addCourseForm.controls.section.errors.minlength">
+            Section must be at least 4 characters long.
+        </span>
+    </span>
+    
+    
+    <label>
+        <span>Instructor:</span>
+        <select formControlName="instructor">
+             <option *ngFor="let i of instructors" [value]="i._id">
+                 {{i.first_name}} {{i.last_name}}
+             </option>
+         </select>
+     </label>
+     <span *ngIf="addCourseForm.controls.instructor.invalid && (addCourseForm.controls.instructor.dirty || addCourseForm.controls.instructor.touched)"
+        class="alert text-danger">
+        <span *ngIf="addCourseForm.controls.instructor.errors.required">
+            Instructor is required.
+        </span>
+        <span *ngIf="addCourseForm.controls.instructor.errors.minlength">
+            Instructor must be at least 4 characters long.
+        </span>
+    </span>
+
+    <label>
+        <span>Preceded By Course:</span>
+        <input type="text" formControlName="preceded_by">
+    </label>
+
+    <label>
+        <span>Succeeded By Course:</span>
+        <input type="text" formControlName="succeeded_by">
+    </label>
+
+    <label>
+        <span>Learning Outcomes Fulfilled:</span>
+        <select formControlName="audit_requirements" multiple>
+             <option *ngFor="let r of requirements" [value]="r._id">
+                 {{r.name}}
+             </option>
+         </select>
+     </label>
+     <span *ngIf="addCourseForm.controls.audit_requirements.invalid && (addCourseForm.controls.audit_requirements.dirty || addCourseForm.controls.audit_requirements.touched)"
+        class="alert text-danger">
+        <span *ngIf="addCourseForm.controls.audit_requirements.errors.required">
+            Learning outcomes are required.
+        </span>
+        <span *ngIf="addCourseForm.controls.audit_requirements.errors.minlength">
+            Learning outcomes must be at least 4 characters long.
+        </span>
+    </span>
+    <label>
+        <span>Syllabus:</span>
+        <input #fileEl id="file" type="file" accept="application/pdf" (change)="onFileChange($event)"/>
+    </label>
+    <div *ngIf="addCourseForm.controls.file.touched && addCourseForm.controls.file.invalid" class="alert alert-danger">
+        <div *ngIf="addCourseForm.controls.file.errors.required">Syllabus is required.</div>
+    </div>
+
+    <button type="submit" [disabled]="!addCourseForm.valid">Submit</button>
+  </form>

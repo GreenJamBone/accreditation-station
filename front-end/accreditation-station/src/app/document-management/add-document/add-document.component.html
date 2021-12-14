@@ -1,0 +1,56 @@
+<div class="message text-danger">
+    <span *ngIf="showMessage">{{theMessage}}</span>
+</div>
+<h4>(Only PDFs are allow, and all fields are required)</h4>
+<div class="message text-danger">
+    <span *ngIf="!isPdf">{{messages.pdf}}</span>
+</div>
+<form [formGroup]="addDocumentForm" (ngSubmit)="onSubmit()">
+    <label>
+        <span>Program:</span>
+        <select formControlName="program" (change)="onProgChange($event)">
+            <option *ngFor="let prog of programs" [ngValue]="prog">
+                {{prog.abbr}} - {{prog.name}}
+            </option>
+        </select>
+    </label>
+    <label>
+        <span>Chapter / Section:</span>
+        <select formControlName="chapter_section">
+            <option *ngFor="let ch of displayChapters" [ngValue]="ch">
+                {{ch.chapter}} -- {{ch.section}}
+            </option>
+        </select>
+    </label>
+    <label>
+        <span>Document Name:</span>
+        <input id="name" type="text" formControlName="name">
+    </label>
+    <span *ngIf="addDocumentForm.controls.name.invalid && (addDocumentForm.controls.name.dirty || addDocumentForm.controls.name.touched)"
+        class="alert text-danger">
+        <span *ngIf="addDocumentForm.controls.name.errors.required">
+            Name is required.
+        </span>
+        <span *ngIf="addDocumentForm.controls.name.errors.minlength">
+            Name must be at least 4 characters long.
+        </span>
+    </span>
+    <label>
+        <span>Year:</span>
+        <select formControlName="year">
+            <option *ngFor="let y of years" [value]="y">{{y}}</option>
+        </select>
+    </label>
+    <label>
+        <span>Department:</span>
+        <input oninput="this.value = this.value.toUpperCase()" type="text" formControlName="department">
+    </label>
+    <label>
+        <span>File:</span>
+        <input #fileEl id="file" type="file" accept="application/pdf" (change)="onFileChange($event)"/>
+    </label>
+    <div *ngIf="addDocumentForm.controls.file.touched && addDocumentForm.controls.file.invalid" class="alert alert-danger">
+        <div *ngIf="addDocumentForm.controls.file.errors.required">File is required.</div>
+    </div>
+    <button type="submit" [disabled]="addDocumentForm.invalid || addDocumentForm.pristine">Submit</button>
+  </form>

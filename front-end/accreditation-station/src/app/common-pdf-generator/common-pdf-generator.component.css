@@ -1,0 +1,50 @@
+
+.border_top{
+    border-top: 5px solid #d2d2d2;
+    margin-top: -10px;
+    margin-left: -10px;
+   
+}
+
+.close_button{
+    background-color: #d2d2d2;
+    width: 30px;
+    height: 29.5px;
+    padding: 4px 0px 0px 1px;
+    cursor: pointer;
+    outline: none;
+    border: 1px solid #d2d2d2;
+    float: right;
+    margin-top: -5px;
+    margin-right: -10px;
+}
+
+img {
+    width: 18px;
+    height: 18px;
+}
+.scroll-bar {
+    overflow-y: scroll;
+    max-height: 185px;
+}
+.div{
+    height: 24px; 
+    
+}
+
+.errorMessage{
+    margin-right: 125px;
+    margin-left: 125px;
+    color: red;
+}
+
+@media only screen and (max-width: 500px) {
+    .errorMessage{ 
+        margin-right: 15px;
+        margin-left: 15px;
+    }
+}
+
+a{
+    cursor: pointer;
+}

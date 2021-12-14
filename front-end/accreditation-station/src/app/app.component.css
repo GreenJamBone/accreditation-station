@@ -1,0 +1,52 @@
+.main {
+    width: 80%;
+    margin: auto;
+}
+
+.header-section {
+    padding: 40px;
+    border-bottom: 1px solid #1d1d1d;
+    margin-bottom: 40px;
+}
+.header-section div {
+    display: inline-block;
+}
+
+.right {
+    float: right;
+    vertical-align: 22px;
+}
+.title {
+    width: 100%;
+    text-align: right;
+    font-size: 30px;
+    font-family: 'Playfair Display';
+}
+.logout {
+    width: 30%;
+    clear: both;
+    text-align: right;
+
+    margin-top: 20px;
+}
+.change-pass {
+    width: 70%;
+    clear: both;
+    text-align: right;
+
+    margin-top: 20px;
+}
+.logo {
+    width: 250px;
+    cursor: pointer;
+}
+
+.link {
+    color: darkblue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.hideThis {
+    visibility: hidden;
+}

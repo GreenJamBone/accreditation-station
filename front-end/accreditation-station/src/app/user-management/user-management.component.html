@@ -1,0 +1,18 @@
+<div class="user-management-container">
+    <div class="title">
+        <h2>User Management</h2>
+    </div>
+    <div class="breadcrumb"><a routerLink="/admin">Return to Admin Panel</a></div>
+    <div class="user-btn">
+        <button class="block-btn" (click)="buttonFn('add-user')">Add User</button>
+        <button class="block-btn" (click)="buttonFn('view-users')">View Users</button>
+    </div>
+    <div *ngIf="addUser"><h3>Add User</h3></div>
+    <div *ngIf="viewUsers"><h3>View Users</h3></div>
+    <div class="user-content">
+        
+        <app-view-users *ngIf="viewUsers"></app-view-users>
+        <span *ngIf="addUser">Adding new users must be done via the Register link on the login screen.</span>
+        <!-- <app-add-user *ngIf="addUser"></app-add-user> -->
+    </div>
+</div>

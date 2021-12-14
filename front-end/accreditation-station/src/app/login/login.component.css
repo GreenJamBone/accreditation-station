@@ -1,0 +1,25 @@
+.login-container {
+    margin: auto;
+    text-align: center;
+}
+.login-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    margin: auto;
+  }
+mat-form-field {
+    display:block;
+    text-align: center;
+    margin: auto;
+}
+
+.register {
+    margin-top: 40px;
+}
+
+.error {
+    color: red;
+    font-size: 18px;
+    margin-bottom: 20px;
+}

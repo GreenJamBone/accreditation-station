@@ -1,0 +1,72 @@
+.row {
+    padding: 10px;
+    border-bottom: 1px solid darkgray;
+}
+
+.row span {
+    display: inline-block;
+}
+
+.name {
+    font-weight: bold;
+}
+
+.info, .edit-btn, .documents-btn {
+    margin-right: 20px;
+}
+
+.audit {
+    display: block;
+}
+.text-danger {
+    display: inline-block;
+    margin-bottom: 16px;
+    color: red;
+}
+.loader img {
+    animation: spin .5s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.label {
+    font-weight: bold;
+    width: 100%;
+}
+.col {
+    display: inline-block;
+    vertical-align: top;
+}
+.col div.marginb {
+    margin-bottom: 10px;
+}
+.col-1-4 {
+    width: 25%;
+}
+.col-2-4 {
+    width: 50%;
+}
+.doc-link {
+    cursor: pointer;
+    text-decoration: underline;
+}
+.filters {
+    margin-bottom: 20px;
+}
+.filter-heading {
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+.filters label {
+    width: 56px;
+    margin-right: 12px;
+    display: inline-block;
+}
+
+.doc-strength {
+    display: inline-block;
+    width: 140px;
+}

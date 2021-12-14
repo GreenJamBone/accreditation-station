@@ -1,0 +1,17 @@
+<div class="document-management-container">
+    <div class="title">
+        <h2>Document Management</h2>
+    </div>
+    <div class="breadcrumb"><a routerLink="/admin">Return to Admin Panel</a></div>
+    <div class="document-btn">
+        <button class="block-btn" (click)="buttonFn('add-document')">Add Document</button>
+        <button class="block-btn" (click)="buttonFn('view-documents')">View Documents</button>
+    </div>
+    <div *ngIf="addDocument"><h3>Add Document</h3></div>
+    <div *ngIf="viewDocuments"><h3>View Documents</h3></div>
+    <div class="document-content">
+        <app-add-document *ngIf="addDocument"></app-add-document>
+        <app-view-documents *ngIf="viewDocuments"></app-view-documents>
+    </div>
+</div>
+ 

@@ -1,0 +1,25 @@
+<div class="login-container">
+    <h1>Log In</h1>
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+        <mat-form-field appearance="standard">
+            <mat-label for="email">
+            Email
+            </mat-label>
+            <input matInput id="email" type="text" formControlName="email" >
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+            <mat-label for="password">
+            Password
+            </mat-label>
+            <input matInput id="password" type="password" formControlName="password" >
+        </mat-form-field>
+        <div *ngIf="isError" class="error">{{errorTxt}}</div>
+        <button mat-raised-button color="primary" class="button" type="submit">Login</button>
+    </form>
+    <div class="register">
+        <a routerLink="/register">New User? Register Here!</a>
+    </div>
+    <!-- <div class="register">
+        <a href="#" (click)="forgotPassEmail()">Forgot Your Password? Click Here!</a>
+    </div> -->
+</div>
